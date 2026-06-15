@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>P.GÓRNE</title>
+  <meta name="description" content="P.GÓRNE — An atelier without limitation." />
+  <style>
+    :root{
+      --paper:#f3efe8;
+      --ink:#141414;
+      --accent:#6B3529;
+    }
+    *{box-sizing:border-box}
+    html,body{width:100%;height:100%;margin:0;background:var(--paper);color:var(--ink);}
+    body{overflow:hidden;font-family:Arial, Helvetica, sans-serif;}
+    .stage{position:fixed;inset:0;background:var(--paper);overflow:hidden;}
+    video{position:absolute;inset:0;width:100vw;height:100vh;object-fit:cover;display:block;background:var(--paper);transition:opacity 900ms ease;}
+    body.ready video{opacity:0;}
+
+    .final-logo-wrap{
+      position:fixed;
+      left:50%;
+      top:50%;
+      width:min(78vw,980px);
+      aspect-ratio:1587/1123;
+      transform:translate(-50%,-50%);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity 900ms ease 350ms;
+    }
+    body.ready .final-logo-wrap{opacity:1;pointer-events:auto;}
+    .final-logo{
+      position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;
+      user-select:none;-webkit-user-drag:none;
+    }
+    .accent-mark{
+      position:absolute;
+      left:46.63%;
+      top:35.62%;
+      width:2.52%;
+      height:4.45%;
+      opacity:0;
+      transform:translateY(0);
+      transition:opacity 900ms ease 1000ms;
+      animation:accentLift 7s ease-in-out infinite;
+      animation-delay:2s;
+      pointer-events:none;
+    }
+    body.ready .accent-mark{opacity:1;}
+    @keyframes accentLift{
+      0%,84%,100%{transform:translateY(0)}
+      90%{transform:translateY(-5px)}
+    }
+    .accent-hotspot{
+      position:absolute;
+      left:45.85%;
+      top:34.55%;
+      width:4.2%;
+      height:6.8%;
+      border:0;
+      background:transparent;
+      cursor:pointer;
+      padding:0;
+    }
+    .accent-hotspot:focus-visible{outline:1px solid var(--accent);outline-offset:8px;}
+
+    .menu{position:fixed;inset:0;background:rgba(243,239,232,.98);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity 650ms ease;}
+    .menu.open{opacity:1;pointer-events:auto;}
+    nav{display:flex;flex-direction:column;gap:clamp(18px,3vh,30px);text-align:center;}
+    nav a{text-decoration:none;color:var(--ink);font-size:clamp(24px,5vw,64px);letter-spacing:.08em;text-transform:uppercase;font-weight:300;}
+    nav a:hover{color:var(--accent);}
+    .close{position:fixed;top:28px;right:32px;appearance:none;border:0;background:transparent;letter-spacing:.18em;color:var(--ink);cursor:pointer;font-size:12px;text-transform:uppercase;}
+
+    @media (max-width: 700px){
+      .final-logo-wrap{width:120vw;}
+      .accent-hotspot{width:6%;height:8.5%;left:44.9%;top:33.8%;}
+    }
+  </style>
+</head>
+<body>
+  <main class="stage" aria-label="P.GÓRNE opening animation">
+    <video id="introVideo" autoplay muted playsinline poster="assets/poster.jpg">
+      <source src="assets/pgorne-logo-animation-1080.mp4" type="video/mp4" media="(min-width: 800px)">
+      <source src="assets/pgorne-logo-animation-720.mp4" type="video/mp4">
+    </video>
+  </main>
+
+  <div class="final-logo-wrap" aria-hidden="false">
+    <img class="final-logo" src="assets/logo/pgorne_logo.png" alt="P.GÓRNE New York" />
+    <img class="accent-mark" src="assets/logo/accent_exact.png" alt="" aria-hidden="true" />
+    <button class="accent-hotspot" id="enterButton" aria-label="Enter P.GÓRNE"></button>
+  </div>
+
+  <section class="menu" id="menu" aria-label="Site navigation">
+    <button class="close" id="closeButton">Close</button>
+    <nav>
+      <a href="#philosophy">Philosophy</a>
+      <a href="#atelier">Atelier</a>
+      <a href="#archive">Archive</a>
+      <a href="#journal">Journal</a>
+      <a href="#ready-to-wear">Ready-to-Wear</a>
+      <a href="mailto:info@pgorne.com">Contact</a>
+    </nav>
+  </section>
+
+  <script>
+    const video = document.getElementById('introVideo');
+    const menu = document.getElementById('menu');
+    const enter = document.getElementById('enterButton');
+    const close = document.getElementById('closeButton');
+    const reveal = () => document.body.classList.add('ready');
+    video.addEventListener('ended', reveal);
+    video.addEventListener('error', reveal);
+    window.setTimeout(() => { if (!document.body.classList.contains('ready')) reveal(); }, 15000);
+    enter.addEventListener('click', () => menu.classList.add('open'));
+    close.addEventListener('click', () => menu.classList.remove('open'));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') menu.classList.remove('open'); });
+  </script>
+</body>
+</html>
