@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>P.GÓRNE — Book</title>
+  <style>
+    @font-face{
+      font-family:'AL Milano Expanded';
+      src:url('assets/fonts/ALMilanoExpandedUnlicensedTrial-Regular.otf') format('opentype');
+      font-weight:400;
+      font-style:normal;
+      font-display:swap;
+    }
+    :root{
+      --paper:#f3efe8;
+      --ink:#121212;
+      --muted:#6f6a63;
+      --line:rgba(18,18,18,.18);
+      --accent:#6B3529;
+      --font:'AL Milano Expanded', Georgia, 'Times New Roman', serif;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font-family:var(--font);}
+    body{letter-spacing:.025em;}
+    a{color:inherit;text-decoration:none}
+    .back{position:fixed;top:30px;left:36px;z-index:5;font-size:12px;letter-spacing:.08em;color:var(--ink);opacity:.72;transition:opacity .25s ease,color .25s ease;}
+    .back:hover{opacity:1;color:var(--accent)}
+    main{width:100%;}
+    .hero{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(420px,.92fr);min-height:100vh;border-bottom:1px solid var(--line);}
+    .hero-image{height:100vh;min-height:720px;overflow:hidden;background:#ddd;}
+    .hero-image img{width:100%;height:100%;object-fit:cover;display:block;}
+    .hero-copy{padding:120px 8vw 80px 7vw;display:flex;align-items:center;}
+    .inner{max-width:520px;width:100%;}
+    h1{font-size:clamp(62px,8vw,112px);font-weight:400;line-height:.88;letter-spacing:.18em;margin:0 0 40px;text-transform:uppercase;}
+    .intro{font-size:15px;line-height:1.9;letter-spacing:.035em;margin:0 0 62px;color:var(--ink);max-width:480px;}
+    .eyebrow{font-size:12px;letter-spacing:.34em;text-transform:uppercase;margin:0 0 28px;}
+    .steps{display:grid;gap:0;border-top:1px solid var(--line);}
+    .step{display:grid;grid-template-columns:82px 1fr;gap:26px;padding:26px 0;border-bottom:1px solid var(--line);}
+    .num{font-size:36px;line-height:1;color:var(--ink);letter-spacing:.03em;}
+    .step h2{font-size:12px;line-height:1.2;letter-spacing:.28em;text-transform:uppercase;margin:0 0 12px;font-weight:400;}
+    .step p{font-size:13px;line-height:1.75;margin:0;color:var(--ink);letter-spacing:.025em;}
+    .form-section{padding:86px 7vw 80px;}
+    .form-wrap{max-width:1040px;margin:0 auto;}
+    form{display:grid;grid-template-columns:1fr 1fr;gap:30px 54px;}
+    label{display:block;font-size:11px;letter-spacing:.26em;text-transform:uppercase;margin:0 0 12px;}
+    input,select,textarea{width:100%;background:transparent;border:1px solid var(--line);border-radius:0;padding:18px 18px;font:14px/1.4 var(--font);letter-spacing:.02em;color:var(--ink);outline:none;transition:border-color .2s ease;}
+    input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+    select{appearance:auto;}
+    textarea{min-height:152px;resize:vertical;}
+    .full{grid-column:1 / -1;}
+    button{grid-column:1 / -1;border:0;background:var(--ink);color:var(--paper);font:12px/1 var(--font);letter-spacing:.42em;text-transform:uppercase;padding:24px 26px;cursor:pointer;transition:background .25s ease;}
+    button:hover{background:var(--accent)}
+    .location{text-align:center;margin-top:52px;font-size:12px;letter-spacing:.38em;text-transform:uppercase;}
+    @media (max-width:900px){
+      .back{position:absolute;top:22px;left:22px;}
+      .hero{grid-template-columns:1fr;min-height:auto;}
+      .hero-image{height:58vh;min-height:420px;}
+      .hero-copy{padding:68px 24px 54px;}
+      h1{font-size:56px;letter-spacing:.14em;margin-bottom:30px;}
+      .intro{font-size:14px;line-height:1.85;margin-bottom:44px;}
+      .step{grid-template-columns:60px 1fr;gap:18px;padding:22px 0;}
+      .num{font-size:28px;}
+      .form-section{padding:56px 24px 64px;}
+      form{grid-template-columns:1fr;gap:24px;}
+      .location{font-size:10px;letter-spacing:.24em;line-height:1.8;}
+    }
+  </style>
+</head>
+<body>
+  <a class="back" href="index.html" aria-label="Back to homepage">← Back</a>
+  <main>
+    <section class="hero">
+      <div class="hero-image">
+        <img src="assets/images/book-fabric-consultation.png" alt="Hands reviewing fabric swatches during a private garment consultation" />
+      </div>
+      <div class="hero-copy">
+        <div class="inner">
+          <h1>Book</h1>
+          <p class="intro">Every garment begins with a conversation.<br><br>Whether you are exploring custom casual wear, business attire, or formal wear, the consultation is an opportunity to discuss fit, fabrication, construction, and the details that make a garment uniquely your own.</p>
+          <p class="eyebrow">What to Expect</p>
+          <div class="steps">
+            <div class="step"><div class="num">01</div><div><h2>Consultation</h2><p>We begin by understanding your wardrobe, preferences, lifestyle, and the role the garment is intended to serve.</p></div></div>
+            <div class="step"><div class="num">02</div><div><h2>Design</h2><p>Fabric, silhouette, proportion, and construction details are considered and refined together.</p></div></div>
+            <div class="step"><div class="num">03</div><div><h2>Measurement</h2><p>Measurements are taken and a personal pattern is developed to serve as the foundation for future garments.</p></div></div>
+            <div class="step"><div class="num">04</div><div><h2>Development</h2><p>Your garment is developed through production, fitting, and refinement.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="form-section" aria-label="Appointment request form">
+      <div class="form-wrap">
+        <form id="appointmentForm">
+          <div><label for="name">Name</label><input id="name" name="name" autocomplete="name" placeholder="Your full name" required></div>
+          <div><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" placeholder="your@email.com" required></div>
+          <div><label for="phone">Phone</label><input id="phone" name="phone" autocomplete="tel" placeholder="(000) 000-0000"></div>
+          <div><label for="interest">Interested In</label><select id="interest" name="interest" required><option value="">Select an option</option><option>Jeans</option><option>Shirting</option><option>Trousers</option><option>Suiting</option><option>Formalwear</option><option>Knitwear</option><option>Outerwear</option><option>Not Sure Yet</option></select></div>
+          <div class="full"><label for="meeting">Preferred Consultation</label><select id="meeting" name="meeting"><option value="">Select an option</option><option>In Person</option><option>Virtual</option><option>Flexible</option></select></div>
+          <div class="full"><label for="message">Message</label><textarea id="message" name="message" placeholder="Tell us about your project or any details you'd like to share."></textarea></div>
+          <button type="submit">Request Appointment</button>
+        </form>
+        <p class="location">New York City&nbsp;&nbsp;•&nbsp;&nbsp;By Appointment</p>
+      </div>
+    </section>
+  </main>
+  <script>
+    document.getElementById('appointmentForm').addEventListener('submit', function(event){
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const subject = encodeURIComponent('P.GÓRNE Appointment Request');
+      const body = encodeURIComponent(
+        `Name: ${data.get('name') || ''}\n`+
+        `Email: ${data.get('email') || ''}\n`+
+        `Phone: ${data.get('phone') || ''}\n`+
+        `Interested In: ${data.get('interest') || ''}\n`+
+        `Preferred Consultation: ${data.get('meeting') || ''}\n\n`+
+        `Message:\n${data.get('message') || ''}`
+      );
+      window.location.href = `mailto:hello@pgorne.com?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>
