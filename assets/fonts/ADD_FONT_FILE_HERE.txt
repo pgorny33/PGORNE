@@ -1,2 +1,0 @@
-Place your licensed ALMilanoExpandedUnlicensedTrial-Regular.otf file in this folder.
-The site CSS already references: assets/fonts/ALMilanoExpandedUnlicensedTrial-Regular.otf
