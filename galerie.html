@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>P.GÓRNE — Galerie</title>
+  <meta name="description" content="P.GÓRNE Galerie — an editorial archive of bespoke garments and the moments in which they are worn." />
+  <style>
+    :root{
+      --paper:#f3efe8;
+      --ink:#141414;
+      --accent:#6B3529;
+      --page-pad:clamp(22px,4vw,64px);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:var(--paper)}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+    img{display:block;width:100%;height:100%;object-fit:cover}
+    a{color:inherit;text-decoration:none}
+
+    .site-header{
+      position:relative;
+      z-index:5;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:26px var(--page-pad) 0;
+    }
+    .wordmark{font-size:14px;letter-spacing:.16em;font-weight:500}
+    .return{font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+    .return:hover{color:var(--accent)}
+
+    .intro{
+      min-height:82vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:80px var(--page-pad) 110px;
+    }
+    .intro h1{
+      margin:0;
+      font-size:clamp(50px,10vw,132px);
+      line-height:.9;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-weight:300;
+    }
+    .intro p{
+      max-width:580px;
+      margin:34px 0 0;
+      font-size:13px;
+      line-height:1.9;
+      letter-spacing:.045em;
+    }
+
+    .chapter{padding:0 var(--page-pad) 150px}
+    .chapter-title{
+      margin:0 0 clamp(90px,13vw,185px);
+      text-align:center;
+      font-size:clamp(34px,6vw,78px);
+      line-height:1;
+      letter-spacing:.06em;
+      font-weight:300;
+    }
+    .essay{max-width:1440px;margin:0 auto}
+    .row{display:grid;align-items:start;margin-bottom:clamp(90px,14vw,220px)}
+    .frame{overflow:hidden;background:#e8e1d7;cursor:zoom-in}
+
+    /* Curated editorial sequence — deliberately not a masonry grid. */
+    .r1{grid-template-columns:1fr minmax(280px,42vw) 1fr}
+    .r1 .frame{grid-column:2;aspect-ratio:3/4}
+
+    .r2{grid-template-columns:minmax(180px,26vw) 1fr minmax(220px,34vw);gap:clamp(36px,7vw,120px)}
+    .r2 .detail{grid-column:1;aspect-ratio:3/4;margin-top:18vw}
+    .r2 .prep{grid-column:3;aspect-ratio:3/4}
+
+    .r3{grid-template-columns:minmax(260px,38vw) 1fr}
+    .r3 .portrait{grid-column:1;aspect-ratio:3/4}
+
+    .r4{grid-template-columns:1fr minmax(320px,56vw)}
+    .r4 .vault{grid-column:2;aspect-ratio:4/3}
+    .r4 .vault img{object-position:center 63%}
+
+    .r5{grid-template-columns:minmax(260px,38vw) 1fr minmax(180px,26vw);gap:clamp(34px,7vw,120px)}
+    .r5 .stairs{grid-column:1;aspect-ratio:3/4}
+    .r5 .quiet{grid-column:3;aspect-ratio:3/4;margin-top:19vw}
+
+    .r6{grid-template-columns:1fr minmax(320px,50vw) 1fr}
+    .r6 .entry{grid-column:2;aspect-ratio:3/4}
+
+    .r7{grid-template-columns:minmax(260px,40vw) 1fr}
+    .r7 .departure{grid-column:1;aspect-ratio:3/4}
+
+    .chapter-close{
+      text-align:center;
+      padding:40px 0 20px;
+      font-size:10px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+    .chapter-close a:hover{color:var(--accent)}
+
+    .lightbox{
+      position:fixed;inset:0;z-index:20;
+      display:grid;place-items:center;
+      padding:clamp(16px,4vw,56px);
+      background:rgba(243,239,232,.985);
+      opacity:0;pointer-events:none;
+      transition:opacity 220ms ease;
+    }
+    .lightbox.open{opacity:1;pointer-events:auto}
+    .lightbox img{width:auto;height:auto;max-width:92vw;max-height:88vh;object-fit:contain}
+    .lightbox-close{position:absolute;top:24px;right:var(--page-pad);border:0;background:transparent;color:var(--ink);font:inherit;font-size:10px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer}
+    .lightbox-close:hover{color:var(--accent)}
+
+    @media (max-width:760px){
+      .site-header{padding-top:20px}
+      .intro{min-height:70vh;padding-top:60px;padding-bottom:90px}
+      .intro p{font-size:12px;max-width:420px}
+      .chapter{padding-bottom:100px}
+      .chapter-title{margin-bottom:100px}
+      .row{display:block;margin-bottom:92px}
+      .frame{width:100%;max-width:none;margin:0!important;aspect-ratio:auto!important}
+      .frame img{height:auto;object-fit:contain}
+      .r2 .detail,.r5 .quiet{width:68%;margin-bottom:92px!important}
+      .r2 .prep{width:82%;margin-left:auto!important}
+      .r3 .portrait{width:86%}
+      .r4 .vault{width:100%}
+      .r5 .stairs{width:82%}
+      .r6 .entry{width:88%;margin-left:auto!important}
+      .r7 .departure{width:84%}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      .lightbox{transition:none}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="index.html" aria-label="P.GÓRNE home">P.GÓRNE</a>
+    <a class="return" href="index.html">Return</a>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="galerie-title">
+      <h1 id="galerie-title">Galerie</h1>
+      <p>An editorial archive exploring craftsmanship, proportion, material, and the moments in which garments are worn.</p>
+    </section>
+
+    <section class="chapter" aria-labelledby="evening-title">
+      <h2 class="chapter-title" id="evening-title">Evening</h2>
+
+      <div class="essay">
+        <div class="row r1">
+          <figure class="frame"><img src="assets/images/galerie/evening/01-tuxedo-hanger.jpg" alt="Double-breasted tuxedo hanging before an evening event" loading="eager"></figure>
+        </div>
+
+        <div class="row r2">
+          <figure class="frame detail"><img src="assets/images/galerie/evening/02-lining-detail.jpg" alt="Personal embroidery inside a bespoke tuxedo" loading="lazy"></figure>
+          <figure class="frame prep"><img src="assets/images/galerie/evening/03-bowtie-preparation.jpg" alt="Hands adjusting a bow tie" loading="lazy"></figure>
+        </div>
+
+        <div class="row r3">
+          <figure class="frame portrait"><img src="assets/images/galerie/evening/04-tuxedo-portrait.jpg" alt="Portrait showing the tuxedo's lapels and silhouette" loading="lazy"></figure>
+        </div>
+
+        <div class="row r4">
+          <figure class="frame vault"><img src="assets/images/galerie/evening/05-vault-exit.jpg" alt="Tuxedo in motion against a historic vault doorway" loading="lazy"></figure>
+        </div>
+
+        <div class="row r5">
+          <figure class="frame stairs"><img src="assets/images/galerie/evening/06-staircase.jpg" alt="Evening tailoring descending a marble staircase" loading="lazy"></figure>
+          <figure class="frame quiet"><img src="assets/images/galerie/evening/08-preparation.jpg" alt="Quiet preparation before an evening occasion" loading="lazy"></figure>
+        </div>
+
+        <div class="row r6">
+          <figure class="frame entry"><img src="assets/images/galerie/evening/07-reception-entry.jpg" alt="Entering an evening reception in a bespoke tuxedo" loading="lazy"></figure>
+        </div>
+
+        <div class="row r7">
+          <figure class="frame departure"><img src="assets/images/galerie/evening/09-departure.jpg" alt="Tuxedo silhouette moving through an evening reception" loading="lazy"></figure>
+        </div>
+      </div>
+
+      <div class="chapter-close"><a href="#galerie-title">Back to top</a></div>
+    </section>
+  </main>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded Galerie image">
+    <button class="lightbox-close" id="lightboxClose" type="button">Close</button>
+    <img id="lightboxImage" src="" alt="">
+  </div>
+
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const closeButton = document.getElementById('lightboxClose');
+    let previousFocus = null;
+
+    document.querySelectorAll('.frame img').forEach((image) => {
+      image.parentElement.setAttribute('tabindex', '0');
+      image.parentElement.setAttribute('role', 'button');
+      image.parentElement.setAttribute('aria-label', `Expand image: ${image.alt}`);
+
+      const open = () => {
+        previousFocus = document.activeElement;
+        lightboxImage.src = image.src;
+        lightboxImage.alt = image.alt;
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        closeButton.focus();
+      };
+
+      image.parentElement.addEventListener('click', open);
+      image.parentElement.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          open();
+        }
+      });
+    });
+
+    const close = () => {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+      lightboxImage.src = '';
+      if (previousFocus) previousFocus.focus();
+    };
+
+    closeButton.addEventListener('click', close);
+    lightbox.addEventListener('click', (event) => {
+      if (event.target === lightbox) close();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && lightbox.classList.contains('open')) close();
+    });
+  </script>
+</body>
+</html>
