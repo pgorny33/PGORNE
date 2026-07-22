@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>P.GÓRNE — Book</title>
+  <style>
+    @font-face{font-family:"ALMilano";src:url("assets/fonts/ALMilanoExpandedUnlicensedTrial-Regular.otf") format("opentype");font-weight:400;font-style:normal;font-display:swap;}
+    :root{--paper:#f3efe8;--ink:#141414;--muted:#6f6a62;--line:rgba(20,20,20,.18);--accent:#6B3529;}
+    *{box-sizing:border-box;}
+    html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);}
+    body{font-family:Georgia,"Times New Roman",serif;}
+    .display,.eyebrow,.back,.button,label,select,input,textarea{font-family:"ALMilano",Arial,sans-serif;}
+    .back{position:fixed;z-index:5;top:24px;left:30px;text-decoration:none;color:var(--ink);font-size:12px;letter-spacing:.16em;text-transform:uppercase;opacity:.75;}
+    .back:hover{color:var(--accent);opacity:1;}
+    .hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(420px,.85fr);min-height:calc(100vh - 90px);border-bottom:1px solid var(--line);}
+    .photo{min-height:780px;background:#ddd;}
+    .photo img{width:100%;height:100%;object-fit:cover;display:block;}
+    .copy{padding:96px 8vw 60px 7vw;display:flex;flex-direction:column;justify-content:center;}
+    .intro{font-size:18px;line-height:1.9;max-width:560px;margin:0 0 52px;}
+    .intro p{margin:0 0 28px;}
+    .eyebrow{font-size:12px;letter-spacing:.36em;text-transform:uppercase;margin:0 0 24px;}
+    .step{display:grid;grid-template-columns:86px 1fr;gap:28px;border-top:1px solid var(--line);padding:28px 0;max-width:650px;}
+    .step:last-child{border-bottom:0;}
+    .num{font-size:38px;line-height:1;letter-spacing:.02em;}
+    .step-title{font-family:"ALMilano",Arial,sans-serif;font-size:12px;letter-spacing:.34em;text-transform:uppercase;margin:0 0 12px;}
+    .step p{font-size:14px;line-height:1.8;margin:0;color:#1f1f1f;}
+    .form-section{padding:76px 9vw 58px;}
+    form{max-width:980px;margin:0 auto;}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:30px 58px;}
+    .field.full{grid-column:1 / -1;}
+    label{display:block;font-size:11px;letter-spacing:.22em;text-transform:uppercase;margin:0 0 12px;}
+    input,select,textarea{width:100%;border:1px solid var(--line);background:transparent;color:var(--ink);font-size:13px;letter-spacing:.03em;padding:18px 18px;border-radius:0;outline:none;}
+    textarea{min-height:150px;resize:vertical;line-height:1.6;}
+    input:focus,select:focus,textarea:focus{border-color:var(--accent);}
+    .button{width:100%;margin-top:34px;border:0;background:var(--ink);color:var(--paper);padding:22px;font-size:12px;letter-spacing:.34em;text-transform:uppercase;cursor:pointer;}
+    .button:hover{background:var(--accent);}
+    .location{text-align:center;margin-top:54px;font-family:"ALMilano",Arial,sans-serif;font-size:12px;letter-spacing:.34em;text-transform:uppercase;}
+    @media (max-width: 900px){
+      .back{position:absolute;top:20px;left:22px;}
+      .hero{grid-template-columns:1fr;min-height:auto;}
+      .photo{min-height:56vh;}
+      .copy{padding:56px 28px 44px;}
+      .intro{font-size:16px;margin-bottom:40px;}
+      .step{grid-template-columns:62px 1fr;gap:18px;padding:24px 0;}
+      .num{font-size:32px;}
+      .form-section{padding:52px 28px 44px;}
+      .grid{grid-template-columns:1fr;gap:24px;}
+    }
+  </style>
+</head>
+<body>
+  <a class="back" href="index.html">← Back</a>
+  <main>
+    <section class="hero">
+      <div class="photo"><img src="assets/images/book-fabric-consultation.png" alt="Hands reviewing fabric swatches during a private consultation"></div>
+      <div class="copy">
+        <div class="intro">
+          <p>Every garment begins with a conversation.</p>
+          <p>Whether you are exploring custom casual wear, business attire, or formal wear, the consultation is an opportunity to discuss fit, fabrication, construction, and the details that make a garment uniquely your own.</p>
+        </div>
+        <div class="eyebrow">What to Expect</div>
+        <div class="step"><div class="num">01</div><div><div class="step-title">Consultation</div><p>We begin by understanding your wardrobe, preferences, lifestyle, and the role the garment is intended to serve.</p></div></div>
+        <div class="step"><div class="num">02</div><div><div class="step-title">Design</div><p>Fabric, silhouette, proportion, and construction details are considered and refined together.</p></div></div>
+        <div class="step"><div class="num">03</div><div><div class="step-title">Measurement</div><p>Measurements are taken and a personal pattern is developed to serve as the foundation for future garments.</p></div></div>
+        <div class="step"><div class="num">04</div><div><div class="step-title">Development</div><p>Your garment is developed through production, fitting, and refinement.</p></div></div>
+      </div>
+    </section>
+    <section class="form-section">
+      <form action="https://formsubmit.co/patrick@pgorne.com" method="POST">
+        <input type="hidden" name="_subject" value="New P.GÓRNE Appointment Request">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <div class="grid">
+          <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" placeholder="Your full name" required></div>
+          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="your@email.com" required></div>
+          <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" placeholder="(000) 000-0000"></div>
+          <div class="field"><label for="interest">Interested In</label><select id="interest" name="interested_in" required><option value="">Select an option</option><option>Jeans</option><option>Shirting</option><option>Trousers</option><option>Suiting</option><option>Formalwear</option><option>Knitwear</option><option>Outerwear</option><option>Not Sure Yet</option></select></div>
+          <div class="field full"><label for="meeting">Preferred Consultation</label><select id="meeting" name="preferred_consultation" required><option value="">Select an option</option><option>In Person</option><option>Virtual</option><option>Flexible</option></select></div>
+          <div class="field full"><label for="message">Message</label><textarea id="message" name="message" placeholder="Tell us about your project or any details you'd like to share."></textarea></div>
+        </div>
+        <button class="button" type="submit">Request Appointment</button>
+      </form>
+      <div class="location">New York City &nbsp; • &nbsp; By Appointment</div>
+    </section>
+  </main>
+</body>
+</html>
