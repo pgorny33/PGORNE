@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>P.GÓRNE — Ethos</title>
+  <meta name="description" content="The principles guiding P.GÓRNE: proportion, craftsmanship, cloth, and longevity." />
+  <style>
+    :root{
+      --paper:#f3efe8;
+      --ink:#141414;
+      --accent:#6B3529;
+      --page-pad:clamp(24px,3.2vw,52px);
+      --serif:Georgia,"Times New Roman",serif;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:var(--paper)}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    img{display:block;width:100%;height:100%;object-fit:cover}
+
+    .site-header{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:26px var(--page-pad) 0;
+    }
+    .wordmark{font-size:14px;letter-spacing:.16em;font-weight:500}
+    .return{font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+    .return:hover{color:var(--accent)}
+
+    .intro{
+      padding:clamp(120px,12vw,188px) var(--page-pad) clamp(112px,10vw,158px);
+    }
+    .intro p{
+      width:min(840px,92vw);margin:0 auto;text-align:center;
+      font-family:var(--serif);font-size:clamp(19px,1.72vw,27px);
+      line-height:1.4;font-weight:400;
+    }
+
+    .pattern-banner{
+      height:clamp(300px,29vw,455px);overflow:hidden;
+    }
+    .pattern-banner img{object-position:center center}
+
+    .principles{
+      padding:clamp(104px,9vw,138px) var(--page-pad) clamp(120px,11vw,168px);
+    }
+    .principles-grid{
+      display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:clamp(30px,3vw,50px);
+    }
+    .principle{min-width:0}
+    .principle h2{
+      margin:0 0 32px;font-family:var(--serif);
+      font-size:clamp(23px,2vw,32px);font-weight:400;line-height:1.1;
+    }
+    .principle figure{
+      margin:0 0 34px;aspect-ratio:4/5;overflow:hidden;background:#e7e0d7;
+    }
+    .principle p{
+      margin:0;font-family:var(--serif);
+      font-size:clamp(15px,1.12vw,18px);line-height:1.5;
+    }
+    .principle--proportion img{object-position:center 35%}
+    .principle--craftsmanship img{object-position:center center}
+    .principle--cloth img{object-position:center center}
+    .principle--longevity img{object-position:center 48%}
+
+    .site-footer{text-align:center;padding:0 24px 82px}
+    .site-footer p{margin:0;font-size:10px;letter-spacing:.2em;line-height:1.8;text-transform:uppercase}
+
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity 700ms ease,transform 700ms ease}
+    .reveal.visible{opacity:1;transform:none}
+
+    @media (max-width:900px){
+      .intro p{width:min(800px,92vw)}
+      .principles-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:88px 34px}
+    }
+    @media (max-width:560px){
+      .site-header{padding-top:20px}
+      .intro{padding-top:88px;padding-bottom:82px}
+      .intro p{width:100%;font-size:18px;line-height:1.5}
+      .pattern-banner{height:285px}
+      .principles{padding-top:88px}
+      .principles-grid{grid-template-columns:1fr;row-gap:88px}
+      .principle{padding:0}
+      .principle h2{margin-bottom:26px}
+      .principle figure{margin-bottom:28px}
+    }
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      .reveal{opacity:1;transform:none;transition:none}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="index.html" aria-label="P.GÓRNE home">P.GÓRNE</a>
+    <a class="return" href="index.html">Return</a>
+  </header>
+
+  <main>
+    <section class="intro reveal" aria-label="P.GÓRNE ethos">
+      <p>P.GÓRNE is a New York City atelier offering a wide range of garments, each crafted by a specialist in its respective discipline. We partner with the world's finest cloth mills and artisans to ensure precision and uphold the highest standard of quality. The atelier approaches every garment with an unwavering commitment to proportion, craftsmanship, cloth, and longevity.</p>
+    </section>
+
+    <figure class="pattern-banner reveal">
+      <img src="assets/images/ethos/pattern-archive.jpg" alt="An archive of tailoring patterns hanging in the atelier" loading="eager" />
+    </figure>
+
+    <section class="principles" aria-label="The principles that guide our work">
+      <div class="principles-grid">
+        <article class="principle principle--proportion reveal">
+          <h2>Proportion</h2>
+          <figure><img src="assets/images/ethos/proportion.jpg" alt="Tailored garment on a dress form showing balance through the shoulder and lapel" loading="lazy" /></figure>
+          <p>Intentional proportions create balance, stature, and a fit that can only be achieved through experienced pattern making.</p>
+        </article>
+        <article class="principle principle--craftsmanship reveal">
+          <h2>Craftsmanship</h2>
+          <figure><img src="assets/images/ethos/craftsmanship-pants.jpg" alt="A close arrangement of finished trousers in varied cloths" loading="lazy" /></figure>
+          <p>Each garment is crafted with a level of precision and attention to detail that can only be achieved by makers whose skill has been refined through years of experience and discipline.</p>
+        </article>
+        <article class="principle principle--cloth reveal">
+          <h2>Cloth</h2>
+          <figure><img src="assets/images/ethos/cloth.jpg" alt="Blue and natural cloths showing distinct weave, texture, and drape" loading="lazy" /></figure>
+          <p>The world's finest cloth mills produce natural fibers with character, performance, and a quiet luxury that cannot be replicated through mass production.</p>
+        </article>
+        <article class="principle principle--longevity reveal">
+          <h2>Longevity</h2>
+          <figure><img src="assets/images/ethos/longevity.jpg" alt="P.GÓRNE garment detail with horn buttons and internal finishing" loading="lazy" /></figure>
+          <p>Longevity is the natural result of proportion, craftsmanship, and cloth. Our garments are designed to be lived in, create memories in, and improve with time.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>New York&nbsp;&nbsp;•&nbsp;&nbsp;2019—Present</p>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
+      reveals.forEach((item) => observer.observe(item));
+    } else {
+      reveals.forEach((item) => item.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>
