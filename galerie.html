@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>P.GÓRNE — Galerie</title>
+  <meta name="description" content="P.GÓRNE Galerie — a living editorial archive of craftsmanship, material, proportion, and garments in use." />
+  <style>
+    :root{
+      --paper:#f3efe8;
+      --ink:#141414;
+      --accent:#6B3529;
+      --page-pad:clamp(22px,4vw,64px);
+      --section-space:clamp(150px,21vw,310px);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:var(--paper)}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+    img{display:block;width:100%;height:100%;object-fit:cover}
+    a{color:inherit;text-decoration:none}
+
+    .site-header{
+      position:relative;z-index:5;display:flex;justify-content:space-between;align-items:center;
+      padding:26px var(--page-pad) 0;
+    }
+    .wordmark{font-size:14px;letter-spacing:.16em;font-weight:500}
+    .return{font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+    .return:hover{color:var(--accent)}
+
+    .chapter{padding:0 var(--page-pad) var(--section-space)}
+    .chapter:first-of-type{padding-top:clamp(130px,18vw,250px)}
+    .chapter-title{
+      margin:0 0 clamp(95px,14vw,190px);text-align:center;font-size:clamp(34px,5.8vw,76px);
+      line-height:1;letter-spacing:.055em;font-weight:300;
+    }
+    .essay{max-width:1440px;margin:0 auto}
+    .row{display:grid;align-items:start;margin-bottom:clamp(90px,14vw,220px)}
+    figure{margin:0}
+    .frame{overflow:hidden;background:#e8e1d7;cursor:zoom-in}
+    .frame img{transition:transform 500ms ease,filter 500ms ease}
+    .frame:hover img{transform:scale(1.012);filter:brightness(1.025)}
+
+    /* Made to Order Galerie */
+    .chapter-intro{padding:clamp(110px,15vw,190px) var(--page-pad) clamp(120px,16vw,220px);text-align:center}
+    .chapter-intro .eyebrow{margin:0;font-size:10px;letter-spacing:.22em;text-transform:uppercase}
+    .gallery .r1{grid-template-columns:1fr minmax(280px,42vw) 1fr}
+    .gallery .r1 .frame{grid-column:2;aspect-ratio:3/4}
+    .gallery .r2{grid-template-columns:minmax(180px,27vw) 1fr minmax(220px,34vw);gap:clamp(36px,7vw,120px)}
+    .gallery .r2 .frame:first-child{grid-column:1;aspect-ratio:3/4;margin-top:16vw}
+    .gallery .r2 .frame:last-child{grid-column:3;aspect-ratio:3/4}
+    .gallery .r3{grid-template-columns:minmax(280px,48vw) 1fr}
+    .gallery .r3 .frame{grid-column:1;aspect-ratio:4/3}
+    .gallery .r4{grid-template-columns:1fr minmax(260px,38vw)}
+    .gallery .r4 .frame{grid-column:2;aspect-ratio:3/4}
+    .gallery .r5{grid-template-columns:minmax(230px,34vw) 1fr minmax(180px,27vw);gap:clamp(34px,7vw,120px)}
+    .gallery .r5 .frame:first-child{grid-column:1;aspect-ratio:3/4}
+    .gallery .r5 .frame:last-child{grid-column:3;aspect-ratio:3/4;margin-top:18vw}
+    .archive-close{text-align:center;padding:10px 0 40px}
+    .archive-close p{margin:0;font-size:10px;letter-spacing:.2em;text-transform:uppercase}
+    .back-top{display:block;margin-top:90px;font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+    .back-top:hover{color:var(--accent)}
+
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity 750ms ease,transform 750ms ease}
+    .reveal.visible{opacity:1;transform:none}
+
+    .lightbox{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:clamp(16px,4vw,56px);background:rgba(243,239,232,.99);opacity:0;pointer-events:none;transition:opacity 220ms ease}
+    .lightbox.open{opacity:1;pointer-events:auto}
+    .lightbox img{width:auto;height:auto;max-width:92vw;max-height:88vh;object-fit:contain}
+    .lightbox-close{position:absolute;top:24px;right:var(--page-pad);border:0;background:transparent;color:var(--ink);font:inherit;font-size:10px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer}
+    .lightbox-close:hover{color:var(--accent)}
+
+    @media (max-width:760px){
+      .site-header{padding-top:20px}
+      .chapter{padding-bottom:135px}
+      .chapter-title{margin-bottom:95px}
+      .row{display:block;margin-bottom:92px}
+      .frame{width:100%;max-width:none;margin:0!important;aspect-ratio:auto!important}
+      .frame img{height:auto;object-fit:contain}
+      .gallery .r2 .frame:first-child,.gallery .r5 .frame:last-child{width:68%;margin-bottom:92px!important}
+      .gallery .r2 .frame:last-child,.gallery .r4 .frame{width:82%;margin-left:auto!important}
+      .gallery .r3 .frame{width:86%}
+      .archive-close{padding-top:20px}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      .lightbox,.frame img,.reveal{transition:none}
+      .reveal{opacity:1;transform:none}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="index.html" aria-label="P.GÓRNE home">P.GÓRNE</a>
+    <a class="return" href="index.html">Return</a>
+  </header>
+
+  <main id="top">
+    <div class="chapter-intro"><p class="eyebrow">Made to Order</p></div>
+    <section class="chapter gallery casual-wear" aria-labelledby="casual-wear-title">
+      <h1 class="chapter-title" id="casual-wear-title">Casual Wear</h1>
+      <div class="essay">
+        <div class="row r1"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/01.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
+        <div class="row r2"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/02.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/03.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
+        <div class="row r3"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/04.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
+        <div class="row r4"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/05.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
+        <div class="row r5"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/06.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/07.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
+        <div class="row r1"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/08.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
+        <div class="row r2"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/09.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/10.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
+        <div class="row r3"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/11.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
+        <div class="row r4"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/12.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
+        <div class="row r5"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/13.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/14.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
+        <div class="row r1"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/15.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
+        <div class="row r2"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/16.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/17.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
+        <div class="row r3"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/18.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
+        <div class="row r4"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/19.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
+        <div class="row r5"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/20.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/21.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
+        <div class="row r1"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/22.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
+        <div class="row r2"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/23.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/24.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
+      </div>
+    </section>
+
+    <section class="chapter gallery business-attire" aria-labelledby="business-attire-title">
+      <h2 class="chapter-title" id="business-attire-title">Business Attire</h2>
+      <div class="essay">
+        <div class="row r1"><figure class="frame reveal"><img src="assets/images/galerie/business-attire/01.jpg" alt="P.GÓRNE made-to-order business attire" loading="lazy"></figure></div>
+        <div class="row r2"><figure class="frame reveal"><img src="assets/images/galerie/business-attire/02.jpg" alt="P.GÓRNE made-to-order business attire" loading="lazy"></figure><figure class="frame reveal"><img src="assets/images/galerie/business-attire/03.jpg" alt="P.GÓRNE made-to-order business attire" loading="lazy"></figure></div>
+        <div class="row r3"><figure class="frame reveal"><img src="assets/images/galerie/business-attire/04.jpg" alt="P.GÓRNE made-to-order business attire" loading="lazy"></figure></div>
+      </div>
+    </section>
+
+    <section class="chapter gallery formalwear" aria-labelledby="formalwear-title">
+      <h2 class="chapter-title" id="formalwear-title">Formalwear</h2>
+      <div class="essay">
+        <div class="row r1"><figure class="frame reveal"><img src="assets/images/galerie/formalwear/01.jpg" alt="P.GÓRNE made-to-order formalwear" loading="lazy"></figure></div>
+        <div class="row r2"><figure class="frame reveal"><img src="assets/images/galerie/formalwear/02.jpg" alt="P.GÓRNE made-to-order formalwear" loading="lazy"></figure><figure class="frame reveal"><img src="assets/images/galerie/formalwear/03.jpg" alt="P.GÓRNE made-to-order formalwear" loading="lazy"></figure></div>
+        <div class="row r3"><figure class="frame reveal"><img src="assets/images/galerie/formalwear/04.jpg" alt="P.GÓRNE made-to-order formalwear" loading="lazy"></figure></div>
+        <div class="row r4"><figure class="frame reveal"><img src="assets/images/galerie/formalwear/05.jpg" alt="P.GÓRNE made-to-order formalwear" loading="lazy"></figure></div>
+        <div class="row r5"><figure class="frame reveal"><img src="assets/images/galerie/formalwear/06.jpg" alt="P.GÓRNE made-to-order formalwear" loading="lazy"></figure></div>
+      </div>
+    </section>
+
+    <footer class="archive-close">
+      <p>New York · 2019—Present</p>
+      <a class="back-top" href="#top">Back to top</a>
+    </footer>
+  </main>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded Galerie image">
+    <button class="lightbox-close" id="lightboxClose" type="button">Close</button>
+    <img id="lightboxImage" src="" alt="">
+  </div>
+
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const closeButton = document.getElementById('lightboxClose');
+    let previousFocus = null;
+
+    document.querySelectorAll('.frame img').forEach((image) => {
+      const frame = image.parentElement;
+      frame.setAttribute('tabindex', '0');
+      frame.setAttribute('role', 'button');
+      frame.setAttribute('aria-label', `Expand image: ${image.alt}`);
+      const open = () => {
+        previousFocus = document.activeElement;
+        lightboxImage.src = image.src;
+        lightboxImage.alt = image.alt;
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        closeButton.focus();
+      };
+      frame.addEventListener('click', open);
+      frame.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
+      });
+    });
+
+    const close = () => {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+      lightboxImage.src = '';
+      if (previousFocus) previousFocus.focus();
+    };
+    closeButton.addEventListener('click', close);
+    lightbox.addEventListener('click', (event) => { if (event.target === lightbox) close(); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && lightbox.classList.contains('open')) close(); });
+
+    const reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
+      reveals.forEach((item) => observer.observe(item));
+    } else {
+      reveals.forEach((item) => item.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>
