@@ -82,11 +82,13 @@
       <form action="https://formsubmit.co/patrick@pgorne.com" method="POST">
         <input type="hidden" name="_subject" value="New P.GÓRNE Appointment Request">
         <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="_next" value="https://www.pgorne.com/thank-you">
         <input type="hidden" name="_template" value="table">
         <div class="grid">
-          <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" placeholder="Your full name" required></div>
-          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="your@email.com" required></div>
-          <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" placeholder="(000) 000-0000"></div>
+          <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" placeholder="Your full name" autocomplete="name" required></div>
+          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="your@email.com" autocomplete="email" required></div>
+          <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" placeholder="(000) 000-0000" autocomplete="tel"></div>
           <div class="field"><label for="interest">Interested In</label><select id="interest" name="interested_in" required><option value="">Select an option</option><option>Jeans</option><option>Shirting</option><option>Trousers</option><option>Suiting</option><option>Formalwear</option><option>Knitwear</option><option>Outerwear</option><option>Not Sure Yet</option></select></div>
           <div class="field full"><label for="meeting">Preferred Consultation</label><select id="meeting" name="preferred_consultation" required><option value="">Select an option</option><option>In Person</option><option>Virtual</option><option>Flexible</option></select></div>
           <div class="field full"><label for="message">Message</label><textarea id="message" name="message" placeholder="Tell us about your project or any details you'd like to share."></textarea></div>
