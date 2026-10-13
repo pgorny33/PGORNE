@@ -106,11 +106,11 @@
         <source src="assets/pgorne-logo-animation-720.mp4" type="video/mp4">
       </video>
       <img class="accent" src="assets/accent-pantone.png" alt="" aria-hidden="true" />
-      <button class="accent-button" id="enterButton" aria-label="Enter P.GÓRNE"></button>
+      <button class="accent-button" id="enterButton" aria-label="Enter P.GÓRNE" aria-controls="menu" aria-expanded="false"></button>
     </div>
   </main>
 
-  <section class="menu" id="menu" aria-label="Site navigation">
+  <section class="menu" id="menu" aria-label="Site navigation" inert>
     <button class="close" id="closeButton">Close</button>
     <nav>
       <a href="/ethos">Ethos</a>
@@ -125,16 +125,31 @@
     const video = document.getElementById('introVideo');
     const menu = document.getElementById('menu');
     const enter = document.getElementById('enterButton');
-    const close = document.getElementById('closeButton');
+    const closeButton = document.getElementById('closeButton');
     const reveal = () => document.body.classList.add('ready');
 
     // Make the entry accent visible and clickable almost immediately while preserving the original logo/video cadence.
     window.setTimeout(reveal, 1000);
     video.addEventListener('error', reveal);
 
-    enter.addEventListener('click', () => menu.classList.add('open'));
-    close.addEventListener('click', () => menu.classList.remove('open'));
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') menu.classList.remove('open'); });
+    function open() {
+      menu.classList.add('open');
+      menu.inert = false;
+      enter.setAttribute('aria-expanded', 'true');
+      menu.querySelector('nav a').focus();
+    }
+
+    function close() {
+      if (!menu.classList.contains('open')) return;
+      menu.classList.remove('open');
+      menu.inert = true;
+      enter.setAttribute('aria-expanded', 'false');
+      enter.focus();
+    }
+
+    enter.addEventListener('click', open);
+    closeButton.addEventListener('click', close);
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') close(); });
   </script>
 </body>
 </html>
