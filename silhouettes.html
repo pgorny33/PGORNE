@@ -8,52 +8,60 @@
   <meta name="robots" content="noindex" />
   <link rel="icon" type="image/png" href="/assets/accent-pantone.png" />
   <style>
-    :root{--paper:#f3efe8;--ink:#141414;--accent:#6B3529;--leaf:#f8f5ef;--line:rgba(20,20,20,.18);--pad:clamp(18px,4vw,64px)}
+    :root{--paper:#f3efe8;--ink:#141414;--accent:#6B3529;--leaf:#f8f5ef;--line:rgba(20,20,20,.18);--pad:clamp(18px,4vw,64px);--header-height:50px}
     *{box-sizing:border-box}
     html,body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
     a{color:inherit;text-decoration:none}
     button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
     .label,.return{font-size:10px;letter-spacing:.18em;text-transform:uppercase}
-    .site-header{display:flex;justify-content:space-between;align-items:center;padding:24px var(--pad) 10px}
+    .site-header{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:24px var(--pad) 10px;background:var(--paper)}
     .wordmark{font-size:14px;letter-spacing:.16em;font-weight:500}
     .return:hover{color:var(--accent)}
-    .studio{display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:clamp(30px,5vw,80px);align-items:center;min-height:calc(100svh - 64px);padding:10px var(--pad) 40px}
-    .drawing{margin:0;display:grid;place-items:center}
-    .drawing svg{width:100%;height:calc(100svh - 150px);max-height:860px;overflow:visible}
+    .studio{display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:clamp(30px,5vw,80px);align-items:start;min-height:calc(100svh - var(--header-height));padding:10px var(--pad) 40px}
+    .preview{position:sticky;top:calc(var(--header-height) + 12px);z-index:5;display:flex;flex-direction:column;height:calc(100svh - var(--header-height) - 22px);min-height:580px;max-height:850px;background:var(--paper)}
+    .drawing{flex:1;min-height:0;margin:0;display:grid;place-items:center}
+    .drawing svg{width:100%;height:100%;max-height:calc(100svh - 220px);overflow:visible}
+    .preview-controls{flex:none;padding:0 0 6px;background:var(--paper)}
     .garment{isolation:isolate}
     .garment[hidden]{display:none}
-    .dye{fill:var(--dye,var(--leaf));transition:fill 450ms ease}
-    .weave{fill:url(#cloth);mix-blend-mode:multiply;opacity:0;transition:opacity 450ms ease}
-    svg.dyed .weave{opacity:1}
+    .dye{fill:var(--dye,var(--leaf))}
+    .weave{fill:url(#cloth);mix-blend-mode:normal;opacity:1}
     .art{fill:none;stroke:var(--ink);stroke-width:1.2;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
     .art .soft{stroke-opacity:.4}
     .art .shirt{fill:#fbf9f4}
     .art .btn{fill:var(--leaf)}
-    .panel h1{margin:0 0 26px;font-weight:400}
-    .tabs{display:flex;gap:26px;margin-bottom:30px}
+    .preview-controls h1{margin:0 0 18px;font-weight:400}
+    .tabs{display:flex;gap:26px;margin-bottom:18px}
     .tabs button{padding-bottom:4px;border-bottom:1px solid transparent;color:rgba(20,20,20,.5)}
     .tabs button[aria-selected="true"]{color:var(--ink);border-color:var(--ink)}
     .readout{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding:16px 0 18px;min-height:52px}
     .readout .name{font-size:13px;letter-spacing:.16em;text-transform:uppercase}
     .readout .no{color:rgba(20,20,20,.5)}
-    .swatches{display:grid;grid-template-columns:repeat(6,1fr);gap:12px 10px}
+    .swatches{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px 10px}
+    .family-heading{grid-column:1/-1;margin:18px 0 2px;font-size:10px;font-weight:400;letter-spacing:.18em;text-transform:uppercase}
     .swatches button{position:relative;display:block;padding-bottom:9px}
-    .swatches span{display:block;aspect-ratio:1;background:url(/assets/images/silhouettes/cloth-texture.jpg) center/280% auto,var(--hex);background-blend-mode:multiply;clip-path:polygon(0.00% 4.50%,6.25% 0.00%,12.50% 4.50%,18.75% 0.00%,25.00% 4.50%,31.25% 0.00%,37.50% 4.50%,43.75% 0.00%,50.00% 4.50%,56.25% 0.00%,62.50% 4.50%,68.75% 0.00%,75.00% 4.50%,81.25% 0.00%,87.50% 4.50%,93.75% 0.00%,100.00% 4.50%,95.50% 0.00%,100.00% 6.25%,95.50% 12.50%,100.00% 18.75%,95.50% 25.00%,100.00% 31.25%,95.50% 37.50%,100.00% 43.75%,95.50% 50.00%,100.00% 56.25%,95.50% 62.50%,100.00% 68.75%,95.50% 75.00%,100.00% 81.25%,95.50% 87.50%,100.00% 93.75%,95.50% 100.00%,100.00% 95.50%,93.75% 100.00%,87.50% 95.50%,81.25% 100.00%,75.00% 95.50%,68.75% 100.00%,62.50% 95.50%,56.25% 100.00%,50.00% 95.50%,43.75% 100.00%,37.50% 95.50%,31.25% 100.00%,25.00% 95.50%,18.75% 100.00%,12.50% 95.50%,6.25% 100.00%,0.00% 95.50%,4.50% 100.00%,0.00% 93.75%,4.50% 87.50%,0.00% 81.25%,4.50% 75.00%,0.00% 68.75%,4.50% 62.50%,0.00% 56.25%,4.50% 50.00%,0.00% 43.75%,4.50% 37.50%,0.00% 31.25%,4.50% 25.00%,0.00% 18.75%,4.50% 12.50%,0.00% 6.25%,4.50% 0.00%);transition:transform 250ms ease}
+    .swatches span{display:block;aspect-ratio:1;background:var(--hex);clip-path:polygon(0.00% 4.50%,6.25% 0.00%,12.50% 4.50%,18.75% 0.00%,25.00% 4.50%,31.25% 0.00%,37.50% 4.50%,43.75% 0.00%,50.00% 4.50%,56.25% 0.00%,62.50% 4.50%,68.75% 0.00%,75.00% 4.50%,81.25% 0.00%,87.50% 4.50%,93.75% 0.00%,100.00% 4.50%,95.50% 0.00%,100.00% 6.25%,95.50% 12.50%,100.00% 18.75%,95.50% 25.00%,100.00% 31.25%,95.50% 37.50%,100.00% 43.75%,95.50% 50.00%,100.00% 56.25%,95.50% 62.50%,100.00% 68.75%,95.50% 75.00%,100.00% 81.25%,95.50% 87.50%,100.00% 93.75%,95.50% 100.00%,100.00% 95.50%,93.75% 100.00%,87.50% 95.50%,81.25% 100.00%,75.00% 95.50%,68.75% 100.00%,62.50% 95.50%,56.25% 100.00%,50.00% 95.50%,43.75% 100.00%,37.50% 95.50%,31.25% 100.00%,25.00% 95.50%,18.75% 100.00%,12.50% 95.50%,6.25% 100.00%,0.00% 95.50%,4.50% 100.00%,0.00% 93.75%,4.50% 87.50%,0.00% 81.25%,4.50% 75.00%,0.00% 68.75%,4.50% 62.50%,0.00% 56.25%,4.50% 50.00%,0.00% 43.75%,4.50% 37.50%,0.00% 31.25%,4.50% 25.00%,0.00% 18.75%,4.50% 12.50%,0.00% 6.25%,4.50% 0.00%);transition:transform 250ms ease}
     .swatches button:hover span,.swatches button:focus-visible span{transform:scale(1.08)}
     .swatches button::after{content:"";position:absolute;left:50%;bottom:0;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--ink);opacity:0;transition:opacity 200ms}
     .swatches button[aria-pressed="true"]::after{opacity:1}
     .swatches button:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
+    .swatches button .sample{background:var(--swatch-image) center/cover no-repeat,var(--hex);background-blend-mode:normal}
+    .swatches button .swatch-name{aspect-ratio:auto;background:none;background-blend-mode:normal;clip-path:none;font-size:9px;letter-spacing:.1em;line-height:1.25;min-height:2.5em;padding-top:7px;text-align:center;text-transform:uppercase;overflow-wrap:anywhere;transition:none}
+    .swatches button:hover .swatch-name,.swatches button:focus-visible .swatch-name{transform:none}
     .book{display:flex;justify-content:space-between;margin-top:30px;padding:18px 20px;background:var(--ink);color:var(--paper);font-size:11px;letter-spacing:.2em;text-transform:uppercase;transition:background 200ms}
     .book:hover{background:var(--accent)}
-    .note{margin:18px 0 0;color:rgba(20,20,20,.45);text-align:center}
+    .note{margin:18px 0 0;color:rgba(20,20,20,.45);text-align:center;line-height:1.8}
     @media (max-width:900px){
-      .studio{grid-template-columns:1fr;gap:18px;min-height:0;padding-top:0}
-      .drawing svg{height:min(56svh,520px)}
-      .panel h1{display:none}
-      .tabs{justify-content:center;margin-bottom:18px}
-      .swatches{grid-template-columns:repeat(8,1fr);gap:10px 7px}
+      .studio{grid-template-columns:minmax(0,1fr);gap:10px;min-height:0;padding:0 var(--pad) 40px}
+      .preview{top:var(--header-height);height:54svh;min-height:340px;max-height:520px}
+      .drawing svg{height:100%;max-height:42svh}
+      .preview-controls h1{display:none}
+      .tabs{justify-content:center;margin-bottom:8px}
+      .readout{padding:8px 0;min-height:38px}
+      .panel{padding-top:8px}
+      .swatches{gap:9px 8px}
     }
-    @media (max-width:480px){.swatches{grid-template-columns:repeat(6,1fr);gap:12px 10px}}
+    @media (max-width:700px){.swatches{grid-template-columns:repeat(4,minmax(0,1fr))}}
     @media (prefers-reduced-motion:reduce){.dye,.weave,.swatches span{transition:none}}
   </style>
 </head>
@@ -64,14 +72,31 @@
   </header>
 
   <main class="studio">
+    <div class="preview">
     <figure class="drawing">
-      <svg id="sketch" viewBox="40 20 320 480" role="img" aria-label="Sport coat sketch">
+      <svg id="sketch" viewBox="40 20 320 480" role="img" aria-label="Crewneck sketch">
         <defs>
-          <pattern id="cloth" patternUnits="userSpaceOnUse" x="0" y="0" width="150" height="150">
-            <image href="/assets/images/silhouettes/cloth-tile.jpg" x="0" y="0" width="150" height="150"/>
+          <pattern id="cloth" patternUnits="userSpaceOnUse" x="0" y="0" width="90" height="90">
+            <image x="0" y="0" width="90" height="90"/>
           </pattern>
         </defs>
-        <g class="garment" data-garment="Sport Coat">
+        <g class="garment" data-garment="Crewneck">
+          <path class="dye" d="M145,83 C130,88 111,97 97,107 L59,224 Q74,242 108,257 L141,174 L137,432 Q200,447 263,432 L259,174 L292,257 Q326,242 341,224 L303,107 C289,97 270,88 255,83 C239,73 223,69 216,70 C214,87 209,97 200,97 C191,97 186,87 184,70 C177,69 161,73 145,83 Z"/>
+          <path class="weave" d="M145,83 C130,88 111,97 97,107 L59,224 Q74,242 108,257 L141,174 L137,432 Q200,447 263,432 L259,174 L292,257 Q326,242 341,224 L303,107 C289,97 270,88 255,83 C239,73 223,69 216,70 C214,87 209,97 200,97 C191,97 186,87 184,70 C177,69 161,73 145,83 Z"/>
+          <g class="art">
+            <path d="M145,83 C130,88 111,97 97,107 L59,224 Q74,242 108,257 L141,174 L137,432 Q200,447 263,432 L259,174 L292,257 Q326,242 341,224 L303,107 C289,97 270,88 255,83 C239,73 223,69 216,70 C214,87 209,97 200,97 C191,97 186,87 184,70 C177,69 161,73 145,83 Z"/>
+            <path class="soft" d="M145,83 C150,113 148,145 141,174"/><path class="soft" d="M255,83 C250,113 252,145 259,174"/>
+            <path d="M181,70 C183,92 191,103 200,103 C209,103 217,92 219,70"/>
+            <path class="soft" d="M184,72 L187,88"/><path class="soft" d="M188,78 L191,94"/><path class="soft" d="M193,83 L195,98"/><path class="soft" d="M199,86 L199,101"/><path class="soft" d="M201,101 L201,86"/><path class="soft" d="M205,98 L207,83"/><path class="soft" d="M209,94 L212,78"/><path class="soft" d="M213,88 L216,72"/>
+            <path d="M65,216 Q81,231 105,241"/><path d="M335,216 Q319,231 295,241"/>
+            <path class="soft" d="M68,217 L63,229"/><path class="soft" d="M74,222 L68,235"/><path class="soft" d="M80,226 L74,240"/><path class="soft" d="M86,230 L80,244"/><path class="soft" d="M92,233 L87,248"/><path class="soft" d="M98,237 L93,252"/><path class="soft" d="M104,240 L99,254"/>
+            <path class="soft" d="M332,217 L337,229"/><path class="soft" d="M326,222 L332,235"/><path class="soft" d="M320,226 L326,240"/><path class="soft" d="M314,230 L320,244"/><path class="soft" d="M308,233 L313,248"/><path class="soft" d="M302,237 L307,252"/><path class="soft" d="M296,240 L301,254"/>
+            <path d="M138,419 Q200,434 262,419"/>
+            <path class="soft" d="M145,421 L144,434"/><path class="soft" d="M153,423 L152,436"/><path class="soft" d="M161,425 L160,438"/><path class="soft" d="M169,427 L168,440"/><path class="soft" d="M177,428 L176,441"/><path class="soft" d="M185,430 L184,443"/><path class="soft" d="M193,431 L192,444"/><path class="soft" d="M207,431 L208,444"/><path class="soft" d="M215,430 L216,443"/><path class="soft" d="M223,428 L224,441"/><path class="soft" d="M231,427 L232,440"/><path class="soft" d="M239,425 L240,438"/><path class="soft" d="M247,423 L248,436"/><path class="soft" d="M255,421 L256,434"/>
+            <path class="soft" d="M156,184 L151,414"/><path class="soft" d="M244,184 L249,414"/>
+          </g>
+        </g>
+        <g class="garment" data-garment="Sport Coat" hidden>
           <path class="dye" d="M95,80 C80,92 72,130 70,170 L60,402 Q80,410 100,406 L113,205 L112,175 C100,150 92,120 95,80 Z M305,80 C320,92 328,130 330,170 L340,402 Q320,410 300,406 L287,205 L288,175 C300,150 308,120 305,80 Z"/><path class="dye" d="M165,48 L95,80 C92,120 100,150 112,175 L118,435 Q160,445 196,442 L204,442 Q240,445 282,435 L288,175 C300,150 308,120 305,80 L235,48 Q200,62 165,48 Z"/>
           <path class="weave" d="M95,80 C80,92 72,130 70,170 L60,402 Q80,410 100,406 L113,205 L112,175 C100,150 92,120 95,80 Z M305,80 C320,92 328,130 330,170 L340,402 Q320,410 300,406 L287,205 L288,175 C300,150 308,120 305,80 Z"/><path class="weave" d="M165,48 L95,80 C92,120 100,150 112,175 L118,435 Q160,445 196,442 L204,442 Q240,445 282,435 L288,175 C300,150 308,120 305,80 L235,48 Q200,62 165,48 Z"/>
           <g class="art">
@@ -106,41 +131,182 @@
       </svg>
     </figure>
 
-    <section class="panel">
+    <div class="preview-controls">
       <h1 class="label">Silhouettes</h1>
       <div class="tabs" role="tablist" aria-label="Silhouette">
-        <button class="label" role="tab" type="button" aria-selected="true">Sport Coat</button>
+        <button class="label" role="tab" type="button" aria-selected="true">Crewneck</button>
+        <button class="label" role="tab" type="button" aria-selected="false">Sport Coat</button>
         <button class="label" role="tab" type="button" aria-selected="false">Trousers</button>
       </div>
       <div class="readout" aria-live="polite"><span class="name">Choose a colour</span><span class="no label"></span></div>
-      <div class="swatches" role="group" aria-label="Colours">
-          <button type="button" aria-pressed="false" data-name="Midnight" data-hex="#1c2230" data-no="01" aria-label="No. 01 Midnight"><span style="--hex:#1c2230"></span></button>
-          <button type="button" aria-pressed="false" data-name="Navy" data-hex="#26324a" data-no="02" aria-label="No. 02 Navy"><span style="--hex:#26324a"></span></button>
-          <button type="button" aria-pressed="false" data-name="French Navy" data-hex="#2f4166" data-no="03" aria-label="No. 03 French Navy"><span style="--hex:#2f4166"></span></button>
-          <button type="button" aria-pressed="false" data-name="Slate Blue" data-hex="#4f6380" data-no="04" aria-label="No. 04 Slate Blue"><span style="--hex:#4f6380"></span></button>
-          <button type="button" aria-pressed="false" data-name="Air Force" data-hex="#6f86a3" data-no="05" aria-label="No. 05 Air Force"><span style="--hex:#6f86a3"></span></button>
-          <button type="button" aria-pressed="false" data-name="Powder" data-hex="#a9bccf" data-no="06" aria-label="No. 06 Powder"><span style="--hex:#a9bccf"></span></button>
-          <button type="button" aria-pressed="false" data-name="Black" data-hex="#1a1a1a" data-no="07" aria-label="No. 07 Black"><span style="--hex:#1a1a1a"></span></button>
-          <button type="button" aria-pressed="false" data-name="Charcoal" data-hex="#3a3b3d" data-no="08" aria-label="No. 08 Charcoal"><span style="--hex:#3a3b3d"></span></button>
-          <button type="button" aria-pressed="false" data-name="Flannel" data-hex="#6d6e70" data-no="09" aria-label="No. 09 Flannel"><span style="--hex:#6d6e70"></span></button>
-          <button type="button" aria-pressed="false" data-name="Mid Grey" data-hex="#8f8f8c" data-no="10" aria-label="No. 10 Mid Grey"><span style="--hex:#8f8f8c"></span></button>
-          <button type="button" aria-pressed="false" data-name="Dove" data-hex="#bdbab3" data-no="11" aria-label="No. 11 Dove"><span style="--hex:#bdbab3"></span></button>
-          <button type="button" aria-pressed="false" data-name="Ivory" data-hex="#e8e1d2" data-no="12" aria-label="No. 12 Ivory"><span style="--hex:#e8e1d2"></span></button>
-          <button type="button" aria-pressed="false" data-name="Stone" data-hex="#c9bda6" data-no="13" aria-label="No. 13 Stone"><span style="--hex:#c9bda6"></span></button>
-          <button type="button" aria-pressed="false" data-name="Sand" data-hex="#bfa784" data-no="14" aria-label="No. 14 Sand"><span style="--hex:#bfa784"></span></button>
-          <button type="button" aria-pressed="false" data-name="Camel" data-hex="#b08a5a" data-no="15" aria-label="No. 15 Camel"><span style="--hex:#b08a5a"></span></button>
-          <button type="button" aria-pressed="false" data-name="Taupe" data-hex="#8b7a6a" data-no="16" aria-label="No. 16 Taupe"><span style="--hex:#8b7a6a"></span></button>
-          <button type="button" aria-pressed="false" data-name="Tobacco" data-hex="#7a5534" data-no="17" aria-label="No. 17 Tobacco"><span style="--hex:#7a5534"></span></button>
-          <button type="button" aria-pressed="false" data-name="Chocolate" data-hex="#4a3326" data-no="18" aria-label="No. 18 Chocolate"><span style="--hex:#4a3326"></span></button>
-          <button type="button" aria-pressed="false" data-name="Oxblood" data-hex="#6B3529" data-no="19" aria-label="No. 19 Oxblood"><span style="--hex:#6B3529"></span></button>
-          <button type="button" aria-pressed="false" data-name="Burgundy" data-hex="#5c2230" data-no="20" aria-label="No. 20 Burgundy"><span style="--hex:#5c2230"></span></button>
-          <button type="button" aria-pressed="false" data-name="Rust" data-hex="#9a4a2c" data-no="21" aria-label="No. 21 Rust"><span style="--hex:#9a4a2c"></span></button>
-          <button type="button" aria-pressed="false" data-name="Olive" data-hex="#5f5c3a" data-no="22" aria-label="No. 22 Olive"><span style="--hex:#5f5c3a"></span></button>
-          <button type="button" aria-pressed="false" data-name="Forest" data-hex="#2e4034" data-no="23" aria-label="No. 23 Forest"><span style="--hex:#2e4034"></span></button>
-          <button type="button" aria-pressed="false" data-name="Sage" data-hex="#8f9a80" data-no="24" aria-label="No. 24 Sage"><span style="--hex:#8f9a80"></span></button>
+    </div>
+    </div>
+
+    <section class="panel">
+      <div class="swatches" role="group" aria-label="Cashmere colours">
+                  <h2 class="family-heading">Creams</h2>
+        <button type="button" aria-pressed="false" data-name="Satin" data-no="25753" data-hex="#f8f5e8" data-tile="/assets/images/silhouettes/cashmere/25753-tile.jpg" aria-label="Satin No. 25753"><span class="sample" style="--hex:#f8f5e8;--swatch-image:url('/assets/images/silhouettes/cashmere/25753.jpg')"></span><span class="swatch-name">Satin</span></button>
+        <button type="button" aria-pressed="false" data-name="Eco Alabaster" data-no="25825" data-hex="#d5c3aa" data-tile="/assets/images/silhouettes/cashmere/25825-tile.jpg" aria-label="Eco Alabaster No. 25825"><span class="sample" style="--hex:#d5c3aa;--swatch-image:url('/assets/images/silhouettes/cashmere/25825.jpg')"></span><span class="swatch-name">Eco Alabaster</span></button>
+        <button type="button" aria-pressed="false" data-name="Wheat" data-no="25066" data-hex="#d1c0ac" data-tile="/assets/images/silhouettes/cashmere/25066-tile.jpg" aria-label="Wheat No. 25066"><span class="sample" style="--hex:#d1c0ac;--swatch-image:url('/assets/images/silhouettes/cashmere/25066.jpg')"></span><span class="swatch-name">Wheat</span></button>
+        <button type="button" aria-pressed="false" data-name="Moon" data-no="25754" data-hex="#faf7e6" data-tile="/assets/images/silhouettes/cashmere/25754-tile.jpg" aria-label="Moon No. 25754"><span class="sample" style="--hex:#faf7e6;--swatch-image:url('/assets/images/silhouettes/cashmere/25754.jpg')"></span><span class="swatch-name">Moon</span></button>
+        <button type="button" aria-pressed="false" data-name="Jute" data-no="25468" data-hex="#bbab9b" data-tile="/assets/images/silhouettes/cashmere/25468-tile.jpg" aria-label="Jute No. 25468"><span class="sample" style="--hex:#bbab9b;--swatch-image:url('/assets/images/silhouettes/cashmere/25468.jpg')"></span><span class="swatch-name">Jute</span></button>
+        <button type="button" aria-pressed="false" data-name="Neutral" data-no="25759" data-hex="#cfc4af" data-tile="/assets/images/silhouettes/cashmere/25759-tile.jpg" aria-label="Neutral No. 25759"><span class="sample" style="--hex:#cfc4af;--swatch-image:url('/assets/images/silhouettes/cashmere/25759.jpg')"></span><span class="swatch-name">Neutral</span></button>
+        <button type="button" aria-pressed="false" data-name="Chalk" data-no="25861" data-hex="#f4efdc" data-tile="/assets/images/silhouettes/cashmere/25861-tile.jpg" aria-label="Chalk No. 25861"><span class="sample" style="--hex:#f4efdc;--swatch-image:url('/assets/images/silhouettes/cashmere/25861.jpg')"></span><span class="swatch-name">Chalk</span></button>
+        <button type="button" aria-pressed="false" data-name="Eco Gravel" data-no="25579" data-hex="#a59881" data-tile="/assets/images/silhouettes/cashmere/25579-tile.jpg" aria-label="Eco Gravel No. 25579"><span class="sample" style="--hex:#a59881;--swatch-image:url('/assets/images/silhouettes/cashmere/25579.jpg')"></span><span class="swatch-name">Eco Gravel</span></button>
+        <button type="button" aria-pressed="false" data-name="Eco Birch" data-no="25578" data-hex="#ada18c" data-tile="/assets/images/silhouettes/cashmere/25578-tile.jpg" aria-label="Eco Birch No. 25578"><span class="sample" style="--hex:#ada18c;--swatch-image:url('/assets/images/silhouettes/cashmere/25578.jpg')"></span><span class="swatch-name">Eco Birch</span></button>
+        <button type="button" aria-pressed="false" data-name="Eco Paper" data-no="25046" data-hex="#f4efdc" data-tile="/assets/images/silhouettes/cashmere/25046-tile.jpg" aria-label="Eco Paper No. 25046"><span class="sample" style="--hex:#f4efdc;--swatch-image:url('/assets/images/silhouettes/cashmere/25046.jpg')"></span><span class="swatch-name">Eco Paper</span></button>
+        <button type="button" aria-pressed="false" data-name="Oyster" data-no="25756" data-hex="#9c907b" data-tile="/assets/images/silhouettes/cashmere/25756-tile.jpg" aria-label="Oyster No. 25756"><span class="sample" style="--hex:#9c907b;--swatch-image:url('/assets/images/silhouettes/cashmere/25756.jpg')"></span><span class="swatch-name">Oyster</span></button>
+        <button type="button" aria-pressed="false" data-name="Toast" data-no="25890" data-hex="#948275" data-tile="/assets/images/silhouettes/cashmere/25890-tile.jpg" aria-label="Toast No. 25890"><span class="sample" style="--hex:#948275;--swatch-image:url('/assets/images/silhouettes/cashmere/25890.jpg')"></span><span class="swatch-name">Toast</span></button>
+        <button type="button" aria-pressed="false" data-name="Canvas" data-no="25100" data-hex="#dad3c7" data-tile="/assets/images/silhouettes/cashmere/25100-tile.jpg" aria-label="Canvas No. 25100"><span class="sample" style="--hex:#dad3c7;--swatch-image:url('/assets/images/silhouettes/cashmere/25100.jpg')"></span><span class="swatch-name">Canvas</span></button>
+        <button type="button" aria-pressed="false" data-name="Driftwood" data-no="25101" data-hex="#938a7c" data-tile="/assets/images/silhouettes/cashmere/25101-tile.jpg" aria-label="Driftwood No. 25101"><span class="sample" style="--hex:#938a7c;--swatch-image:url('/assets/images/silhouettes/cashmere/25101.jpg')"></span><span class="swatch-name">Driftwood</span></button>
+        <button type="button" aria-pressed="false" data-name="Twine" data-no="25690" data-hex="#705e4b" data-tile="/assets/images/silhouettes/cashmere/25690-tile.jpg" aria-label="Twine No. 25690"><span class="sample" style="--hex:#705e4b;--swatch-image:url('/assets/images/silhouettes/cashmere/25690.jpg')"></span><span class="swatch-name">Twine</span></button>
+        <h2 class="family-heading">Sands</h2>
+        <button type="button" aria-pressed="false" data-name="Lunar" data-no="25600" data-hex="#e3cec9" data-tile="/assets/images/silhouettes/cashmere/25600-tile.jpg" aria-label="Lunar No. 25600"><span class="sample" style="--hex:#e3cec9;--swatch-image:url('/assets/images/silhouettes/cashmere/25600.jpg')"></span><span class="swatch-name">Lunar</span></button>
+        <button type="button" aria-pressed="false" data-name="Champagne" data-no="25762" data-hex="#cdb599" data-tile="/assets/images/silhouettes/cashmere/25762-tile.jpg" aria-label="Champagne No. 25762"><span class="sample" style="--hex:#cdb599;--swatch-image:url('/assets/images/silhouettes/cashmere/25762.jpg')"></span><span class="swatch-name">Champagne</span></button>
+        <button type="button" aria-pressed="false" data-name="Chanterelle" data-no="25565" data-hex="#b8a084" data-tile="/assets/images/silhouettes/cashmere/25565-tile.jpg" aria-label="Chanterelle No. 25565"><span class="sample" style="--hex:#b8a084;--swatch-image:url('/assets/images/silhouettes/cashmere/25565.jpg')"></span><span class="swatch-name">Chanterelle</span></button>
+        <button type="button" aria-pressed="false" data-name="Feather" data-no="25385" data-hex="#f2e3d6" data-tile="/assets/images/silhouettes/cashmere/25385-tile.jpg" aria-label="Feather No. 25385"><span class="sample" style="--hex:#f2e3d6;--swatch-image:url('/assets/images/silhouettes/cashmere/25385.jpg')"></span><span class="swatch-name">Feather</span></button>
+        <button type="button" aria-pressed="false" data-name="Taupe" data-no="25763" data-hex="#a5866d" data-tile="/assets/images/silhouettes/cashmere/25763-tile.jpg" aria-label="Taupe No. 25763"><span class="sample" style="--hex:#a5866d;--swatch-image:url('/assets/images/silhouettes/cashmere/25763.jpg')"></span><span class="swatch-name">Taupe</span></button>
+        <button type="button" aria-pressed="false" data-name="Honey" data-no="25602" data-hex="#b89676" data-tile="/assets/images/silhouettes/cashmere/25602-tile.jpg" aria-label="Honey No. 25602"><span class="sample" style="--hex:#b89676;--swatch-image:url('/assets/images/silhouettes/cashmere/25602.jpg')"></span><span class="swatch-name">Honey</span></button>
+        <button type="button" aria-pressed="false" data-name="Faith" data-no="25755" data-hex="#e8dac2" data-tile="/assets/images/silhouettes/cashmere/25755-tile.jpg" aria-label="Faith No. 25755"><span class="sample" style="--hex:#e8dac2;--swatch-image:url('/assets/images/silhouettes/cashmere/25755.jpg')"></span><span class="swatch-name">Faith</span></button>
+        <button type="button" aria-pressed="false" data-name="Fawn" data-no="25693" data-hex="#98785f" data-tile="/assets/images/silhouettes/cashmere/25693-tile.jpg" aria-label="Fawn No. 25693"><span class="sample" style="--hex:#98785f;--swatch-image:url('/assets/images/silhouettes/cashmere/25693.jpg')"></span><span class="swatch-name">Fawn</span></button>
+        <button type="button" aria-pressed="false" data-name="Semolina" data-no="25652" data-hex="#ad8763" data-tile="/assets/images/silhouettes/cashmere/25652-tile.jpg" aria-label="Semolina No. 25652"><span class="sample" style="--hex:#ad8763;--swatch-image:url('/assets/images/silhouettes/cashmere/25652.jpg')"></span><span class="swatch-name">Semolina</span></button>
+        <button type="button" aria-pressed="false" data-name="Dunes" data-no="25695" data-hex="#ddc7ad" data-tile="/assets/images/silhouettes/cashmere/25695-tile.jpg" aria-label="Dunes No. 25695"><span class="sample" style="--hex:#ddc7ad;--swatch-image:url('/assets/images/silhouettes/cashmere/25695.jpg')"></span><span class="swatch-name">Dunes</span></button>
+        <button type="button" aria-pressed="false" data-name="Haystack" data-no="25299" data-hex="#805a36" data-tile="/assets/images/silhouettes/cashmere/25299-tile.jpg" aria-label="Haystack No. 25299"><span class="sample" style="--hex:#805a36;--swatch-image:url('/assets/images/silhouettes/cashmere/25299.jpg')"></span><span class="swatch-name">Haystack</span></button>
+        <button type="button" aria-pressed="false" data-name="Crème Brulee" data-no="25386" data-hex="#937853" data-tile="/assets/images/silhouettes/cashmere/25386-tile.jpg" aria-label="Crème Brulee No. 25386"><span class="sample" style="--hex:#937853;--swatch-image:url('/assets/images/silhouettes/cashmere/25386.jpg')"></span><span class="swatch-name">Crème Brulee</span></button>
+        <button type="button" aria-pressed="false" data-name="Crème" data-no="25381" data-hex="#d2bd9f" data-tile="/assets/images/silhouettes/cashmere/25381-tile.jpg" aria-label="Crème No. 25381"><span class="sample" style="--hex:#d2bd9f;--swatch-image:url('/assets/images/silhouettes/cashmere/25381.jpg')"></span><span class="swatch-name">Crème</span></button>
+        <button type="button" aria-pressed="false" data-name="Agate" data-no="25102" data-hex="#623f25" data-tile="/assets/images/silhouettes/cashmere/25102-tile.jpg" aria-label="Agate No. 25102"><span class="sample" style="--hex:#623f25;--swatch-image:url('/assets/images/silhouettes/cashmere/25102.jpg')"></span><span class="swatch-name">Agate</span></button>
+        <button type="button" aria-pressed="false" data-name="Cinder" data-no="25694" data-hex="#754014" data-tile="/assets/images/silhouettes/cashmere/25694-tile.jpg" aria-label="Cinder No. 25694"><span class="sample" style="--hex:#754014;--swatch-image:url('/assets/images/silhouettes/cashmere/25694.jpg')"></span><span class="swatch-name">Cinder</span></button>
+        <h2 class="family-heading">Browns</h2>
+        <button type="button" aria-pressed="false" data-name="Shale" data-no="25757" data-hex="#867f6f" data-tile="/assets/images/silhouettes/cashmere/25757-tile.jpg" aria-label="Shale No. 25757"><span class="sample" style="--hex:#867f6f;--swatch-image:url('/assets/images/silhouettes/cashmere/25757.jpg')"></span><span class="swatch-name">Shale</span></button>
+        <button type="button" aria-pressed="false" data-name="Amber" data-no="25138" data-hex="#906b46" data-tile="/assets/images/silhouettes/cashmere/25138-tile.jpg" aria-label="Amber No. 25138"><span class="sample" style="--hex:#906b46;--swatch-image:url('/assets/images/silhouettes/cashmere/25138.jpg')"></span><span class="swatch-name">Amber</span></button>
+        <button type="button" aria-pressed="false" data-name="Raw" data-no="25760" data-hex="#8f7f6e" data-tile="/assets/images/silhouettes/cashmere/25760-tile.jpg" aria-label="Raw No. 25760"><span class="sample" style="--hex:#8f7f6e;--swatch-image:url('/assets/images/silhouettes/cashmere/25760.jpg')"></span><span class="swatch-name">Raw</span></button>
+        <button type="button" aria-pressed="false" data-name="Eco Walnut" data-no="25831" data-hex="#7a7265" data-tile="/assets/images/silhouettes/cashmere/25831-tile.jpg" aria-label="Eco Walnut No. 25831"><span class="sample" style="--hex:#7a7265;--swatch-image:url('/assets/images/silhouettes/cashmere/25831.jpg')"></span><span class="swatch-name">Eco Walnut</span></button>
+        <button type="button" aria-pressed="false" data-name="Bison" data-no="25689" data-hex="#6d5237" data-tile="/assets/images/silhouettes/cashmere/25689-tile.jpg" aria-label="Bison No. 25689"><span class="sample" style="--hex:#6d5237;--swatch-image:url('/assets/images/silhouettes/cashmere/25689.jpg')"></span><span class="swatch-name">Bison</span></button>
+        <button type="button" aria-pressed="false" data-name="Okapi" data-no="25105" data-hex="#6b3022" data-tile="/assets/images/silhouettes/cashmere/25105-tile.jpg" aria-label="Okapi No. 25105"><span class="sample" style="--hex:#6b3022;--swatch-image:url('/assets/images/silhouettes/cashmere/25105.jpg')"></span><span class="swatch-name">Okapi</span></button>
+        <button type="button" aria-pressed="false" data-name="Otter" data-no="25467" data-hex="#676762" data-tile="/assets/images/silhouettes/cashmere/25467-tile.jpg" aria-label="Otter No. 25467"><span class="sample" style="--hex:#676762;--swatch-image:url('/assets/images/silhouettes/cashmere/25467.jpg')"></span><span class="swatch-name">Otter</span></button>
+        <button type="button" aria-pressed="false" data-name="Palm" data-no="25697" data-hex="#563b2a" data-tile="/assets/images/silhouettes/cashmere/25697-tile.jpg" aria-label="Palm No. 25697"><span class="sample" style="--hex:#563b2a;--swatch-image:url('/assets/images/silhouettes/cashmere/25697.jpg')"></span><span class="swatch-name">Palm</span></button>
+        <button type="button" aria-pressed="false" data-name="Cinnabar" data-no="25298" data-hex="#472c25" data-tile="/assets/images/silhouettes/cashmere/25298-tile.jpg" aria-label="Cinnabar No. 25298"><span class="sample" style="--hex:#472c25;--swatch-image:url('/assets/images/silhouettes/cashmere/25298.jpg')"></span><span class="swatch-name">Cinnabar</span></button>
+        <button type="button" aria-pressed="false" data-name="Kindling" data-no="25692" data-hex="#554d46" data-tile="/assets/images/silhouettes/cashmere/25692-tile.jpg" aria-label="Kindling No. 25692"><span class="sample" style="--hex:#554d46;--swatch-image:url('/assets/images/silhouettes/cashmere/25692.jpg')"></span><span class="swatch-name">Kindling</span></button>
+        <button type="button" aria-pressed="false" data-name="Compost" data-no="25380" data-hex="#332a25" data-tile="/assets/images/silhouettes/cashmere/25380-tile.jpg" aria-label="Compost No. 25380"><span class="sample" style="--hex:#332a25;--swatch-image:url('/assets/images/silhouettes/cashmere/25380.jpg')"></span><span class="swatch-name">Compost</span></button>
+        <button type="button" aria-pressed="false" data-name="Americano" data-no="25376" data-hex="#402a20" data-tile="/assets/images/silhouettes/cashmere/25376-tile.jpg" aria-label="Americano No. 25376"><span class="sample" style="--hex:#402a20;--swatch-image:url('/assets/images/silhouettes/cashmere/25376.jpg')"></span><span class="swatch-name">Americano</span></button>
+        <button type="button" aria-pressed="false" data-name="Sepia" data-no="25758" data-hex="#544f4f" data-tile="/assets/images/silhouettes/cashmere/25758-tile.jpg" aria-label="Sepia No. 25758"><span class="sample" style="--hex:#544f4f;--swatch-image:url('/assets/images/silhouettes/cashmere/25758.jpg')"></span><span class="swatch-name">Sepia</span></button>
+        <button type="button" aria-pressed="false" data-name="Coffee" data-no="25103" data-hex="#2f2521" data-tile="/assets/images/silhouettes/cashmere/25103-tile.jpg" aria-label="Coffee No. 25103"><span class="sample" style="--hex:#2f2521;--swatch-image:url('/assets/images/silhouettes/cashmere/25103.jpg')"></span><span class="swatch-name">Coffee</span></button>
+        <button type="button" aria-pressed="false" data-name="Buffalo" data-no="25127" data-hex="#362a24" data-tile="/assets/images/silhouettes/cashmere/25127-tile.jpg" aria-label="Buffalo No. 25127"><span class="sample" style="--hex:#362a24;--swatch-image:url('/assets/images/silhouettes/cashmere/25127.jpg')"></span><span class="swatch-name">Buffalo</span></button>
+        <h2 class="family-heading">Reds</h2>
+        <button type="button" aria-pressed="false" data-name="Marmalade" data-no="25107" data-hex="#a33c1a" data-tile="/assets/images/silhouettes/cashmere/25107-tile.jpg" aria-label="Marmalade No. 25107"><span class="sample" style="--hex:#a33c1a;--swatch-image:url('/assets/images/silhouettes/cashmere/25107.jpg')"></span><span class="swatch-name">Marmalade</span></button>
+        <button type="button" aria-pressed="false" data-name="Fox" data-no="25772" data-hex="#d85c33" data-tile="/assets/images/silhouettes/cashmere/25772-tile.jpg" aria-label="Fox No. 25772"><span class="sample" style="--hex:#d85c33;--swatch-image:url('/assets/images/silhouettes/cashmere/25772.jpg')"></span><span class="swatch-name">Fox</span></button>
+        <button type="button" aria-pressed="false" data-name="Soar" data-no="25108" data-hex="#f1798e" data-tile="/assets/images/silhouettes/cashmere/25108-tile.jpg" aria-label="Soar No. 25108"><span class="sample" style="--hex:#f1798e;--swatch-image:url('/assets/images/silhouettes/cashmere/25108.jpg')"></span><span class="swatch-name">Soar</span></button>
+        <button type="button" aria-pressed="false" data-name="Pioneer" data-no="25660" data-hex="#8b3c1d" data-tile="/assets/images/silhouettes/cashmere/25660-tile.jpg" aria-label="Pioneer No. 25660"><span class="sample" style="--hex:#8b3c1d;--swatch-image:url('/assets/images/silhouettes/cashmere/25660.jpg')"></span><span class="swatch-name">Pioneer</span></button>
+        <button type="button" aria-pressed="false" data-name="Persimmon" data-no="25249" data-hex="#e03c2a" data-tile="/assets/images/silhouettes/cashmere/25249-tile.jpg" aria-label="Persimmon No. 25249"><span class="sample" style="--hex:#e03c2a;--swatch-image:url('/assets/images/silhouettes/cashmere/25249.jpg')"></span><span class="swatch-name">Persimmon</span></button>
+        <button type="button" aria-pressed="false" data-name="Postbox" data-no="25045" data-hex="#ae0c20" data-tile="/assets/images/silhouettes/cashmere/25045-tile.jpg" aria-label="Postbox No. 25045"><span class="sample" style="--hex:#ae0c20;--swatch-image:url('/assets/images/silhouettes/cashmere/25045.jpg')"></span><span class="swatch-name">Postbox</span></button>
+        <button type="button" aria-pressed="false" data-name="Brick" data-no="25699" data-hex="#7a2315" data-tile="/assets/images/silhouettes/cashmere/25699-tile.jpg" aria-label="Brick No. 25699"><span class="sample" style="--hex:#7a2315;--swatch-image:url('/assets/images/silhouettes/cashmere/25699.jpg')"></span><span class="swatch-name">Brick</span></button>
+        <button type="button" aria-pressed="false" data-name="Tomato" data-no="25716" data-hex="#b20620" data-tile="/assets/images/silhouettes/cashmere/25716-tile.jpg" aria-label="Tomato No. 25716"><span class="sample" style="--hex:#b20620;--swatch-image:url('/assets/images/silhouettes/cashmere/25716.jpg')"></span><span class="swatch-name">Tomato</span></button>
+        <button type="button" aria-pressed="false" data-name="Scarlet" data-no="25726" data-hex="#a70911" data-tile="/assets/images/silhouettes/cashmere/25726-tile.jpg" aria-label="Scarlet No. 25726"><span class="sample" style="--hex:#a70911;--swatch-image:url('/assets/images/silhouettes/cashmere/25726.jpg')"></span><span class="swatch-name">Scarlet</span></button>
+        <button type="button" aria-pressed="false" data-name="Spice" data-no="25315" data-hex="#622417" data-tile="/assets/images/silhouettes/cashmere/25315-tile.jpg" aria-label="Spice No. 25315"><span class="sample" style="--hex:#622417;--swatch-image:url('/assets/images/silhouettes/cashmere/25315.jpg')"></span><span class="swatch-name">Spice</span></button>
+        <button type="button" aria-pressed="false" data-name="Flair" data-no="25768" data-hex="#931f18" data-tile="/assets/images/silhouettes/cashmere/25768-tile.jpg" aria-label="Flair No. 25768"><span class="sample" style="--hex:#931f18;--swatch-image:url('/assets/images/silhouettes/cashmere/25768.jpg')"></span><span class="swatch-name">Flair</span></button>
+        <button type="button" aria-pressed="false" data-name="Garnet" data-no="25095" data-hex="#810c1a" data-tile="/assets/images/silhouettes/cashmere/25095-tile.jpg" aria-label="Garnet No. 25095"><span class="sample" style="--hex:#810c1a;--swatch-image:url('/assets/images/silhouettes/cashmere/25095.jpg')"></span><span class="swatch-name">Garnet</span></button>
+        <button type="button" aria-pressed="false" data-name="Warm" data-no="25765" data-hex="#441d18" data-tile="/assets/images/silhouettes/cashmere/25765-tile.jpg" aria-label="Warm No. 25765"><span class="sample" style="--hex:#441d18;--swatch-image:url('/assets/images/silhouettes/cashmere/25765.jpg')"></span><span class="swatch-name">Warm</span></button>
+        <button type="button" aria-pressed="false" data-name="Coulis" data-no="25351" data-hex="#770e13" data-tile="/assets/images/silhouettes/cashmere/25351-tile.jpg" aria-label="Coulis No. 25351"><span class="sample" style="--hex:#770e13;--swatch-image:url('/assets/images/silhouettes/cashmere/25351.jpg')"></span><span class="swatch-name">Coulis</span></button>
+        <button type="button" aria-pressed="false" data-name="Rich" data-no="25769" data-hex="#560d18" data-tile="/assets/images/silhouettes/cashmere/25769-tile.jpg" aria-label="Rich No. 25769"><span class="sample" style="--hex:#560d18;--swatch-image:url('/assets/images/silhouettes/cashmere/25769.jpg')"></span><span class="swatch-name">Rich</span></button>
+        <h2 class="family-heading">Pinks &amp; Berries</h2>
+        <button type="button" aria-pressed="false" data-name="Beach" data-no="25764" data-hex="#f4d4c1" data-tile="/assets/images/silhouettes/cashmere/25764-tile.jpg" aria-label="Beach No. 25764"><span class="sample" style="--hex:#f4d4c1;--swatch-image:url('/assets/images/silhouettes/cashmere/25764.jpg')"></span><span class="swatch-name">Beach</span></button>
+        <button type="button" aria-pressed="false" data-name="Juliet" data-no="25512" data-hex="#f9c1c8" data-tile="/assets/images/silhouettes/cashmere/25512-tile.jpg" aria-label="Juliet No. 25512"><span class="sample" style="--hex:#f9c1c8;--swatch-image:url('/assets/images/silhouettes/cashmere/25512.jpg')"></span><span class="swatch-name">Juliet</span></button>
+        <button type="button" aria-pressed="false" data-name="Powder" data-no="25441" data-hex="#fbe8e4" data-tile="/assets/images/silhouettes/cashmere/25441-tile.jpg" aria-label="Powder No. 25441"><span class="sample" style="--hex:#fbe8e4;--swatch-image:url('/assets/images/silhouettes/cashmere/25441.jpg')"></span><span class="swatch-name">Powder</span></button>
+        <button type="button" aria-pressed="false" data-name="Bloom" data-no="25717" data-hex="#e3a392" data-tile="/assets/images/silhouettes/cashmere/25717-tile.jpg" aria-label="Bloom No. 25717"><span class="sample" style="--hex:#e3a392;--swatch-image:url('/assets/images/silhouettes/cashmere/25717.jpg')"></span><span class="swatch-name">Bloom</span></button>
+        <button type="button" aria-pressed="false" data-name="Bobbi" data-no="25109" data-hex="#e98897" data-tile="/assets/images/silhouettes/cashmere/25109-tile.jpg" aria-label="Bobbi No. 25109"><span class="sample" style="--hex:#e98897;--swatch-image:url('/assets/images/silhouettes/cashmere/25109.jpg')"></span><span class="swatch-name">Bobbi</span></button>
+        <button type="button" aria-pressed="false" data-name="Pixie" data-no="25584" data-hex="#f2c7c9" data-tile="/assets/images/silhouettes/cashmere/25584-tile.jpg" aria-label="Pixie No. 25584"><span class="sample" style="--hex:#f2c7c9;--swatch-image:url('/assets/images/silhouettes/cashmere/25584.jpg')"></span><span class="swatch-name">Pixie</span></button>
+        <button type="button" aria-pressed="false" data-name="Sienna" data-no="25567" data-hex="#c16a73" data-tile="/assets/images/silhouettes/cashmere/25567-tile.jpg" aria-label="Sienna No. 25567"><span class="sample" style="--hex:#c16a73;--swatch-image:url('/assets/images/silhouettes/cashmere/25567.jpg')"></span><span class="swatch-name">Sienna</span></button>
+        <button type="button" aria-pressed="false" data-name="Jenna" data-no="25110" data-hex="#914056" data-tile="/assets/images/silhouettes/cashmere/25110-tile.jpg" aria-label="Jenna No. 25110"><span class="sample" style="--hex:#914056;--swatch-image:url('/assets/images/silhouettes/cashmere/25110.jpg')"></span><span class="swatch-name">Jenna</span></button>
+        <button type="button" aria-pressed="false" data-name="Crush" data-no="25522" data-hex="#bd94a0" data-tile="/assets/images/silhouettes/cashmere/25522-tile.jpg" aria-label="Crush No. 25522"><span class="sample" style="--hex:#bd94a0;--swatch-image:url('/assets/images/silhouettes/cashmere/25522.jpg')"></span><span class="swatch-name">Crush</span></button>
+        <button type="button" aria-pressed="false" data-name="Sierra" data-no="25514" data-hex="#752d30" data-tile="/assets/images/silhouettes/cashmere/25514-tile.jpg" aria-label="Sierra No. 25514"><span class="sample" style="--hex:#752d30;--swatch-image:url('/assets/images/silhouettes/cashmere/25514.jpg')"></span><span class="swatch-name">Sierra</span></button>
+        <button type="button" aria-pressed="false" data-name="Baked" data-no="25111" data-hex="#621119" data-tile="/assets/images/silhouettes/cashmere/25111-tile.jpg" aria-label="Baked No. 25111"><span class="sample" style="--hex:#621119;--swatch-image:url('/assets/images/silhouettes/cashmere/25111.jpg')"></span><span class="swatch-name">Baked</span></button>
+        <button type="button" aria-pressed="false" data-name="Lane" data-no="25112" data-hex="#826463" data-tile="/assets/images/silhouettes/cashmere/25112-tile.jpg" aria-label="Lane No. 25112"><span class="sample" style="--hex:#826463;--swatch-image:url('/assets/images/silhouettes/cashmere/25112.jpg')"></span><span class="swatch-name">Lane</span></button>
+        <button type="button" aria-pressed="false" data-name="Hawthorn" data-no="25515" data-hex="#401320" data-tile="/assets/images/silhouettes/cashmere/25515-tile.jpg" aria-label="Hawthorn No. 25515"><span class="sample" style="--hex:#401320;--swatch-image:url('/assets/images/silhouettes/cashmere/25515.jpg')"></span><span class="swatch-name">Hawthorn</span></button>
+        <button type="button" aria-pressed="false" data-name="Barolo" data-no="25040" data-hex="#531021" data-tile="/assets/images/silhouettes/cashmere/25040-tile.jpg" aria-label="Barolo No. 25040"><span class="sample" style="--hex:#531021;--swatch-image:url('/assets/images/silhouettes/cashmere/25040.jpg')"></span><span class="swatch-name">Barolo</span></button>
+        <button type="button" aria-pressed="false" data-name="Chic" data-no="25775" data-hex="#4a3838" data-tile="/assets/images/silhouettes/cashmere/25775-tile.jpg" aria-label="Chic No. 25775"><span class="sample" style="--hex:#4a3838;--swatch-image:url('/assets/images/silhouettes/cashmere/25775.jpg')"></span><span class="swatch-name">Chic</span></button>
+        <h2 class="family-heading">Lilacs</h2>
+        <button type="button" aria-pressed="false" data-name="Pinky" data-no="25113" data-hex="#e8cae2" data-tile="/assets/images/silhouettes/cashmere/25113-tile.jpg" aria-label="Pinky No. 25113"><span class="sample" style="--hex:#e8cae2;--swatch-image:url('/assets/images/silhouettes/cashmere/25113.jpg')"></span><span class="swatch-name">Pinky</span></button>
+        <button type="button" aria-pressed="false" data-name="Prism" data-no="25523" data-hex="#d2b8d5" data-tile="/assets/images/silhouettes/cashmere/25523-tile.jpg" aria-label="Prism No. 25523"><span class="sample" style="--hex:#d2b8d5;--swatch-image:url('/assets/images/silhouettes/cashmere/25523.jpg')"></span><span class="swatch-name">Prism</span></button>
+        <button type="button" aria-pressed="false" data-name="Arctic" data-no="25200" data-hex="#c1cedb" data-tile="/assets/images/silhouettes/cashmere/25200-tile.jpg" aria-label="Arctic No. 25200"><span class="sample" style="--hex:#c1cedb;--swatch-image:url('/assets/images/silhouettes/cashmere/25200.jpg')"></span><span class="swatch-name">Arctic</span></button>
+        <button type="button" aria-pressed="false" data-name="Venus" data-no="25778" data-hex="#e2a4c7" data-tile="/assets/images/silhouettes/cashmere/25778-tile.jpg" aria-label="Venus No. 25778"><span class="sample" style="--hex:#e2a4c7;--swatch-image:url('/assets/images/silhouettes/cashmere/25778.jpg')"></span><span class="swatch-name">Venus</span></button>
+        <button type="button" aria-pressed="false" data-name="Potion" data-no="25115" data-hex="#bd95b3" data-tile="/assets/images/silhouettes/cashmere/25115-tile.jpg" aria-label="Potion No. 25115"><span class="sample" style="--hex:#bd95b3;--swatch-image:url('/assets/images/silhouettes/cashmere/25115.jpg')"></span><span class="swatch-name">Potion</span></button>
+        <button type="button" aria-pressed="false" data-name="Stonewash" data-no="25201" data-hex="#92acce" data-tile="/assets/images/silhouettes/cashmere/25201-tile.jpg" aria-label="Stonewash No. 25201"><span class="sample" style="--hex:#92acce;--swatch-image:url('/assets/images/silhouettes/cashmere/25201.jpg')"></span><span class="swatch-name">Stonewash</span></button>
+        <button type="button" aria-pressed="false" data-name="Fame" data-no="25779" data-hex="#da7bb0" data-tile="/assets/images/silhouettes/cashmere/25779-tile.jpg" aria-label="Fame No. 25779"><span class="sample" style="--hex:#da7bb0;--swatch-image:url('/assets/images/silhouettes/cashmere/25779.jpg')"></span><span class="swatch-name">Fame</span></button>
+        <button type="button" aria-pressed="false" data-name="Vibration" data-no="25731" data-hex="#82418f" data-tile="/assets/images/silhouettes/cashmere/25731-tile.jpg" aria-label="Vibration No. 25731"><span class="sample" style="--hex:#82418f;--swatch-image:url('/assets/images/silhouettes/cashmere/25731.jpg')"></span><span class="swatch-name">Vibration</span></button>
+        <button type="button" aria-pressed="false" data-name="Seaway" data-no="25738" data-hex="#617f9e" data-tile="/assets/images/silhouettes/cashmere/25738-tile.jpg" aria-label="Seaway No. 25738"><span class="sample" style="--hex:#617f9e;--swatch-image:url('/assets/images/silhouettes/cashmere/25738.jpg')"></span><span class="swatch-name">Seaway</span></button>
+        <button type="button" aria-pressed="false" data-name="Morello" data-no="25295" data-hex="#a1235c" data-tile="/assets/images/silhouettes/cashmere/25295-tile.jpg" aria-label="Morello No. 25295"><span class="sample" style="--hex:#a1235c;--swatch-image:url('/assets/images/silhouettes/cashmere/25295.jpg')"></span><span class="swatch-name">Morello</span></button>
+        <button type="button" aria-pressed="false" data-name="Plum" data-no="25128" data-hex="#644a61" data-tile="/assets/images/silhouettes/cashmere/25128-tile.jpg" aria-label="Plum No. 25128"><span class="sample" style="--hex:#644a61;--swatch-image:url('/assets/images/silhouettes/cashmere/25128.jpg')"></span><span class="swatch-name">Plum</span></button>
+        <button type="button" aria-pressed="false" data-name="Boro" data-no="25300" data-hex="#727e95" data-tile="/assets/images/silhouettes/cashmere/25300-tile.jpg" aria-label="Boro No. 25300"><span class="sample" style="--hex:#727e95;--swatch-image:url('/assets/images/silhouettes/cashmere/25300.jpg')"></span><span class="swatch-name">Boro</span></button>
+        <button type="button" aria-pressed="false" data-name="Haze" data-no="25114" data-hex="#8e2744" data-tile="/assets/images/silhouettes/cashmere/25114-tile.jpg" aria-label="Haze No. 25114"><span class="sample" style="--hex:#8e2744;--swatch-image:url('/assets/images/silhouettes/cashmere/25114.jpg')"></span><span class="swatch-name">Haze</span></button>
+        <button type="button" aria-pressed="false" data-name="Magic" data-no="25669" data-hex="#331849" data-tile="/assets/images/silhouettes/cashmere/25669-tile.jpg" aria-label="Magic No. 25669"><span class="sample" style="--hex:#331849;--swatch-image:url('/assets/images/silhouettes/cashmere/25669.jpg')"></span><span class="swatch-name">Magic</span></button>
+        <button type="button" aria-pressed="false" data-name="Denim" data-no="25117" data-hex="#424e6a" data-tile="/assets/images/silhouettes/cashmere/25117-tile.jpg" aria-label="Denim No. 25117"><span class="sample" style="--hex:#424e6a;--swatch-image:url('/assets/images/silhouettes/cashmere/25117.jpg')"></span><span class="swatch-name">Denim</span></button>
+        <h2 class="family-heading">Blues</h2>
+        <button type="button" aria-pressed="false" data-name="Gharial" data-no="25129" data-hex="#485d7d" data-tile="/assets/images/silhouettes/cashmere/25129-tile.jpg" aria-label="Gharial No. 25129"><span class="sample" style="--hex:#485d7d;--swatch-image:url('/assets/images/silhouettes/cashmere/25129.jpg')"></span><span class="swatch-name">Gharial</span></button>
+        <button type="button" aria-pressed="false" data-name="Marina" data-no="25592" data-hex="#728dc4" data-tile="/assets/images/silhouettes/cashmere/25592-tile.jpg" aria-label="Marina No. 25592"><span class="sample" style="--hex:#728dc4;--swatch-image:url('/assets/images/silhouettes/cashmere/25592.jpg')"></span><span class="swatch-name">Marina</span></button>
+        <button type="button" aria-pressed="false" data-name="Skylight" data-no="25398" data-hex="#a5bbcf" data-tile="/assets/images/silhouettes/cashmere/25398-tile.jpg" aria-label="Skylight No. 25398"><span class="sample" style="--hex:#a5bbcf;--swatch-image:url('/assets/images/silhouettes/cashmere/25398.jpg')"></span><span class="swatch-name">Skylight</span></button>
+        <button type="button" aria-pressed="false" data-name="Prussian" data-no="25815" data-hex="#2d3852" data-tile="/assets/images/silhouettes/cashmere/25815-tile.jpg" aria-label="Prussian No. 25815"><span class="sample" style="--hex:#2d3852;--swatch-image:url('/assets/images/silhouettes/cashmere/25815.jpg')"></span><span class="swatch-name">Prussian</span></button>
+        <button type="button" aria-pressed="false" data-name="Tetbury" data-no="25570" data-hex="#425fa2" data-tile="/assets/images/silhouettes/cashmere/25570-tile.jpg" aria-label="Tetbury No. 25570"><span class="sample" style="--hex:#425fa2;--swatch-image:url('/assets/images/silhouettes/cashmere/25570.jpg')"></span><span class="swatch-name">Tetbury</span></button>
+        <button type="button" aria-pressed="false" data-name="Saltaner" data-no="25120" data-hex="#7da8d3" data-tile="/assets/images/silhouettes/cashmere/25120-tile.jpg" aria-label="Saltaner No. 25120"><span class="sample" style="--hex:#7da8d3;--swatch-image:url('/assets/images/silhouettes/cashmere/25120.jpg')"></span><span class="swatch-name">Saltaner</span></button>
+        <button type="button" aria-pressed="false" data-name="Navy" data-no="25030" data-hex="#171a3a" data-tile="/assets/images/silhouettes/cashmere/25030-tile.jpg" aria-label="Navy No. 25030"><span class="sample" style="--hex:#171a3a;--swatch-image:url('/assets/images/silhouettes/cashmere/25030.jpg')"></span><span class="swatch-name">Navy</span></button>
+        <button type="button" aria-pressed="false" data-name="Lapis" data-no="25805" data-hex="#34447f" data-tile="/assets/images/silhouettes/cashmere/25805-tile.jpg" aria-label="Lapis No. 25805"><span class="sample" style="--hex:#34447f;--swatch-image:url('/assets/images/silhouettes/cashmere/25805.jpg')"></span><span class="swatch-name">Lapis</span></button>
+        <button type="button" aria-pressed="false" data-name="Glacier" data-no="25270" data-hex="#689ab5" data-tile="/assets/images/silhouettes/cashmere/25270-tile.jpg" aria-label="Glacier No. 25270"><span class="sample" style="--hex:#689ab5;--swatch-image:url('/assets/images/silhouettes/cashmere/25270.jpg')"></span><span class="swatch-name">Glacier</span></button>
+        <button type="button" aria-pressed="false" data-name="Inkwell" data-no="25371" data-hex="#040825" data-tile="/assets/images/silhouettes/cashmere/25371-tile.jpg" aria-label="Inkwell No. 25371"><span class="sample" style="--hex:#040825;--swatch-image:url('/assets/images/silhouettes/cashmere/25371.jpg')"></span><span class="swatch-name">Inkwell</span></button>
+        <button type="button" aria-pressed="false" data-name="Regatta" data-no="25390" data-hex="#29327b" data-tile="/assets/images/silhouettes/cashmere/25390-tile.jpg" aria-label="Regatta No. 25390"><span class="sample" style="--hex:#29327b;--swatch-image:url('/assets/images/silhouettes/cashmere/25390.jpg')"></span><span class="swatch-name">Regatta</span></button>
+        <button type="button" aria-pressed="false" data-name="Cameo" data-no="25121" data-hex="#567586" data-tile="/assets/images/silhouettes/cashmere/25121-tile.jpg" aria-label="Cameo No. 25121"><span class="sample" style="--hex:#567586;--swatch-image:url('/assets/images/silhouettes/cashmere/25121.jpg')"></span><span class="swatch-name">Cameo</span></button>
+        <button type="button" aria-pressed="false" data-name="Cove" data-no="25130" data-hex="#01001d" data-tile="/assets/images/silhouettes/cashmere/25130-tile.jpg" aria-label="Cove No. 25130"><span class="sample" style="--hex:#01001d;--swatch-image:url('/assets/images/silhouettes/cashmere/25130.jpg')"></span><span class="swatch-name">Cove</span></button>
+        <button type="button" aria-pressed="false" data-name="Midnight" data-no="25408" data-hex="#16203c" data-tile="/assets/images/silhouettes/cashmere/25408-tile.jpg" aria-label="Midnight No. 25408"><span class="sample" style="--hex:#16203c;--swatch-image:url('/assets/images/silhouettes/cashmere/25408.jpg')"></span><span class="swatch-name">Midnight</span></button>
+        <button type="button" aria-pressed="false" data-name="Indigo" data-no="25893" data-hex="#303644" data-tile="/assets/images/silhouettes/cashmere/25893-tile.jpg" aria-label="Indigo No. 25893"><span class="sample" style="--hex:#303644;--swatch-image:url('/assets/images/silhouettes/cashmere/25893.jpg')"></span><span class="swatch-name">Indigo</span></button>
+        <h2 class="family-heading">Greens</h2>
+        <button type="button" aria-pressed="false" data-name="Freeze" data-no="25572" data-hex="#acb9c3" data-tile="/assets/images/silhouettes/cashmere/25572-tile.jpg" aria-label="Freeze No. 25572"><span class="sample" style="--hex:#acb9c3;--swatch-image:url('/assets/images/silhouettes/cashmere/25572.jpg')"></span><span class="swatch-name">Freeze</span></button>
+        <button type="button" aria-pressed="false" data-name="Embrace" data-no="25397" data-hex="#a9c9ba" data-tile="/assets/images/silhouettes/cashmere/25397-tile.jpg" aria-label="Embrace No. 25397"><span class="sample" style="--hex:#a9c9ba;--swatch-image:url('/assets/images/silhouettes/cashmere/25397.jpg')"></span><span class="swatch-name">Embrace</span></button>
+        <button type="button" aria-pressed="false" data-name="Honeydew" data-no="25741" data-hex="#9bab87" data-tile="/assets/images/silhouettes/cashmere/25741-tile.jpg" aria-label="Honeydew No. 25741"><span class="sample" style="--hex:#9bab87;--swatch-image:url('/assets/images/silhouettes/cashmere/25741.jpg')"></span><span class="swatch-name">Honeydew</span></button>
+        <button type="button" aria-pressed="false" data-name="Bayou" data-no="25801" data-hex="#8a9fb7" data-tile="/assets/images/silhouettes/cashmere/25801-tile.jpg" aria-label="Bayou No. 25801"><span class="sample" style="--hex:#8a9fb7;--swatch-image:url('/assets/images/silhouettes/cashmere/25801.jpg')"></span><span class="swatch-name">Bayou</span></button>
+        <button type="button" aria-pressed="false" data-name="Sea Foam" data-no="25574" data-hex="#8da398" data-tile="/assets/images/silhouettes/cashmere/25574-tile.jpg" aria-label="Sea Foam No. 25574"><span class="sample" style="--hex:#8da398;--swatch-image:url('/assets/images/silhouettes/cashmere/25574.jpg')"></span><span class="swatch-name">Sea Foam</span></button>
+        <button type="button" aria-pressed="false" data-name="Chai" data-no="25624" data-hex="#678d66" data-tile="/assets/images/silhouettes/cashmere/25624-tile.jpg" aria-label="Chai No. 25624"><span class="sample" style="--hex:#678d66;--swatch-image:url('/assets/images/silhouettes/cashmere/25624.jpg')"></span><span class="swatch-name">Chai</span></button>
+        <button type="button" aria-pressed="false" data-name="Estuary" data-no="25131" data-hex="#5f787f" data-tile="/assets/images/silhouettes/cashmere/25131-tile.jpg" aria-label="Estuary No. 25131"><span class="sample" style="--hex:#5f787f;--swatch-image:url('/assets/images/silhouettes/cashmere/25131.jpg')"></span><span class="swatch-name">Estuary</span></button>
+        <button type="button" aria-pressed="false" data-name="Myrtle" data-no="25625" data-hex="#517273" data-tile="/assets/images/silhouettes/cashmere/25625-tile.jpg" aria-label="Myrtle No. 25625"><span class="sample" style="--hex:#517273;--swatch-image:url('/assets/images/silhouettes/cashmere/25625.jpg')"></span><span class="swatch-name">Myrtle</span></button>
+        <button type="button" aria-pressed="false" data-name="Rainforest" data-no="25256" data-hex="#256041" data-tile="/assets/images/silhouettes/cashmere/25256-tile.jpg" aria-label="Rainforest No. 25256"><span class="sample" style="--hex:#256041;--swatch-image:url('/assets/images/silhouettes/cashmere/25256.jpg')"></span><span class="swatch-name">Rainforest</span></button>
+        <button type="button" aria-pressed="false" data-name="Battleship" data-no="25746" data-hex="#4c6367" data-tile="/assets/images/silhouettes/cashmere/25746-tile.jpg" aria-label="Battleship No. 25746"><span class="sample" style="--hex:#4c6367;--swatch-image:url('/assets/images/silhouettes/cashmere/25746.jpg')"></span><span class="swatch-name">Battleship</span></button>
+        <button type="button" aria-pressed="false" data-name="Pine" data-no="25785" data-hex="#153333" data-tile="/assets/images/silhouettes/cashmere/25785-tile.jpg" aria-label="Pine No. 25785"><span class="sample" style="--hex:#153333;--swatch-image:url('/assets/images/silhouettes/cashmere/25785.jpg')"></span><span class="swatch-name">Pine</span></button>
+        <button type="button" aria-pressed="false" data-name="Pesto" data-no="25788" data-hex="#1c4d30" data-tile="/assets/images/silhouettes/cashmere/25788-tile.jpg" aria-label="Pesto No. 25788"><span class="sample" style="--hex:#1c4d30;--swatch-image:url('/assets/images/silhouettes/cashmere/25788.jpg')"></span><span class="swatch-name">Pesto</span></button>
+        <button type="button" aria-pressed="false" data-name="Serendipity" data-no="25123" data-hex="#234047" data-tile="/assets/images/silhouettes/cashmere/25123-tile.jpg" aria-label="Serendipity No. 25123"><span class="sample" style="--hex:#234047;--swatch-image:url('/assets/images/silhouettes/cashmere/25123.jpg')"></span><span class="swatch-name">Serendipity</span></button>
+        <button type="button" aria-pressed="false" data-name="Turquoise" data-no="25124" data-hex="#152927" data-tile="/assets/images/silhouettes/cashmere/25124-tile.jpg" aria-label="Turquoise No. 25124"><span class="sample" style="--hex:#152927;--swatch-image:url('/assets/images/silhouettes/cashmere/25124.jpg')"></span><span class="swatch-name">Turquoise</span></button>
+        <button type="button" aria-pressed="false" data-name="Cerith" data-no="25125" data-hex="#182c25" data-tile="/assets/images/silhouettes/cashmere/25125-tile.jpg" aria-label="Cerith No. 25125"><span class="sample" style="--hex:#182c25;--swatch-image:url('/assets/images/silhouettes/cashmere/25125.jpg')"></span><span class="swatch-name">Cerith</span></button>
+        <h2 class="family-heading">Golds &amp; Olives</h2>
+        <button type="button" aria-pressed="false" data-name="Lime" data-no="25793" data-hex="#b8d966" data-tile="/assets/images/silhouettes/cashmere/25793-tile.jpg" aria-label="Lime No. 25793"><span class="sample" style="--hex:#b8d966;--swatch-image:url('/assets/images/silhouettes/cashmere/25793.jpg')"></span><span class="swatch-name">Lime</span></button>
+        <button type="button" aria-pressed="false" data-name="Lemonade" data-no="25418" data-hex="#eee4b0" data-tile="/assets/images/silhouettes/cashmere/25418-tile.jpg" aria-label="Lemonade No. 25418"><span class="sample" style="--hex:#eee4b0;--swatch-image:url('/assets/images/silhouettes/cashmere/25418.jpg')"></span><span class="swatch-name">Lemonade</span></button>
+        <button type="button" aria-pressed="false" data-name="Glow" data-no="25795" data-hex="#f6dd98" data-tile="/assets/images/silhouettes/cashmere/25795-tile.jpg" aria-label="Glow No. 25795"><span class="sample" style="--hex:#f6dd98;--swatch-image:url('/assets/images/silhouettes/cashmere/25795.jpg')"></span><span class="swatch-name">Glow</span></button>
+        <button type="button" aria-pressed="false" data-name="Pear" data-no="25794" data-hex="#98a248" data-tile="/assets/images/silhouettes/cashmere/25794-tile.jpg" aria-label="Pear No. 25794"><span class="sample" style="--hex:#98a248;--swatch-image:url('/assets/images/silhouettes/cashmere/25794.jpg')"></span><span class="swatch-name">Pear</span></button>
+        <button type="button" aria-pressed="false" data-name="Maize" data-no="25628" data-hex="#e7df68" data-tile="/assets/images/silhouettes/cashmere/25628-tile.jpg" aria-label="Maize No. 25628"><span class="sample" style="--hex:#e7df68;--swatch-image:url('/assets/images/silhouettes/cashmere/25628.jpg')"></span><span class="swatch-name">Maize</span></button>
+        <button type="button" aria-pressed="false" data-name="Acacia" data-no="25677" data-hex="#e7b86b" data-tile="/assets/images/silhouettes/cashmere/25677-tile.jpg" aria-label="Acacia No. 25677"><span class="sample" style="--hex:#e7b86b;--swatch-image:url('/assets/images/silhouettes/cashmere/25677.jpg')"></span><span class="swatch-name">Acacia</span></button>
+        <button type="button" aria-pressed="false" data-name="Artichoke" data-no="25505" data-hex="#4d5a2a" data-tile="/assets/images/silhouettes/cashmere/25505-tile.jpg" aria-label="Artichoke No. 25505"><span class="sample" style="--hex:#4d5a2a;--swatch-image:url('/assets/images/silhouettes/cashmere/25505.jpg')"></span><span class="swatch-name">Artichoke</span></button>
+        <button type="button" aria-pressed="false" data-name="Olive" data-no="25743" data-hex="#726920" data-tile="/assets/images/silhouettes/cashmere/25743-tile.jpg" aria-label="Olive No. 25743"><span class="sample" style="--hex:#726920;--swatch-image:url('/assets/images/silhouettes/cashmere/25743.jpg')"></span><span class="swatch-name">Olive</span></button>
+        <button type="button" aria-pressed="false" data-name="Harvest" data-no="25796" data-hex="#d6a047" data-tile="/assets/images/silhouettes/cashmere/25796-tile.jpg" aria-label="Harvest No. 25796"><span class="sample" style="--hex:#d6a047;--swatch-image:url('/assets/images/silhouettes/cashmere/25796.jpg')"></span><span class="swatch-name">Harvest</span></button>
+        <button type="button" aria-pressed="false" data-name="Cedar" data-no="25302" data-hex="#263419" data-tile="/assets/images/silhouettes/cashmere/25302-tile.jpg" aria-label="Cedar No. 25302"><span class="sample" style="--hex:#263419;--swatch-image:url('/assets/images/silhouettes/cashmere/25302.jpg')"></span><span class="swatch-name">Cedar</span></button>
+        <button type="button" aria-pressed="false" data-name="Bay Leaf" data-no="25581" data-hex="#444523" data-tile="/assets/images/silhouettes/cashmere/25581-tile.jpg" aria-label="Bay Leaf No. 25581"><span class="sample" style="--hex:#444523;--swatch-image:url('/assets/images/silhouettes/cashmere/25581.jpg')"></span><span class="swatch-name">Bay Leaf</span></button>
+        <button type="button" aria-pressed="false" data-name="Tinsel" data-no="25629" data-hex="#b5862b" data-tile="/assets/images/silhouettes/cashmere/25629-tile.jpg" aria-label="Tinsel No. 25629"><span class="sample" style="--hex:#b5862b;--swatch-image:url('/assets/images/silhouettes/cashmere/25629.jpg')"></span><span class="swatch-name">Tinsel</span></button>
+        <button type="button" aria-pressed="false" data-name="Bottle" data-no="25498" data-hex="#1a2a1f" data-tile="/assets/images/silhouettes/cashmere/25498-tile.jpg" aria-label="Bottle No. 25498"><span class="sample" style="--hex:#1a2a1f;--swatch-image:url('/assets/images/silhouettes/cashmere/25498.jpg')"></span><span class="swatch-name">Bottle</span></button>
+        <button type="button" aria-pressed="false" data-name="Duffel Bag" data-no="25506" data-hex="#302b18" data-tile="/assets/images/silhouettes/cashmere/25506-tile.jpg" aria-label="Duffel Bag No. 25506"><span class="sample" style="--hex:#302b18;--swatch-image:url('/assets/images/silhouettes/cashmere/25506.jpg')"></span><span class="swatch-name">Duffel Bag</span></button>
+        <button type="button" aria-pressed="false" data-name="Topaz" data-no="25246" data-hex="#8e7116" data-tile="/assets/images/silhouettes/cashmere/25246-tile.jpg" aria-label="Topaz No. 25246"><span class="sample" style="--hex:#8e7116;--swatch-image:url('/assets/images/silhouettes/cashmere/25246.jpg')"></span><span class="swatch-name">Topaz</span></button>
+        <h2 class="family-heading">Greys</h2>
+        <button type="button" aria-pressed="false" data-name="Cool" data-no="25797" data-hex="#959aa0" data-tile="/assets/images/silhouettes/cashmere/25797-tile.jpg" aria-label="Cool No. 25797"><span class="sample" style="--hex:#959aa0;--swatch-image:url('/assets/images/silhouettes/cashmere/25797.jpg')"></span><span class="swatch-name">Cool</span></button>
+        <button type="button" aria-pressed="false" data-name="Ice" data-no="25798" data-hex="#afb4b3" data-tile="/assets/images/silhouettes/cashmere/25798-tile.jpg" aria-label="Ice No. 25798"><span class="sample" style="--hex:#afb4b3;--swatch-image:url('/assets/images/silhouettes/cashmere/25798.jpg')"></span><span class="swatch-name">Ice</span></button>
+        <button type="button" aria-pressed="false" data-name="Phantom" data-no="25388" data-hex="#e5e0d3" data-tile="/assets/images/silhouettes/cashmere/25388-tile.jpg" aria-label="Phantom No. 25388"><span class="sample" style="--hex:#e5e0d3;--swatch-image:url('/assets/images/silhouettes/cashmere/25388.jpg')"></span><span class="swatch-name">Phantom</span></button>
+        <button type="button" aria-pressed="false" data-name="Derby" data-no="25203" data-hex="#7b8084" data-tile="/assets/images/silhouettes/cashmere/25203-tile.jpg" aria-label="Derby No. 25203"><span class="sample" style="--hex:#7b8084;--swatch-image:url('/assets/images/silhouettes/cashmere/25203.jpg')"></span><span class="swatch-name">Derby</span></button>
+        <button type="button" aria-pressed="false" data-name="Oxford" data-no="25021" data-hex="#adb1ab" data-tile="/assets/images/silhouettes/cashmere/25021-tile.jpg" aria-label="Oxford No. 25021"><span class="sample" style="--hex:#adb1ab;--swatch-image:url('/assets/images/silhouettes/cashmere/25021.jpg')"></span><span class="swatch-name">Oxford</span></button>
+        <button type="button" aria-pressed="false" data-name="Foggy" data-no="25251" data-hex="#bcbcb7" data-tile="/assets/images/silhouettes/cashmere/25251-tile.jpg" aria-label="Foggy No. 25251"><span class="sample" style="--hex:#bcbcb7;--swatch-image:url('/assets/images/silhouettes/cashmere/25251.jpg')"></span><span class="swatch-name">Foggy</span></button>
+        <button type="button" aria-pressed="false" data-name="Smoke" data-no="25126" data-hex="#545a5a" data-tile="/assets/images/silhouettes/cashmere/25126-tile.jpg" aria-label="Smoke No. 25126"><span class="sample" style="--hex:#545a5a;--swatch-image:url('/assets/images/silhouettes/cashmere/25126.jpg')"></span><span class="swatch-name">Smoke</span></button>
+        <button type="button" aria-pressed="false" data-name="Pallid" data-no="25748" data-hex="#989c9d" data-tile="/assets/images/silhouettes/cashmere/25748-tile.jpg" aria-label="Pallid No. 25748"><span class="sample" style="--hex:#989c9d;--swatch-image:url('/assets/images/silhouettes/cashmere/25748.jpg')"></span><span class="swatch-name">Pallid</span></button>
+        <button type="button" aria-pressed="false" data-name="Husky" data-no="25845" data-hex="#898f8f" data-tile="/assets/images/silhouettes/cashmere/25845-tile.jpg" aria-label="Husky No. 25845"><span class="sample" style="--hex:#898f8f;--swatch-image:url('/assets/images/silhouettes/cashmere/25845.jpg')"></span><span class="swatch-name">Husky</span></button>
+        <button type="button" aria-pressed="false" data-name="Umber" data-no="25603" data-hex="#444a4a" data-tile="/assets/images/silhouettes/cashmere/25603-tile.jpg" aria-label="Umber No. 25603"><span class="sample" style="--hex:#444a4a;--swatch-image:url('/assets/images/silhouettes/cashmere/25603.jpg')"></span><span class="swatch-name">Umber</span></button>
+        <button type="button" aria-pressed="false" data-name="Storm" data-no="25799" data-hex="#606666" data-tile="/assets/images/silhouettes/cashmere/25799-tile.jpg" aria-label="Storm No. 25799"><span class="sample" style="--hex:#606666;--swatch-image:url('/assets/images/silhouettes/cashmere/25799.jpg')"></span><span class="swatch-name">Storm</span></button>
+        <button type="button" aria-pressed="false" data-name="Thunder" data-no="25023" data-hex="#666a6a" data-tile="/assets/images/silhouettes/cashmere/25023-tile.jpg" aria-label="Thunder No. 25023"><span class="sample" style="--hex:#666a6a;--swatch-image:url('/assets/images/silhouettes/cashmere/25023.jpg')"></span><span class="swatch-name">Thunder</span></button>
+        <button type="button" aria-pressed="false" data-name="Flannel" data-no="25024" data-hex="#454a49" data-tile="/assets/images/silhouettes/cashmere/25024-tile.jpg" aria-label="Flannel No. 25024"><span class="sample" style="--hex:#454a49;--swatch-image:url('/assets/images/silhouettes/cashmere/25024.jpg')"></span><span class="swatch-name">Flannel</span></button>
+        <button type="button" aria-pressed="false" data-name="Charcoal" data-no="25082" data-hex="#2c3234" data-tile="/assets/images/silhouettes/cashmere/25082-tile.jpg" aria-label="Charcoal No. 25082"><span class="sample" style="--hex:#2c3234;--swatch-image:url('/assets/images/silhouettes/cashmere/25082.jpg')"></span><span class="swatch-name">Charcoal</span></button>
+        <button type="button" aria-pressed="false" data-name="Black" data-no="25025" data-hex="#202221" data-tile="/assets/images/silhouettes/cashmere/25025-tile.jpg" aria-label="Black No. 25025"><span class="sample" style="--hex:#202221;--swatch-image:url('/assets/images/silhouettes/cashmere/25025.jpg')"></span><span class="swatch-name">Black</span></button>
       </div>
       <a class="book" href="/book"><span class="book-text">Book a fitting</span><span>→</span></a>
-      <p class="note label">Sample — sketches and colours are placeholders</p>
+      <p class="note label">Sample — sketches and swatch images are placeholders<br>Colours may vary slightly on screen; see the cloth in person at your fitting.</p>
     </section>
   </main>
 
@@ -152,20 +318,42 @@
       const tabs = document.querySelectorAll('.tabs button');
       const grid = document.querySelector('.swatches');
       const swatches = grid.querySelectorAll('button');
+      const patternImage = svg.querySelector('#cloth image');
       const nameEl = document.querySelector('.readout .name');
       const noEl = document.querySelector('.readout .no');
       const bookText = document.querySelector('.book-text');
+      const tileLoads = new Map();
       let selected = null;
+      let visible = null;
+
+      function preloadTile(src) {
+        if (tileLoads.has(src)) return tileLoads.get(src);
+        let finish;
+        const loaded = new Promise((resolve) => { finish = resolve; });
+        const image = new Image();
+        image.onload = () => finish(true);
+        image.onerror = () => finish(false);
+        tileLoads.set(src, loaded);
+        image.src = src;
+        if (image.complete) finish(image.naturalWidth > 0);
+        return loaded;
+      }
 
       function show(btn) {
+        visible = btn;
         if (btn) {
           svg.style.setProperty('--dye', btn.dataset.hex);
           svg.classList.add('dyed');
           nameEl.textContent = btn.dataset.name;
           noEl.textContent = 'No. ' + btn.dataset.no;
+          if (patternImage.getAttribute('href') !== btn.dataset.tile) patternImage.removeAttribute('href');
+          preloadTile(btn.dataset.tile).then((loaded) => {
+            if (loaded && visible === btn) patternImage.setAttribute('href', btn.dataset.tile);
+          });
         } else {
           svg.style.removeProperty('--dye');
           svg.classList.remove('dyed');
+          patternImage.removeAttribute('href');
           nameEl.textContent = 'Choose a colour';
           noEl.textContent = '';
         }
@@ -177,8 +365,14 @@
         show(btn);
       }
       swatches.forEach((btn) => {
-        btn.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') show(btn); });
-        btn.addEventListener('focus', () => show(btn));
+        btn.addEventListener('pointerenter', (e) => {
+          preloadTile(btn.dataset.tile);
+          if (e.pointerType === 'mouse') show(btn);
+        });
+        btn.addEventListener('focus', () => {
+          preloadTile(btn.dataset.tile);
+          show(btn);
+        });
         btn.addEventListener('click', () => select(btn));
       });
       grid.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') show(selected); });
