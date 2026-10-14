@@ -343,8 +343,8 @@
           (value <= 0.0031308 ? value * 12.92 : 1.055 * (value ** (1 / 2.4)) - 0.055) * 255
         );
       }
-      const K = 0.6;
-      const GAMMA = 1;
+      const K = 0.18;
+      const GAMMA = 0.65;
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       let selected = null;
       let visible = null;
@@ -395,7 +395,6 @@
           const pixelCount = photoWidth * photoHeight;
           maskAlpha = new Uint8Array(pixelCount);
           luminance = new Float32Array(pixelCount);
-          const coveredLuminance = [];
           for (let i = 0; i < pixelCount; i += 1) {
             const offset = i * 4;
             const alpha = Math.round(maskPixels[offset] * maskPixels[offset + 3] / 255);
@@ -405,7 +404,32 @@
             const blue = srgbToLinear[originalPixels[offset + 2]];
             const light = 0.2126 * red + 0.7152 * green + 0.0722 * blue;
             luminance[i] = light;
-            if (alpha > 127) coveredLuminance.push(light);
+          }
+          const rawLuminance = luminance;
+          const denoisedLuminance = new Float32Array(pixelCount);
+          const blurKernel = [1, 2, 1];
+          for (let y = 0; y < photoHeight; y += 1) {
+            for (let x = 0; x < photoWidth; x += 1) {
+              let total = 0;
+              let weightTotal = 0;
+              for (let dy = -1; dy <= 1; dy += 1) {
+                const sampleY = y + dy;
+                if (sampleY < 0 || sampleY >= photoHeight) continue;
+                for (let dx = -1; dx <= 1; dx += 1) {
+                  const sampleX = x + dx;
+                  if (sampleX < 0 || sampleX >= photoWidth) continue;
+                  const weight = blurKernel[dy + 1] * blurKernel[dx + 1];
+                  total += rawLuminance[sampleY * photoWidth + sampleX] * weight;
+                  weightTotal += weight;
+                }
+              }
+              denoisedLuminance[y * photoWidth + x] = total / weightTotal;
+            }
+          }
+          luminance = denoisedLuminance;
+          const coveredLuminance = [];
+          for (let i = 0; i < pixelCount; i += 1) {
+            if (maskAlpha[i] > 127) coveredLuminance.push(luminance[i]);
           }
           coveredLuminance.sort((a, b) => a - b);
           const middle = Math.floor(coveredLuminance.length / 2);
@@ -451,7 +475,7 @@
             const alpha = maskAlpha[i] / 255;
             if (alpha === 0) continue;
             let ratio = luminance[i] / luminanceReference;
-            if (GAMMA !== 1) ratio = ratio ** GAMMA;
+            if (ratio <= 1 && GAMMA !== 1) ratio = ratio ** GAMMA;
             const highlight = ratio > 1 ? Math.min(1, (ratio - 1) * K) : 0;
             const shade = ratio <= 1 ? ratio : 0;
             const offset = i * 4;
