@@ -32,14 +32,14 @@
     .art .btn{fill:var(--leaf)}
     .preview-controls h1{margin:0 0 18px;font-weight:400}
     .tabs{display:flex;gap:26px;margin-bottom:18px}
-    .tabs button{padding-bottom:4px;border-bottom:1px solid transparent;color:rgba(20,20,20,.5)}
+    .tabs button{-webkit-tap-highlight-color:transparent;padding-bottom:4px;border-bottom:1px solid transparent;color:rgba(20,20,20,.5)}
     .tabs button[aria-selected="true"]{color:var(--ink);border-color:var(--ink)}
     .readout{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding:16px 0 18px;min-height:52px}
     .readout .name{font-size:13px;letter-spacing:.16em;text-transform:uppercase}
     .readout .no{color:rgba(20,20,20,.5)}
     .swatches{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px 10px}
     .family-heading{grid-column:1/-1;margin:18px 0 2px;font-size:10px;font-weight:400;letter-spacing:.18em;text-transform:uppercase}
-    .swatches button{position:relative;display:block;padding-bottom:9px}
+    .swatches button{position:relative;display:block;padding-bottom:9px;-webkit-tap-highlight-color:transparent}
     .swatches span{display:block;aspect-ratio:1;background:var(--hex);clip-path:polygon(0.00% 4.50%,6.25% 0.00%,12.50% 4.50%,18.75% 0.00%,25.00% 4.50%,31.25% 0.00%,37.50% 4.50%,43.75% 0.00%,50.00% 4.50%,56.25% 0.00%,62.50% 4.50%,68.75% 0.00%,75.00% 4.50%,81.25% 0.00%,87.50% 4.50%,93.75% 0.00%,100.00% 4.50%,95.50% 0.00%,100.00% 6.25%,95.50% 12.50%,100.00% 18.75%,95.50% 25.00%,100.00% 31.25%,95.50% 37.50%,100.00% 43.75%,95.50% 50.00%,100.00% 56.25%,95.50% 62.50%,100.00% 68.75%,95.50% 75.00%,100.00% 81.25%,95.50% 87.50%,100.00% 93.75%,95.50% 100.00%,100.00% 95.50%,93.75% 100.00%,87.50% 95.50%,81.25% 100.00%,75.00% 95.50%,68.75% 100.00%,62.50% 95.50%,56.25% 100.00%,50.00% 95.50%,43.75% 100.00%,37.50% 95.50%,31.25% 100.00%,25.00% 95.50%,18.75% 100.00%,12.50% 95.50%,6.25% 100.00%,0.00% 95.50%,4.50% 100.00%,0.00% 93.75%,4.50% 87.50%,0.00% 81.25%,4.50% 75.00%,0.00% 68.75%,4.50% 62.50%,0.00% 56.25%,4.50% 50.00%,0.00% 43.75%,4.50% 37.50%,0.00% 31.25%,4.50% 25.00%,0.00% 18.75%,4.50% 12.50%,0.00% 6.25%,4.50% 0.00%);transition:transform 250ms ease}
     .swatches button:hover span,.swatches button:focus-visible span{transform:scale(1.08)}
     .swatches button::after{content:"";position:absolute;left:50%;bottom:0;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--ink);opacity:0;transition:opacity 200ms}
@@ -48,7 +48,7 @@
     .swatches button .sample{background:var(--swatch-image) center/cover no-repeat,var(--hex);background-blend-mode:normal}
     .swatches button .swatch-name{aspect-ratio:auto;background:none;background-blend-mode:normal;clip-path:none;font-size:9px;letter-spacing:.1em;line-height:1.25;min-height:2.5em;padding-top:7px;text-align:center;text-transform:uppercase;overflow-wrap:anywhere;transition:none}
     .swatches button:hover .swatch-name,.swatches button:focus-visible .swatch-name{transform:none}
-    .book{display:flex;justify-content:space-between;margin-top:30px;padding:18px 20px;background:var(--ink);color:var(--paper);font-size:11px;letter-spacing:.2em;text-transform:uppercase;transition:background 200ms}
+    .book{display:flex;justify-content:space-between;margin-top:0;padding:18px 20px;background:var(--ink);color:var(--paper);font-size:11px;letter-spacing:.2em;text-transform:uppercase;transition:background 200ms}
     .book:hover{background:var(--accent)}
     .note{margin:18px 0 0;color:rgba(20,20,20,.45);text-align:center;line-height:1.8}
     @media (max-width:900px){
@@ -58,6 +58,7 @@
       .preview-controls h1{display:none}
       .tabs{justify-content:center;margin-bottom:8px}
       .readout{padding:8px 0;min-height:38px}
+      .preview-controls .book{margin-top:4px;padding:12px 16px}
       .panel{padding-top:8px}
       .swatches{gap:9px 8px}
     }
@@ -77,23 +78,20 @@
       <svg id="sketch" viewBox="40 20 320 480" role="img" aria-label="Crewneck sketch">
         <defs>
           <pattern id="cloth" patternUnits="userSpaceOnUse" x="0" y="0" width="90" height="90">
-            <image x="0" y="0" width="90" height="90"/>
+            <image x="0" y="0" width="90" height="90" preserveAspectRatio="none"/>
           </pattern>
         </defs>
         <g class="garment" data-garment="Crewneck">
-          <path class="dye" d="M145,83 C130,88 111,97 97,107 L59,224 Q74,242 108,257 L141,174 L137,432 Q200,447 263,432 L259,174 L292,257 Q326,242 341,224 L303,107 C289,97 270,88 255,83 C239,73 223,69 216,70 C214,87 209,97 200,97 C191,97 186,87 184,70 C177,69 161,73 145,83 Z"/>
-          <path class="weave" d="M145,83 C130,88 111,97 97,107 L59,224 Q74,242 108,257 L141,174 L137,432 Q200,447 263,432 L259,174 L292,257 Q326,242 341,224 L303,107 C289,97 270,88 255,83 C239,73 223,69 216,70 C214,87 209,97 200,97 C191,97 186,87 184,70 C177,69 161,73 145,83 Z"/>
+          <path class="dye" d="M125,95 C139,100 157,100 168,95 C174,108 185,115 200,115 C215,115 226,108 232,95 C243,100 261,100 275,95 C288,101 301,110 309,122 L325,355 Q327,366 322,378 L325,402 Q312,409 298,406 L295,384 L258,165 L265,180 L265,378 L265,403 Q200,409 135,403 L135,378 L135,180 L142,165 L105,384 L102,406 Q88,409 75,402 L78,378 L75,355 L91,122 C99,110 112,101 125,95 Z"/>
+          <path class="weave" d="M125,95 C139,100 157,100 168,95 C174,108 185,115 200,115 C215,115 226,108 232,95 C243,100 261,100 275,95 C288,101 301,110 309,122 L325,355 Q327,366 322,378 L325,402 Q312,409 298,406 L295,384 L258,165 L265,180 L265,378 L265,403 Q200,409 135,403 L135,378 L135,180 L142,165 L105,384 L102,406 Q88,409 75,402 L78,378 L75,355 L91,122 C99,110 112,101 125,95 Z"/>
           <g class="art">
-            <path d="M145,83 C130,88 111,97 97,107 L59,224 Q74,242 108,257 L141,174 L137,432 Q200,447 263,432 L259,174 L292,257 Q326,242 341,224 L303,107 C289,97 270,88 255,83 C239,73 223,69 216,70 C214,87 209,97 200,97 C191,97 186,87 184,70 C177,69 161,73 145,83 Z"/>
-            <path class="soft" d="M145,83 C150,113 148,145 141,174"/><path class="soft" d="M255,83 C250,113 252,145 259,174"/>
-            <path d="M181,70 C183,92 191,103 200,103 C209,103 217,92 219,70"/>
-            <path class="soft" d="M184,72 L187,88"/><path class="soft" d="M188,78 L191,94"/><path class="soft" d="M193,83 L195,98"/><path class="soft" d="M199,86 L199,101"/><path class="soft" d="M201,101 L201,86"/><path class="soft" d="M205,98 L207,83"/><path class="soft" d="M209,94 L212,78"/><path class="soft" d="M213,88 L216,72"/>
-            <path d="M65,216 Q81,231 105,241"/><path d="M335,216 Q319,231 295,241"/>
-            <path class="soft" d="M68,217 L63,229"/><path class="soft" d="M74,222 L68,235"/><path class="soft" d="M80,226 L74,240"/><path class="soft" d="M86,230 L80,244"/><path class="soft" d="M92,233 L87,248"/><path class="soft" d="M98,237 L93,252"/><path class="soft" d="M104,240 L99,254"/>
-            <path class="soft" d="M332,217 L337,229"/><path class="soft" d="M326,222 L332,235"/><path class="soft" d="M320,226 L326,240"/><path class="soft" d="M314,230 L320,244"/><path class="soft" d="M308,233 L313,248"/><path class="soft" d="M302,237 L307,252"/><path class="soft" d="M296,240 L301,254"/>
-            <path d="M138,419 Q200,434 262,419"/>
-            <path class="soft" d="M145,421 L144,434"/><path class="soft" d="M153,423 L152,436"/><path class="soft" d="M161,425 L160,438"/><path class="soft" d="M169,427 L168,440"/><path class="soft" d="M177,428 L176,441"/><path class="soft" d="M185,430 L184,443"/><path class="soft" d="M193,431 L192,444"/><path class="soft" d="M207,431 L208,444"/><path class="soft" d="M215,430 L216,443"/><path class="soft" d="M223,428 L224,441"/><path class="soft" d="M231,427 L232,440"/><path class="soft" d="M239,425 L240,438"/><path class="soft" d="M247,423 L248,436"/><path class="soft" d="M255,421 L256,434"/>
-            <path class="soft" d="M156,184 L151,414"/><path class="soft" d="M244,184 L249,414"/>
+            <path d="M125,95 C139,100 157,100 168,95 C174,108 185,115 200,115 C215,115 226,108 232,95 C243,100 261,100 275,95 C288,101 301,110 309,122 L325,355 Q327,366 322,378 L325,402 Q312,409 298,406 L295,384 L258,165 L265,180 L265,378 L265,403 Q200,409 135,403 L135,378 L135,180 L142,165 L105,384 L102,406 Q88,409 75,402 L78,378 L75,355 L91,122 C99,110 112,101 125,95 Z"/>
+            <path d="M125,95 Q136,127 142,165 M275,95 Q264,127 258,165"/>
+            <path d="M78,378 L105,384 M322,378 L295,384 M135,378 Q200,386 265,378"/>
+            <path d="M176,95 C182,106 190,110 200,110 C210,110 218,106 224,95"/>
+            <path class="soft" d="M173,97 L177,103 M180,101 L184,108 M187,105 L191,112 M195,108 L196,114 M205,114 L206,108 M209,112 L213,105 M216,108 L220,101 M223,103 L227,97"/>
+            <path class="soft" d="M81,380 L78,402 M87,381 L84,404 M93,382 L90,405 M99,383 L96,406 M301,383 L304,406 M307,382 L310,405 M313,381 L316,404 M319,380 L322,402"/>
+            <path class="soft" d="M141,380 L141,400 M147,381 L147,401 M153,382 L153,402 M159,383 L159,403 M165,384 L165,403 M171,384 L171,403 M177,385 L177,404 M183,385 L183,404 M189,386 L189,404 M195,386 L195,404 M201,386 L201,404 M207,386 L207,404 M213,386 L213,404 M219,385 L219,404 M225,385 L225,404 M231,384 L231,403 M237,384 L237,403 M243,383 L243,403 M249,382 L249,402 M255,381 L255,401 M261,380 L261,400"/>
           </g>
         </g>
         <g class="garment" data-garment="Sport Coat" hidden>
@@ -139,12 +137,13 @@
         <button class="label" role="tab" type="button" aria-selected="false">Trousers</button>
       </div>
       <div class="readout" aria-live="polite"><span class="name">Choose a colour</span><span class="no label"></span></div>
+      <a class="book" href="/book"><span class="book-text">Book a fitting</span><span>→</span></a>
     </div>
     </div>
 
     <section class="panel">
       <div class="swatches" role="group" aria-label="Cashmere colours">
-                  <h2 class="family-heading">Creams</h2>
+        <h2 class="family-heading">Creams</h2>
         <button type="button" aria-pressed="false" data-name="Satin" data-no="25753" data-hex="#f8f5e8" data-tile="/assets/images/silhouettes/cashmere/25753-tile.jpg" aria-label="Satin No. 25753"><span class="sample" style="--hex:#f8f5e8;--swatch-image:url('/assets/images/silhouettes/cashmere/25753.jpg')"></span><span class="swatch-name">Satin</span></button>
         <button type="button" aria-pressed="false" data-name="Eco Alabaster" data-no="25825" data-hex="#d5c3aa" data-tile="/assets/images/silhouettes/cashmere/25825-tile.jpg" aria-label="Eco Alabaster No. 25825"><span class="sample" style="--hex:#d5c3aa;--swatch-image:url('/assets/images/silhouettes/cashmere/25825.jpg')"></span><span class="swatch-name">Eco Alabaster</span></button>
         <button type="button" aria-pressed="false" data-name="Wheat" data-no="25066" data-hex="#d1c0ac" data-tile="/assets/images/silhouettes/cashmere/25066-tile.jpg" aria-label="Wheat No. 25066"><span class="sample" style="--hex:#d1c0ac;--swatch-image:url('/assets/images/silhouettes/cashmere/25066.jpg')"></span><span class="swatch-name">Wheat</span></button>
@@ -305,7 +304,6 @@
         <button type="button" aria-pressed="false" data-name="Charcoal" data-no="25082" data-hex="#2c3234" data-tile="/assets/images/silhouettes/cashmere/25082-tile.jpg" aria-label="Charcoal No. 25082"><span class="sample" style="--hex:#2c3234;--swatch-image:url('/assets/images/silhouettes/cashmere/25082.jpg')"></span><span class="swatch-name">Charcoal</span></button>
         <button type="button" aria-pressed="false" data-name="Black" data-no="25025" data-hex="#202221" data-tile="/assets/images/silhouettes/cashmere/25025-tile.jpg" aria-label="Black No. 25025"><span class="sample" style="--hex:#202221;--swatch-image:url('/assets/images/silhouettes/cashmere/25025.jpg')"></span><span class="swatch-name">Black</span></button>
       </div>
-      <a class="book" href="/book"><span class="book-text">Book a fitting</span><span>→</span></a>
       <p class="note label">Sample — sketches and swatch images are placeholders<br>Colours may vary slightly on screen; see the cloth in person at your fitting.</p>
     </section>
   </main>
