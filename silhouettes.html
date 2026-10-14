@@ -19,8 +19,10 @@
     .return:hover{color:var(--accent)}
     .studio{display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:clamp(30px,5vw,80px);align-items:start;min-height:calc(100svh - var(--header-height));padding:10px var(--pad) 40px}
     .preview{position:sticky;top:calc(var(--header-height) + 12px);z-index:5;display:flex;flex-direction:column;height:calc(100svh - var(--header-height) - 22px);min-height:580px;max-height:850px;background:var(--paper)}
-    .drawing{flex:1;min-height:0;margin:0;display:grid;place-items:center}
+    .drawing{position:relative;flex:1;min-height:0;margin:0;display:grid;place-items:center}
     .drawing svg{width:100%;height:100%;max-height:calc(100svh - 220px);overflow:visible}
+    .drawing svg[hidden]{display:none}
+    .drawing .photo-canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:1;transition:opacity 300ms ease}
     .preview-controls{flex:none;padding:0 0 6px;background:var(--paper)}
     .garment{isolation:isolate}
     .garment[hidden]{display:none}
@@ -62,8 +64,8 @@
       .panel{padding-top:8px}
       .swatches{gap:9px 8px}
     }
-    @media (max-width:700px){.swatches{grid-template-columns:repeat(4,minmax(0,1fr))}}
-    @media (prefers-reduced-motion:reduce){.dye,.weave,.swatches span{transition:none}}
+    @media (max-width:700px){.swatches{grid-template-columns:repeat(4,minmax(0,1fr))}.tabs{gap:clamp(9px,3vw,18px)}}
+    @media (prefers-reduced-motion:reduce){.dye,.weave,.swatches span,.drawing .photo-canvas{transition:none}}
   </style>
 </head>
 <body>
@@ -75,13 +77,15 @@
   <main class="studio">
     <div class="preview">
     <figure class="drawing">
-      <svg id="sketch" viewBox="40 20 320 480" role="img" aria-label="Crewneck sketch">
+      <canvas class="photo-canvas" id="photoCanvasA" width="586" height="808" role="img" aria-label="Zip Cardigan photo"></canvas>
+      <canvas class="photo-canvas" id="photoCanvasB" width="586" height="808" aria-hidden="true" hidden></canvas>
+      <svg id="sketch" viewBox="40 20 320 480" role="img" aria-label="Crewneck sketch" hidden>
         <defs>
           <pattern id="cloth" patternUnits="userSpaceOnUse" x="0" y="0" width="90" height="90">
             <image x="0" y="0" width="90" height="90" preserveAspectRatio="none"/>
           </pattern>
         </defs>
-        <g class="garment" data-garment="Crewneck">
+        <g class="garment" data-garment="Crewneck" hidden>
           <path class="dye" d="M125,95 C139,100 157,100 168,95 C174,108 185,115 200,115 C215,115 226,108 232,95 C243,100 261,100 275,95 C288,101 301,110 309,122 L325,355 Q327,366 322,378 L325,402 Q312,409 298,406 L295,384 L258,165 L265,180 L265,378 L265,403 Q200,409 135,403 L135,378 L135,180 L142,165 L105,384 L102,406 Q88,409 75,402 L78,378 L75,355 L91,122 C99,110 112,101 125,95 Z"/>
           <path class="weave" d="M125,95 C139,100 157,100 168,95 C174,108 185,115 200,115 C215,115 226,108 232,95 C243,100 261,100 275,95 C288,101 301,110 309,122 L325,355 Q327,366 322,378 L325,402 Q312,409 298,406 L295,384 L258,165 L265,180 L265,378 L265,403 Q200,409 135,403 L135,378 L135,180 L142,165 L105,384 L102,406 Q88,409 75,402 L78,378 L75,355 L91,122 C99,110 112,101 125,95 Z"/>
           <g class="art">
@@ -132,7 +136,8 @@
     <div class="preview-controls">
       <h1 class="label">Silhouettes</h1>
       <div class="tabs" role="tablist" aria-label="Silhouette">
-        <button class="label" role="tab" type="button" aria-selected="true">Crewneck</button>
+        <button class="label" role="tab" type="button" aria-selected="true">Zip Cardigan</button>
+        <button class="label" role="tab" type="button" aria-selected="false">Crewneck</button>
         <button class="label" role="tab" type="button" aria-selected="false">Sport Coat</button>
         <button class="label" role="tab" type="button" aria-selected="false">Trousers</button>
       </div>
@@ -304,7 +309,7 @@
         <button type="button" aria-pressed="false" data-name="Charcoal" data-no="25082" data-hex="#2c3234" data-tile="/assets/images/silhouettes/cashmere/25082-tile.jpg" aria-label="Charcoal No. 25082"><span class="sample" style="--hex:#2c3234;--swatch-image:url('/assets/images/silhouettes/cashmere/25082.jpg')"></span><span class="swatch-name">Charcoal</span></button>
         <button type="button" aria-pressed="false" data-name="Black" data-no="25025" data-hex="#202221" data-tile="/assets/images/silhouettes/cashmere/25025-tile.jpg" aria-label="Black No. 25025"><span class="sample" style="--hex:#202221;--swatch-image:url('/assets/images/silhouettes/cashmere/25025.jpg')"></span><span class="swatch-name">Black</span></button>
       </div>
-      <p class="note label">Sample — sketches and swatch images are placeholders<br>Colours may vary slightly on screen; see the cloth in person at your fitting.</p>
+      <p class="note label">Sample — photo, sketches and swatch images are placeholders<br>Colours may vary slightly on screen; see the cloth in person at your fitting.</p>
     </section>
   </main>
 
@@ -320,9 +325,105 @@
       const nameEl = document.querySelector('.readout .name');
       const noEl = document.querySelector('.readout .no');
       const bookText = document.querySelector('.book-text');
+      const photoLayers = [
+        document.getElementById('photoCanvasA'),
+        document.getElementById('photoCanvasB'),
+      ];
+      const photoContexts = photoLayers.map((canvas) => canvas.getContext('2d', { willReadFrequently: true }));
       const tileLoads = new Map();
+      const srgbToLinear = new Float32Array(256);
+      const linearToSrgb = new Uint8Array(65536);
+      for (let i = 0; i < 256; i += 1) {
+        const value = i / 255;
+        srgbToLinear[i] = value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+      }
+      for (let i = 0; i < linearToSrgb.length; i += 1) {
+        const value = i / (linearToSrgb.length - 1);
+        linearToSrgb[i] = Math.round(
+          (value <= 0.0031308 ? value * 12.92 : 1.055 * (value ** (1 / 2.4)) - 0.055) * 255
+        );
+      }
+      const K = 0.6;
+      const GAMMA = 1;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       let selected = null;
       let visible = null;
+      let activeTab = 'Zip Cardigan';
+      let photoReady = false;
+      let photoWidth = 0;
+      let photoHeight = 0;
+      let originalPixels = null;
+      let originalImageData = null;
+      let maskAlpha = null;
+      let luminance = null;
+      let luminanceReference = 0;
+      let activeLayer = 0;
+      let pendingFrame = 0;
+      let transitionTimer = 0;
+
+      function loadImage(src) {
+        return new Promise((resolve, reject) => {
+          const image = new Image();
+          image.onload = () => resolve(image);
+          image.onerror = () => reject(new Error('Unable to load ' + src));
+          image.src = src;
+        });
+      }
+
+      function loadPhoto() {
+        Promise.all([
+          loadImage('/assets/images/silhouettes/photo/zip-cardigan.jpg'),
+          loadImage('/assets/images/silhouettes/photo/zip-cardigan-mask.png'),
+        ]).then(([photo, mask]) => {
+          photoWidth = photo.naturalWidth;
+          photoHeight = photo.naturalHeight;
+          const sourceCanvas = document.createElement('canvas');
+          sourceCanvas.width = photoWidth;
+          sourceCanvas.height = photoHeight;
+          const sourceContext = sourceCanvas.getContext('2d', { willReadFrequently: true });
+          sourceContext.drawImage(photo, 0, 0);
+          originalImageData = sourceContext.getImageData(0, 0, photoWidth, photoHeight);
+          originalPixels = originalImageData.data;
+
+          const maskCanvas = document.createElement('canvas');
+          maskCanvas.width = photoWidth;
+          maskCanvas.height = photoHeight;
+          const maskContext = maskCanvas.getContext('2d', { willReadFrequently: true });
+          maskContext.drawImage(mask, 0, 0, photoWidth, photoHeight);
+          const maskPixels = maskContext.getImageData(0, 0, photoWidth, photoHeight).data;
+
+          const pixelCount = photoWidth * photoHeight;
+          maskAlpha = new Uint8Array(pixelCount);
+          luminance = new Float32Array(pixelCount);
+          const coveredLuminance = [];
+          for (let i = 0; i < pixelCount; i += 1) {
+            const offset = i * 4;
+            const alpha = Math.round(maskPixels[offset] * maskPixels[offset + 3] / 255);
+            maskAlpha[i] = alpha;
+            const red = srgbToLinear[originalPixels[offset]];
+            const green = srgbToLinear[originalPixels[offset + 1]];
+            const blue = srgbToLinear[originalPixels[offset + 2]];
+            const light = 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+            luminance[i] = light;
+            if (alpha > 127) coveredLuminance.push(light);
+          }
+          coveredLuminance.sort((a, b) => a - b);
+          const middle = Math.floor(coveredLuminance.length / 2);
+          luminanceReference = coveredLuminance.length % 2
+            ? coveredLuminance[middle]
+            : (coveredLuminance[middle - 1] + coveredLuminance[middle]) / 2;
+
+          photoLayers.forEach((canvas, index) => {
+            canvas.width = photoWidth;
+            canvas.height = photoHeight;
+            photoContexts[index].putImageData(originalImageData, 0, 0);
+            canvas.hidden = index !== activeLayer;
+            canvas.style.opacity = index === activeLayer ? '1' : '0';
+          });
+          photoReady = true;
+          if (activeTab === 'Zip Cardigan' && visible) renderPhoto(visible);
+        }).catch((error) => console.error('Cardigan photo could not be prepared', error));
+      }
 
       function preloadTile(src) {
         if (tileLoads.has(src)) return tileLoads.get(src);
@@ -337,13 +438,107 @@
         return loaded;
       }
 
+      function renderPhoto(btn) {
+        if (!photoReady || activeTab !== 'Zip Cardigan') return;
+        const start = performance.now();
+        let outputData = originalImageData;
+        if (btn) {
+          const target = btn.dataset.hex.match(/[0-9a-f]{2}/gi).map((value) => {
+            return srgbToLinear[parseInt(value, 16)];
+          });
+          const output = new Uint8ClampedArray(originalPixels);
+          for (let i = 0; i < maskAlpha.length; i += 1) {
+            const alpha = maskAlpha[i] / 255;
+            if (alpha === 0) continue;
+            let ratio = luminance[i] / luminanceReference;
+            if (GAMMA !== 1) ratio = ratio ** GAMMA;
+            const highlight = ratio > 1 ? Math.min(1, (ratio - 1) * K) : 0;
+            const shade = ratio <= 1 ? ratio : 0;
+            const offset = i * 4;
+            for (let channel = 0; channel < 3; channel += 1) {
+              const recoloured = ratio <= 1
+                ? target[channel] * shade
+                : target[channel] + (1 - target[channel]) * highlight;
+              const lutIndex = Math.max(0, Math.min(65535, Math.round(recoloured * 65535)));
+              output[offset + channel] = originalPixels[offset + channel] * (1 - alpha)
+                + linearToSrgb[lutIndex] * alpha;
+            }
+          }
+          outputData = new ImageData(output, photoWidth, photoHeight);
+        }
+
+        if (pendingFrame) cancelAnimationFrame(pendingFrame);
+        if (transitionTimer) clearTimeout(transitionTimer);
+        const outgoingIndex = activeLayer;
+        const incomingIndex = 1 - activeLayer;
+        const outgoing = photoLayers[outgoingIndex];
+        const incoming = photoLayers[incomingIndex];
+        outgoing.hidden = false;
+        incoming.hidden = false;
+        outgoing.style.transition = 'none';
+        incoming.style.transition = 'none';
+        outgoing.style.opacity = '1';
+        incoming.style.opacity = '0';
+        photoContexts[incomingIndex].putImageData(outputData, 0, 0);
+        outgoing.setAttribute('aria-hidden', 'true');
+        outgoing.removeAttribute('aria-label');
+        incoming.removeAttribute('aria-hidden');
+        incoming.setAttribute('role', 'img');
+        incoming.setAttribute('aria-label', 'Zip Cardigan photo');
+        outgoing.getBoundingClientRect();
+
+        const duration = prefersReducedMotion.matches ? 0 : 300;
+        activeLayer = incomingIndex;
+        if (duration === 0) {
+          incoming.style.opacity = '1';
+          outgoing.hidden = true;
+          outgoing.style.transition = '';
+          incoming.style.transition = '';
+        } else {
+          pendingFrame = requestAnimationFrame(() => {
+            pendingFrame = 0;
+            outgoing.style.transition = 'opacity 300ms ease';
+            incoming.style.transition = 'opacity 300ms ease';
+            incoming.style.opacity = '1';
+            outgoing.style.opacity = '0';
+            transitionTimer = window.setTimeout(() => {
+              outgoing.hidden = true;
+              outgoing.style.opacity = '1';
+              outgoing.style.transition = '';
+              incoming.style.transition = '';
+              transitionTimer = 0;
+            }, 320);
+          });
+        }
+        window.__photoRecolorTiming = {
+          color: btn ? btn.dataset.name : 'original',
+          durationMs: performance.now() - start,
+          pixels: photoWidth * photoHeight,
+          k: K,
+          gamma: GAMMA,
+          referenceLuminance: luminanceReference,
+        };
+      }
+
+      function updateModeVisibility() {
+        const photoActive = activeTab === 'Zip Cardigan';
+        svg.toggleAttribute('hidden', photoActive);
+        photoLayers.forEach((canvas, index) => {
+          canvas.hidden = !photoActive || index !== activeLayer;
+        });
+      }
+
       function show(btn) {
         visible = btn;
+        nameEl.textContent = btn ? btn.dataset.name : 'Choose a colour';
+        noEl.textContent = btn ? 'No. ' + btn.dataset.no : '';
+        if (activeTab === 'Zip Cardigan') {
+          renderPhoto(btn);
+          return;
+        }
         if (btn) {
           svg.style.setProperty('--dye', btn.dataset.hex);
           svg.classList.add('dyed');
-          nameEl.textContent = btn.dataset.name;
-          noEl.textContent = 'No. ' + btn.dataset.no;
           if (patternImage.getAttribute('href') !== btn.dataset.tile) patternImage.removeAttribute('href');
           preloadTile(btn.dataset.tile).then((loaded) => {
             if (loaded && visible === btn) patternImage.setAttribute('href', btn.dataset.tile);
@@ -352,8 +547,6 @@
           svg.style.removeProperty('--dye');
           svg.classList.remove('dyed');
           patternImage.removeAttribute('href');
-          nameEl.textContent = 'Choose a colour';
-          noEl.textContent = '';
         }
       }
       function select(btn) {
@@ -364,11 +557,11 @@
       }
       swatches.forEach((btn) => {
         btn.addEventListener('pointerenter', (e) => {
-          preloadTile(btn.dataset.tile);
+          if (activeTab !== 'Zip Cardigan') preloadTile(btn.dataset.tile);
           if (e.pointerType === 'mouse') show(btn);
         });
         btn.addEventListener('focus', () => {
-          preloadTile(btn.dataset.tile);
+          if (activeTab !== 'Zip Cardigan') preloadTile(btn.dataset.tile);
           show(btn);
         });
         btn.addEventListener('click', () => select(btn));
@@ -377,10 +570,17 @@
       grid.addEventListener('focusout', (e) => { if (!grid.contains(e.relatedTarget)) show(selected); });
       tabs.forEach((tab) => tab.addEventListener('click', () => {
         tabs.forEach((t) => t.setAttribute('aria-selected', String(t === tab)));
-        const name = tab.textContent.trim();
-        garments.forEach((g) => g.toggleAttribute('hidden', g.dataset.garment !== name));
-        svg.setAttribute('aria-label', name + ' sketch');
+        activeTab = tab.textContent.trim();
+        updateModeVisibility();
+        if (activeTab === 'Zip Cardigan') {
+          show(selected);
+        } else {
+          garments.forEach((g) => g.toggleAttribute('hidden', g.dataset.garment !== activeTab));
+          svg.setAttribute('aria-label', activeTab + ' sketch');
+          show(selected);
+        }
       }));
+      loadPhoto();
     }());
   </script>
 </body>
