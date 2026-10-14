@@ -4,199 +4,400 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>P.GÓRNE — Galerie</title>
-  <meta name="description" content="P.GÓRNE Galerie — a living editorial archive of craftsmanship, material, proportion, and garments in use." />
+  <meta name="description" content="P.GÓRNE Galerie — a living editorial archive of made-to-order garments." />
+  <link rel="icon" type="image/png" href="/assets/accent-pantone.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="P.GÓRNE" />
+  <meta property="og:title" content="P.GÓRNE — Galerie" />
+  <meta property="og:description" content="P.GÓRNE Galerie — a living editorial archive of made-to-order garments." />
+  <meta property="og:url" content="https://www.pgorne.com/galerie" />
+  <meta property="og:image" content="https://www.pgorne.com/assets/poster.jpg" />
+  <meta property="og:image:width" content="1616" />
+  <meta property="og:image:height" content="1080" />
+  <meta name="twitter:card" content="summary_large_image" />
   <style>
     :root{
       --paper:#f3efe8;
       --ink:#141414;
       --accent:#6B3529;
+      --leaf:#f8f5ef;
       --page-pad:clamp(22px,4vw,64px);
-      --section-space:clamp(150px,21vw,310px);
+      --page-h:min(calc(100svh - 190px), calc((100vw - 2 * var(--page-pad)) * .6667));
+      --page-w:calc(var(--page-h) * .75);
     }
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth;background:var(--paper)}
-    body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
-    img{display:block;width:100%;height:100%;object-fit:cover}
+    html,body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+    body{min-height:100svh;display:flex;flex-direction:column;overflow-x:hidden}
     a{color:inherit;text-decoration:none}
+    button{font:inherit;color:inherit}
 
     .site-header{
-      position:relative;z-index:5;display:flex;justify-content:space-between;align-items:center;
+      position:relative;z-index:30;display:flex;justify-content:space-between;align-items:center;
       padding:26px var(--page-pad) 0;
     }
     .wordmark{font-size:14px;letter-spacing:.16em;font-weight:500}
     .return{font-size:10px;letter-spacing:.18em;text-transform:uppercase}
     .return:hover{color:var(--accent)}
 
-    .chapter{padding:0 var(--page-pad) var(--section-space)}
-    .chapter:first-of-type{padding-top:clamp(130px,18vw,250px)}
-    .chapter-title{
-      margin:0 0 clamp(95px,14vw,190px);text-align:center;font-size:clamp(34px,5.8vw,76px);
-      line-height:1;letter-spacing:.055em;font-weight:300;
-    }
-    .essay{max-width:1440px;margin:0 auto}
-    .row{display:grid;align-items:start;margin-bottom:clamp(90px,14vw,220px)}
-    figure{margin:0}
-    .frame{overflow:hidden;background:#e8e1d7;cursor:zoom-in}
-    .frame img{transition:transform 500ms ease,filter 500ms ease}
-    .frame:hover img{transform:scale(1.012);filter:brightness(1.025)}
+    main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px var(--page-pad) 26px}
 
-    /* Made to Order Galerie */
-    .chapter-intro{padding:clamp(110px,15vw,190px) var(--page-pad) clamp(120px,16vw,220px);text-align:center}
-    .chapter-intro .eyebrow{margin:0;font-size:10px;letter-spacing:.22em;text-transform:uppercase}
-    .gallery .r1{grid-template-columns:1fr minmax(280px,42vw) 1fr}
-    .gallery .r1 .frame{grid-column:2;aspect-ratio:3/4}
-    .gallery .r2{grid-template-columns:minmax(180px,27vw) 1fr minmax(220px,34vw);gap:clamp(36px,7vw,120px)}
-    .gallery .r2 .frame:first-child{grid-column:1;aspect-ratio:3/4;margin-top:16vw}
-    .gallery .r2 .frame:last-child{grid-column:3;aspect-ratio:3/4}
-    .gallery .r3{grid-template-columns:minmax(280px,48vw) 1fr}
-    .gallery .r3 .frame{grid-column:1;aspect-ratio:4/3}
-    .gallery .r4{grid-template-columns:1fr minmax(260px,38vw)}
-    .gallery .r4 .frame{grid-column:2;aspect-ratio:3/4}
-    .gallery .r5{grid-template-columns:minmax(230px,34vw) 1fr minmax(180px,27vw);gap:clamp(34px,7vw,120px)}
-    .gallery .r5 .frame:first-child{grid-column:1;aspect-ratio:3/4}
-    .gallery .r5 .frame:last-child{grid-column:3;aspect-ratio:3/4;margin-top:18vw}
-    .archive-close{text-align:center;padding:10px 0 40px}
-    .archive-close p{margin:0;font-size:10px;letter-spacing:.2em;text-transform:uppercase}
-    .back-top{display:block;margin-top:90px;font-size:10px;letter-spacing:.18em;text-transform:uppercase}
-    .back-top:hover{color:var(--accent)}
+    .book{position:relative;width:calc(var(--page-w) * 2);height:var(--page-h);perspective:2600px;transition:transform 1000ms cubic-bezier(.45,.05,.25,1);user-select:none;-webkit-user-select:none;touch-action:pan-y}
+    .book.closed-start{transform:translateX(-25%)}
+    .book.closed-end{transform:translateX(25%)}
+    .leaf{position:absolute;top:0;left:50%;width:50%;height:100%;transform-origin:left center;transform-style:preserve-3d;transition:transform 1000ms cubic-bezier(.45,.05,.25,1)}
+    .leaf.flipped{transform:rotateY(-180deg)}
+    .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--leaf);overflow:hidden}
+    .leaf.top .face:not(.empty),.leaf.turning .face:not(.empty){box-shadow:0 1px 2px rgba(20,20,20,.06),0 18px 40px -24px rgba(20,20,20,.22)}
+    .face.back{transform:rotateY(180deg)}
+    .face.empty{background:transparent;box-shadow:none}
+    .face::after{content:"";position:absolute;inset:0;pointer-events:none}
+    .face.front::after{background:linear-gradient(to right,rgba(20,20,20,.13),rgba(20,20,20,.03) 6%,transparent 16%)}
+    .face.back::after{background:linear-gradient(to left,rgba(20,20,20,.13),rgba(20,20,20,.03) 6%,transparent 16%)}
+    .face.empty::after{display:none}
+    .leaf.turning .face:not(.empty)::after{animation:turnShade 1000ms ease-in-out}
+    @keyframes turnShade{50%{background-color:rgba(20,20,20,.07)}}
 
-    .reveal{opacity:0;transform:translateY(18px);transition:opacity 750ms ease,transform 750ms ease}
-    .reveal.visible{opacity:1;transform:none}
+    .photo{margin:0;position:absolute;inset:7% 8%;display:grid;place-items:center;cursor:zoom-in}
+    .photo img{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;opacity:0;transition:opacity 500ms ease}
+    .photo img.loaded{opacity:1}
+    .photo:focus-visible{outline:1px solid var(--accent);outline-offset:6px}
 
-    .lightbox{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:clamp(16px,4vw,56px);background:rgba(243,239,232,.99);opacity:0;pointer-events:none;transition:opacity 220ms ease}
+    .cover,.colophon{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10%}
+    .cover .eyebrow,.colophon p{margin:0;font-size:10px;letter-spacing:.22em;text-transform:uppercase}
+    .cover h1{margin:clamp(22px,4vh,40px) 0 0;font-size:clamp(30px,4.6vw,64px);line-height:1;letter-spacing:.06em;font-weight:300;text-transform:uppercase}
+    .cover .hint{position:absolute;bottom:8%;left:0;right:0;margin:0;font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55}
+
+    .turn-zone{position:absolute;top:0;z-index:200;height:100%;width:9%;border:0;padding:0;background:transparent;cursor:pointer}
+    .turn-zone.prev{left:0;cursor:w-resize}
+    .turn-zone.next{right:0;cursor:e-resize}
+    .turn-zone.next:hover:not(:disabled){background:linear-gradient(to left,rgba(20,20,20,.07),transparent)}
+    .turn-zone.prev:hover:not(:disabled){background:linear-gradient(to right,rgba(20,20,20,.07),transparent)}
+    .turn-zone:disabled{cursor:default}
+    .turn-zone:focus{outline:none}
+
+    .controls{display:flex;align-items:center;gap:clamp(28px,5vw,64px);font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+    .controls button{appearance:none;border:0;background:transparent;padding:8px 2px;cursor:pointer;letter-spacing:inherit;text-transform:inherit;font-size:inherit}
+    .controls button:hover:not(:disabled){color:var(--accent)}
+    .controls button:disabled{opacity:.3;cursor:default}
+    .controls button:focus-visible{outline:1px solid var(--accent);outline-offset:4px}
+    .counter{min-width:9em;text-align:center;font-variant-numeric:tabular-nums}
+
+    .lightbox{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:clamp(16px,4vw,56px);background:rgba(243,239,232,.99);opacity:0;pointer-events:none;transition:opacity 220ms ease}
     .lightbox.open{opacity:1;pointer-events:auto}
     .lightbox img{width:auto;height:auto;max-width:92vw;max-height:88vh;object-fit:contain}
     .lightbox-close{position:absolute;top:24px;right:var(--page-pad);border:0;background:transparent;color:var(--ink);font:inherit;font-size:10px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer}
     .lightbox-close:hover{color:var(--accent)}
 
+    .noscript-list{display:grid;gap:40px;max-width:900px;margin:0 auto}
+    .noscript-list img{width:100%;height:auto}
+
     @media (max-width:760px){
+      :root{
+        --page-pad:22px;
+        --page-h:min(calc(100svh - 170px), calc((100vw - 2 * var(--page-pad)) * 1.3333));
+      }
       .site-header{padding-top:20px}
-      .chapter{padding-bottom:135px}
-      .chapter-title{margin-bottom:95px}
-      .row{display:block;margin-bottom:92px}
-      .frame{width:100%;max-width:none;margin:0!important;aspect-ratio:auto!important}
-      .frame img{height:auto;object-fit:contain}
-      .gallery .r2 .frame:first-child,.gallery .r5 .frame:last-child{width:68%;margin-bottom:92px!important}
-      .gallery .r2 .frame:last-child,.gallery .r4 .frame{width:82%;margin-left:auto!important}
-      .gallery .r3 .frame{width:86%}
-      .archive-close{padding-top:20px}
+      main{gap:20px;padding-top:18px}
+      .book{width:var(--page-w)}
+      .book.closed-start,.book.closed-end{transform:none}
+      .leaf{left:0;width:100%}
+      .face.front::after{background:linear-gradient(to right,rgba(20,20,20,.08),transparent 8%)}
+      .turn-zone{width:16%}
+      .photo{inset:6% 7%}
     }
 
     @media (prefers-reduced-motion:reduce){
-      html{scroll-behavior:auto}
-      .lightbox,.frame img,.reveal{transition:none}
-      .reveal{opacity:1;transform:none}
+      .book,.leaf,.lightbox,.photo img{transition:none}
+      .leaf.turning .face:not(.empty)::after{animation:none}
     }
   </style>
+  <noscript><style>.book,.controls{display:none}</style></noscript>
 </head>
 <body>
   <header class="site-header">
-    <a class="wordmark" href="index.html" aria-label="P.GÓRNE home">P.GÓRNE</a>
-    <a class="return" href="index.html">Return</a>
+    <a class="wordmark" href="/" aria-label="P.GÓRNE home">P.GÓRNE</a>
+    <a class="return menu-toggle" href="/">Menu</a>
   </header>
 
-  <main id="top">
-    <div class="chapter-intro"><p class="eyebrow">Made to Order</p></div>
-    <section class="chapter gallery casual-wear" aria-labelledby="casual-wear-title">
-      <h1 class="chapter-title" id="casual-wear-title">Casual Wear</h1>
-      <div class="essay">
-        <div class="row r1"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/01.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
-        <div class="row r2"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/02.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/03.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
-        <div class="row r3"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/04.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
-        <div class="row r4"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/05.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
-        <div class="row r5"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/06.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/07.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
-        <div class="row r1"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/08.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
-        <div class="row r2"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/09.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/10.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
-        <div class="row r3"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/11.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
-        <div class="row r4"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/12.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
-        <div class="row r5"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/13.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/14.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
-        <div class="row r1"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/15.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
-        <div class="row r2"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/16.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/17.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
-        <div class="row r3"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/18.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
-        <div class="row r4"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/19.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
-        <div class="row r5"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/20.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/21.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
-        <div class="row r1"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/22.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
-        <div class="row r2"><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/23.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure><figure class="frame reveal"><img src="assets/images/galerie/casual-wear/24.jpg" alt="P.GÓRNE made-to-order casual wear" loading="lazy"></figure></div>
+  <main>
+    <div class="book" id="book" role="region" aria-roledescription="book" aria-label="P.GÓRNE Galerie">
+      <button class="turn-zone prev" id="zonePrev" type="button" tabindex="-1" aria-hidden="true"></button>
+      <button class="turn-zone next" id="zoneNext" type="button" tabindex="-1" aria-hidden="true"></button>
+    </div>
+    <div class="controls">
+      <button type="button" id="prevButton" aria-controls="book">Previous</button>
+      <span class="counter" id="counter" aria-live="polite"></span>
+      <button type="button" id="nextButton" aria-controls="book">Next</button>
+    </div>
+    <noscript>
+      <div class="noscript-list">
+      <img src="/assets/images/galerie/casual-wear/01.jpg" width="1452" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/02.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/03.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/04.jpg" width="1600" height="1550" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/05.jpg" width="1163" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/06.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/07.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/08.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/09.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/10.jpg" width="1139" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/11.jpg" width="1488" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/12.jpg" width="1321" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/13.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/14.jpg" width="1570" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/15.jpg" width="998" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/16.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/17.jpg" width="1427" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/18.jpg" width="1145" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/19.jpg" width="1066" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/20.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/21.jpg" width="1059" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/22.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/23.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/24.jpg" width="1108" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/business-attire/01.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/business-attire/02.jpg" width="1258" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/business-attire/03.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/business-attire/04.jpg" width="900" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/formalwear/01.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/formalwear/02.jpg" width="1201" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/formalwear/03.jpg" width="1072" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/formalwear/04.jpg" width="1201" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/formalwear/05.jpg" width="964" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/formalwear/06.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
       </div>
-    </section>
-
-    <section class="chapter gallery business-attire" aria-labelledby="business-attire-title">
-      <h2 class="chapter-title" id="business-attire-title">Business Attire</h2>
-      <div class="essay">
-        <div class="row r1"><figure class="frame reveal"><img src="assets/images/galerie/business-attire/01.jpg" alt="P.GÓRNE made-to-order business attire" loading="lazy"></figure></div>
-        <div class="row r2"><figure class="frame reveal"><img src="assets/images/galerie/business-attire/02.jpg" alt="P.GÓRNE made-to-order business attire" loading="lazy"></figure><figure class="frame reveal"><img src="assets/images/galerie/business-attire/03.jpg" alt="P.GÓRNE made-to-order business attire" loading="lazy"></figure></div>
-        <div class="row r3"><figure class="frame reveal"><img src="assets/images/galerie/business-attire/04.jpg" alt="P.GÓRNE made-to-order business attire" loading="lazy"></figure></div>
-      </div>
-    </section>
-
-    <section class="chapter gallery formalwear" aria-labelledby="formalwear-title">
-      <h2 class="chapter-title" id="formalwear-title">Formalwear</h2>
-      <div class="essay">
-        <div class="row r1"><figure class="frame reveal"><img src="assets/images/galerie/formalwear/01.jpg" alt="P.GÓRNE made-to-order formalwear" loading="lazy"></figure></div>
-        <div class="row r2"><figure class="frame reveal"><img src="assets/images/galerie/formalwear/02.jpg" alt="P.GÓRNE made-to-order formalwear" loading="lazy"></figure><figure class="frame reveal"><img src="assets/images/galerie/formalwear/03.jpg" alt="P.GÓRNE made-to-order formalwear" loading="lazy"></figure></div>
-        <div class="row r3"><figure class="frame reveal"><img src="assets/images/galerie/formalwear/04.jpg" alt="P.GÓRNE made-to-order formalwear" loading="lazy"></figure></div>
-        <div class="row r4"><figure class="frame reveal"><img src="assets/images/galerie/formalwear/05.jpg" alt="P.GÓRNE made-to-order formalwear" loading="lazy"></figure></div>
-        <div class="row r5"><figure class="frame reveal"><img src="assets/images/galerie/formalwear/06.jpg" alt="P.GÓRNE made-to-order formalwear" loading="lazy"></figure></div>
-      </div>
-    </section>
-
-    <footer class="archive-close">
-      <p>New York · 2019—Present</p>
-      <a class="back-top" href="#top">Back to top</a>
-    </footer>
+    </noscript>
   </main>
+
+  <template id="galeriePages">
+      <div class="cover"><p class="eyebrow">P.GÓRNE</p><h1>Galerie</h1><p class="hint">Turn the page</p></div>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/01.jpg" width="1452" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/02.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/03.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/04.jpg" width="1600" height="1550" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/05.jpg" width="1163" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/06.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/07.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/08.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/09.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/10.jpg" width="1139" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/11.jpg" width="1488" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/12.jpg" width="1321" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/13.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/14.jpg" width="1570" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/15.jpg" width="998" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/16.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/17.jpg" width="1427" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/18.jpg" width="1145" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/19.jpg" width="1066" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/20.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/21.jpg" width="1059" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/22.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/23.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/24.jpg" width="1108" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/business-attire/01.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/business-attire/02.jpg" width="1258" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/business-attire/03.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/business-attire/04.jpg" width="900" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/formalwear/01.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/formalwear/02.jpg" width="1201" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/formalwear/03.jpg" width="1072" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/formalwear/04.jpg" width="1201" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/formalwear/05.jpg" width="964" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/formalwear/06.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
+      <div class="colophon"><p>New York · 2019—Present</p></div>
+  </template>
 
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded Galerie image">
     <button class="lightbox-close" id="lightboxClose" type="button">Close</button>
-    <img id="lightboxImage" src="" alt="">
+    <img id="lightboxImage" src="" width="1452" height="1600" alt="">
   </div>
 
   <script>
+    const book = document.getElementById('book');
+    const zonePrev = document.getElementById('zonePrev');
+    const zoneNext = document.getElementById('zoneNext');
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+    const counter = document.getElementById('counter');
     const lightbox = document.getElementById('lightbox');
     const lightboxImage = document.getElementById('lightboxImage');
-    const closeButton = document.getElementById('lightboxClose');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const pages = Array.from(document.getElementById('galeriePages').content.children);
+    const photoCount = pages.filter((page) => page.classList.contains('photo')).length;
+    const single = window.matchMedia('(max-width: 760px)');
+    const TURN_MS = 1000;
+
+    let perLeaf = 2;
+    let leaves = [];
+    let spread = 0;
     let previousFocus = null;
 
-    document.querySelectorAll('.frame img').forEach((image) => {
-      const frame = image.parentElement;
-      frame.setAttribute('tabindex', '0');
-      frame.setAttribute('role', 'button');
-      frame.setAttribute('aria-label', `Expand image: ${image.alt}`);
-      const open = () => {
-        previousFocus = document.activeElement;
-        lightboxImage.src = image.src;
-        lightboxImage.alt = image.alt;
-        lightbox.classList.add('open');
-        document.body.style.overflow = 'hidden';
-        closeButton.focus();
-      };
-      frame.addEventListener('click', open);
-      frame.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
+    function pageContent(index) {
+      const face = document.createElement('div');
+      const page = pages[index];
+      if (!page) { face.className = 'face empty'; return face; }
+      face.className = 'face';
+      const node = page.cloneNode(true);
+      node.dataset.page = index;
+      face.appendChild(node);
+      const image = node.querySelector('img');
+      if (image) {
+        node.tabIndex = -1;
+        node.setAttribute('role', 'button');
+        node.setAttribute('aria-label', `Expand photograph ${index} of ${photoCount}`);
+        image.addEventListener('load', () => image.classList.add('loaded'));
+        node.addEventListener('click', () => openLightbox(image));
+        node.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openLightbox(image); }
+        });
+      }
+      return face;
+    }
+
+    function build(keepPage) {
+      leaves.forEach((leaf) => leaf.remove());
+      perLeaf = single.matches ? 1 : 2;
+      leaves = [];
+      const count = Math.ceil(pages.length / perLeaf);
+      for (let i = 0; i < count; i++) {
+        const leaf = document.createElement('div');
+        leaf.className = 'leaf';
+        const front = pageContent(i * perLeaf);
+        front.classList.add('front');
+        leaf.appendChild(front);
+        if (perLeaf === 2) {
+          const back = pageContent(i * perLeaf + 1);
+          back.classList.add('back');
+          leaf.appendChild(back);
+        }
+        book.insertBefore(leaf, zonePrev);
+        leaves.push(leaf);
+      }
+      spread = Math.min(perLeaf === 2 ? Math.ceil(keepPage / 2) : keepPage, maxSpread());
+      render(false);
+    }
+
+    function maxSpread() {
+      return perLeaf === 2 && pages.length % 2 === 0 ? leaves.length : leaves.length - 1;
+    }
+
+    function visiblePages() {
+      return perLeaf === 2 ? [spread * 2 - 1, spread * 2] : [spread];
+    }
+
+    function firstVisiblePage() {
+      const visible = visiblePages().filter((index) => index >= 0 && index < pages.length);
+      return visible.length ? visible[0] : 0;
+    }
+
+    function loadAround() {
+      const [first] = visiblePages();
+      const span = perLeaf === 2 ? 6 : 3;
+      for (let index = Math.max(0, first - span); index <= first + span + 1; index++) {
+        book.querySelectorAll(`[data-page="${index}"] img[data-src]`).forEach((image) => {
+          image.src = image.dataset.src;
+          image.removeAttribute('data-src');
+        });
+      }
+    }
+
+    function stack() {
+      leaves.forEach((leaf, i) => {
+        if (leaf.classList.contains('turning')) return;
+        leaf.style.zIndex = i < spread ? i + 1 : leaves.length - i;
       });
+    }
+
+    function render(animate, turned) {
+      leaves.forEach((leaf, i) => {
+        leaf.classList.toggle('flipped', i < spread);
+        leaf.classList.toggle('top', i === spread - 1 || i === spread);
+      });
+      book.classList.toggle('closed-start', perLeaf === 2 && spread === 0);
+      book.classList.toggle('closed-end', perLeaf === 2 && spread === leaves.length);
+      if (animate && turned) {
+        turned.classList.add('turning');
+        turned.style.zIndex = leaves.length + (++turnSeq);
+        window.clearTimeout(turned.turnTimer);
+        turned.turnTimer = window.setTimeout(() => { turned.classList.remove('turning'); stack(); }, TURN_MS);
+      }
+      stack();
+      const visible = visiblePages();
+      book.querySelectorAll('[data-page]').forEach((node) => {
+        const on = visible.includes(Number(node.dataset.page));
+        node.closest('.face').inert = !on;
+        if (node.getAttribute('role') === 'button') node.tabIndex = on ? 0 : -1;
+      });
+      prevButton.disabled = zonePrev.disabled = spread === 0;
+      nextButton.disabled = zoneNext.disabled = spread === maxSpread();
+      const photos = visible.filter((index) => index >= 1 && index <= photoCount);
+      counter.textContent = photos.length
+        ? `${photos.join(' — ')} / ${photoCount}`
+        : (spread === 0 ? 'Galerie' : 'Fin');
+      loadAround();
+    }
+
+    let turnSeq = 0;
+
+    function turn(direction) {
+      const target = spread + direction;
+      if (target < 0 || target > maxSpread()) return;
+      const turned = direction > 0 ? leaves[spread] : leaves[spread - 1];
+      spread = target;
+      render(true, turned);
+    }
+
+    zoneNext.addEventListener('click', () => turn(1));
+    zonePrev.addEventListener('click', () => turn(-1));
+    nextButton.addEventListener('click', () => turn(1));
+    prevButton.addEventListener('click', () => turn(-1));
+
+    document.addEventListener('keydown', (event) => {
+      if (event.defaultPrevented || lightbox.classList.contains('open')) return;
+      if (document.querySelector('.site-menu.open')) return;
+      if (event.key === 'ArrowRight') { event.preventDefault(); turn(1); }
+      if (event.key === 'ArrowLeft') { event.preventDefault(); turn(-1); }
     });
 
-    const close = () => {
+    let touchX = null;
+    let touchY = null;
+    book.addEventListener('touchstart', (event) => {
+      touchX = event.touches[0].clientX;
+      touchY = event.touches[0].clientY;
+    }, { passive: true });
+    book.addEventListener('touchend', (event) => {
+      if (touchX === null) return;
+      const dx = event.changedTouches[0].clientX - touchX;
+      const dy = event.changedTouches[0].clientY - touchY;
+      touchX = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) turn(dx < 0 ? 1 : -1);
+    });
+
+    single.addEventListener('change', () => build(firstVisiblePage()));
+
+    function openLightbox(image) {
+      previousFocus = document.activeElement;
+      lightboxImage.src = image.currentSrc || image.src;
+      lightboxImage.alt = image.alt;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      lightboxClose.focus();
+    }
+
+    function closeLightbox() {
       lightbox.classList.remove('open');
       document.body.style.overflow = '';
       lightboxImage.src = '';
       if (previousFocus) previousFocus.focus();
-    };
-    closeButton.addEventListener('click', close);
-    lightbox.addEventListener('click', (event) => { if (event.target === lightbox) close(); });
-    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && lightbox.classList.contains('open')) close(); });
-
-    const reveals = document.querySelectorAll('.reveal');
-    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
-        });
-      }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
-      reveals.forEach((item) => observer.observe(item));
-    } else {
-      reveals.forEach((item) => item.classList.add('visible'));
     }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (event) => { if (event.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox(); });
+
+    build(0);
   </script>
+  <script src="/assets/menu.js" defer></script>
 </body>
 </html>
