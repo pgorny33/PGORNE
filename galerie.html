@@ -38,6 +38,7 @@
     .wordmark{font-size:14px;letter-spacing:.16em;font-weight:500}
     .return{font-size:10px;letter-spacing:.18em;text-transform:uppercase}
     .return:hover{color:var(--accent)}
+    .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
     main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px var(--page-pad) 26px}
 
@@ -62,10 +63,10 @@
     .photo img.loaded{opacity:1}
     .photo:focus-visible{outline:1px solid var(--accent);outline-offset:6px}
 
-    .cover,.colophon{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10%}
-    .cover .eyebrow,.colophon p{margin:0;font-size:10px;letter-spacing:.22em;text-transform:uppercase}
-    .cover h1{margin:clamp(22px,4vh,40px) 0 0;font-size:clamp(30px,4.6vw,64px);line-height:1;letter-spacing:.06em;font-weight:300;text-transform:uppercase}
-    .cover .hint{position:absolute;bottom:8%;left:0;right:0;margin:0;font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55}
+    .colophon{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10%}
+    .colophon p{margin:0;font-size:10px;letter-spacing:.22em;text-transform:uppercase}
+    .cover{position:absolute;inset:0}
+    .cover img{display:block;width:100%;height:100%;object-fit:cover}
 
     .turn-zone{position:absolute;top:0;z-index:200;height:100%;width:9%;border:0;padding:0;background:transparent;cursor:pointer}
     .turn-zone.prev{left:0;cursor:w-resize}
@@ -120,6 +121,7 @@
   </header>
 
   <main>
+    <h1 class="visually-hidden">Galerie</h1>
     <div class="book" id="book" role="region" aria-roledescription="book" aria-label="P.GÓRNE Galerie">
       <button class="turn-zone prev" id="zonePrev" type="button" tabindex="-1" aria-hidden="true"></button>
       <button class="turn-zone next" id="zoneNext" type="button" tabindex="-1" aria-hidden="true"></button>
@@ -131,6 +133,7 @@
     </div>
     <noscript>
       <div class="noscript-list">
+      <img src="/assets/images/galerie/cover.jpg" width="1200" height="1600" alt="P.GÓRNE New York" loading="lazy">
       <img src="/assets/images/galerie/casual-wear/01.jpg" width="1452" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
       <img src="/assets/images/galerie/casual-wear/02.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
       <img src="/assets/images/galerie/casual-wear/03.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
@@ -170,7 +173,7 @@
   </main>
 
   <template id="galeriePages">
-      <div class="cover"><p class="eyebrow">P.GÓRNE</p><h1>Galerie</h1><p class="hint">Turn the page</p></div>
+      <div class="cover"><img src="/assets/images/galerie/cover.jpg" width="1200" height="1600" alt="P.GÓRNE New York"></div>
       <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/01.jpg" width="1452" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
       <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/02.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
       <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/03.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
@@ -241,7 +244,7 @@
       const node = page.cloneNode(true);
       node.dataset.page = index;
       face.appendChild(node);
-      const image = node.querySelector('img');
+      const image = node.classList.contains('photo') ? node.querySelector('img') : null;
       if (image) {
         node.tabIndex = -1;
         node.setAttribute('role', 'button');
