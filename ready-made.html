@@ -6,33 +6,32 @@
   <title>P.GÓRNE — Ready Made</title>
   <meta name="description" content="Limited-edition ready-to-wear garments from the P.GÓRNE atelier in New York City." />
   <link rel="icon" type="image/png" href="/assets/accent-pantone.png" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="P.GÓRNE" />
-  <meta property="og:title" content="P.GÓRNE — Ready Made" />
-  <meta property="og:description" content="Limited-edition ready-to-wear garments from the P.GÓRNE atelier in New York City." />
-  <meta property="og:url" content="https://www.pgorne.com/ready-made" />
-  <meta property="og:image" content="https://www.pgorne.com/assets/poster.jpg" />
-  <meta property="og:image:width" content="1616" />
-  <meta property="og:image:height" content="1080" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <style>
-    :root{--paper:#f3efe8;--ink:#141414;--accent:#6B3529;}
-    html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font-family:Arial, Helvetica, sans-serif;}
-    main{min-height:100vh;display:grid;place-items:center;text-align:center;padding:40px;}
-    h1{font-size:clamp(36px,7vw,96px);font-weight:300;letter-spacing:.08em;text-transform:uppercase;margin:0 0 22px;}
-    p{max-width:680px;font-size:14px;line-height:1.65;letter-spacing:.04em;text-align:center;margin:0 auto 58px;}
-    a{color:var(--ink);text-decoration:none;text-transform:uppercase;letter-spacing:.16em;font-size:12px;}
-    a:hover{color:var(--accent);}
-  </style>
+  <link rel="stylesheet" href="/assets/ready-made.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 </head>
 <body>
-  <main>
-    <div>
-      <h1>Ready Made</h1>
-      <p>A curated extension of the atelier. Ready-to-wear garments are produced in limited editions. Subscribe to our newsletter for early access to future releases.</p>
-      <a class="menu-toggle" href="/">Menu</a>
+  <header class="site-header">
+    <a class="wordmark" href="/" aria-label="P.GÓRNE home">P.GÓRNE</a>
+    <div class="header-actions">
+      <button class="bag-toggle" type="button">Bag (0)</button>
+      <a class="return menu-toggle" href="/">Menu</a>
     </div>
+  </header>
+
+  <main class="shop">
+    <div class="shop-head"><h1 class="label">Ready Made</h1></div>
+    <div class="grid">
+      <a class="card reveal" href="/ready-made/sport-coat"><div class="frame"><img src="/assets/images/galerie/business-attire/01.jpg" alt="P.GÓRNE sport coat" loading="lazy"></div><div class="meta"><span>Sport Coat</span><span>$1,850</span></div><div class="fabric-line"><img src="/assets/images/ready-made/sport-coat-swatch-thumb.jpg" width="240" height="240" alt="" loading="lazy"><p>Taupe<br>Linen, silk + wool<br>260 gsm · Italy</p></div></a>
+      <div class="card reveal"><div class="frame"><img src="/assets/images/galerie/casual-wear/20.jpg" alt="P.GÓRNE trucker jacket" loading="lazy"></div><div class="meta"><span>Trucker Jacket</span><span>$980</span></div><div class="fabric-line"><img src="/assets/images/ready-made/trucker-jacket-swatch-thumb.jpg" width="240" height="240" alt="" loading="lazy"><p>Chocolate<br>Cotton denim<br>14 oz · Japan</p></div></div>
+      <div class="card reveal"><div class="frame"><img src="/assets/images/galerie/casual-wear/07.jpg" alt="P.GÓRNE overshirt" loading="lazy"></div><div class="meta"><span>Overshirt</span><span>$720</span></div><div class="fabric-line"><img src="/assets/images/ready-made/overshirt-swatch-thumb.jpg" width="240" height="240" alt="" loading="lazy"><p>Earth<br>Waxed cotton<br>290 gsm · Scotland</p></div></div>
+      <div class="card reveal"><div class="frame"><img src="/assets/images/galerie/casual-wear/15.jpg" alt="P.GÓRNE cable crewneck" loading="lazy"></div><div class="meta"><span>Cable Crewneck</span><span>$640</span></div><div class="fabric-line"><img src="/assets/images/ready-made/cable-crewneck-swatch-thumb.jpg" width="240" height="240" alt="" loading="lazy"><p>Taupe<br>Cashmere<br>2-ply · Scotland</p></div></div>
+      <div class="card reveal"><div class="frame"><img src="/assets/images/galerie/casual-wear/21.jpg" alt="P.GÓRNE quarter-zip" loading="lazy"><span class="tag label">Sold out</span></div><div class="meta"><span>Quarter-Zip</span><span>$520</span></div><div class="fabric-line"><img src="/assets/images/ready-made/quarter-zip-swatch-thumb.jpg" width="240" height="240" alt="" loading="lazy"><p>Charcoal<br>Merino rib<br>12 gauge · Italy</p></div></div>
+      <div class="card reveal"><div class="frame"><img src="/assets/images/galerie/casual-wear/14.jpg" alt="P.GÓRNE denim jacket" loading="lazy"></div><div class="meta"><span>Denim Jacket</span><span>$890</span></div><div class="fabric-line"><img src="/assets/images/ready-made/denim-jacket-swatch-thumb.jpg" width="240" height="240" alt="" loading="lazy"><p>Washed black<br>Selvedge denim<br>13.5 oz · Japan</p></div></div>
+    </div>
+    <p class="sample-note label">Preview — sample pieces, photos, fabrics and prices are placeholders. Open the Sport Coat to see a product page.</p>
   </main>
+
   <script src="/assets/menu.js" defer></script>
+  <script src="/assets/ready-made.js" defer></script>
 </body>
 </html>
