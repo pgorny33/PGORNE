@@ -108,9 +108,10 @@
 
     @media (prefers-reduced-motion:reduce){
       .book,.leaf,.lightbox,.photo img{transition:none}
-      .leaf.turning .face::after{animation:none}
+      .leaf.turning .face:not(.empty)::after{animation:none}
     }
   </style>
+  <noscript><style>.book,.controls{display:none}</style></noscript>
 </head>
 <body>
   <header class="site-header">
@@ -317,7 +318,7 @@
       book.classList.toggle('closed-end', perLeaf === 2 && spread === leaves.length);
       if (animate && turned) {
         turned.classList.add('turning');
-        turned.style.zIndex = leaves.length + 1;
+        turned.style.zIndex = leaves.length + (++turnSeq);
         window.clearTimeout(turned.turnTimer);
         turned.turnTimer = window.setTimeout(() => { turned.classList.remove('turning'); stack(); }, TURN_MS);
       }
@@ -336,6 +337,8 @@
         : (spread === 0 ? 'Galerie' : 'Fin');
       loadAround();
     }
+
+    let turnSeq = 0;
 
     function turn(direction) {
       const target = spread + direction;
