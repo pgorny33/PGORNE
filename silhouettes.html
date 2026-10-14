@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>P.GÓRNE — Silhouettes</title>
+  <meta name="description" content="P.GÓRNE house silhouettes and the cloths they can be made in." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/png" href="/assets/accent-pantone.png" />
+  <style>
+    :root{--paper:#f3efe8;--ink:#141414;--accent:#6B3529;--leaf:#f8f5ef;--line:rgba(20,20,20,.18);--pad:clamp(18px,4vw,64px)}
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+    .label,.return{font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+    .site-header{display:flex;justify-content:space-between;align-items:center;padding:24px var(--pad) 10px}
+    .wordmark{font-size:14px;letter-spacing:.16em;font-weight:500}
+    .return:hover{color:var(--accent)}
+    .studio{display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:clamp(30px,5vw,80px);align-items:center;min-height:calc(100svh - 64px);padding:10px var(--pad) 40px}
+    .drawing{margin:0;display:grid;place-items:center}
+    .drawing svg{width:100%;height:calc(100svh - 150px);max-height:860px;overflow:visible}
+    .garment{isolation:isolate}
+    .garment[hidden]{display:none}
+    .dye{fill:var(--dye,var(--leaf));transition:fill 450ms ease}
+    .weave{fill:url(#cloth);mix-blend-mode:multiply;opacity:0;transition:opacity 450ms ease}
+    svg.dyed .weave{opacity:1}
+    .art{fill:none;stroke:var(--ink);stroke-width:1.2;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+    .art .soft{stroke-opacity:.4}
+    .art .shirt{fill:#fbf9f4}
+    .art .btn{fill:var(--leaf)}
+    .panel h1{margin:0 0 26px;font-weight:400}
+    .tabs{display:flex;gap:26px;margin-bottom:30px}
+    .tabs button{padding-bottom:4px;border-bottom:1px solid transparent;color:rgba(20,20,20,.5)}
+    .tabs button[aria-selected="true"]{color:var(--ink);border-color:var(--ink)}
+    .readout{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding:16px 0 18px;min-height:52px}
+    .readout .name{font-size:13px;letter-spacing:.16em;text-transform:uppercase}
+    .readout .no{color:rgba(20,20,20,.5)}
+    .swatches{display:grid;grid-template-columns:repeat(6,1fr);gap:12px 10px}
+    .swatches button{position:relative;display:block;padding-bottom:9px}
+    .swatches span{display:block;aspect-ratio:1;background:url(/assets/images/silhouettes/cloth-texture.jpg) center/280% auto,var(--hex);background-blend-mode:multiply;clip-path:polygon(0.00% 4.50%,6.25% 0.00%,12.50% 4.50%,18.75% 0.00%,25.00% 4.50%,31.25% 0.00%,37.50% 4.50%,43.75% 0.00%,50.00% 4.50%,56.25% 0.00%,62.50% 4.50%,68.75% 0.00%,75.00% 4.50%,81.25% 0.00%,87.50% 4.50%,93.75% 0.00%,100.00% 4.50%,95.50% 0.00%,100.00% 6.25%,95.50% 12.50%,100.00% 18.75%,95.50% 25.00%,100.00% 31.25%,95.50% 37.50%,100.00% 43.75%,95.50% 50.00%,100.00% 56.25%,95.50% 62.50%,100.00% 68.75%,95.50% 75.00%,100.00% 81.25%,95.50% 87.50%,100.00% 93.75%,95.50% 100.00%,100.00% 95.50%,93.75% 100.00%,87.50% 95.50%,81.25% 100.00%,75.00% 95.50%,68.75% 100.00%,62.50% 95.50%,56.25% 100.00%,50.00% 95.50%,43.75% 100.00%,37.50% 95.50%,31.25% 100.00%,25.00% 95.50%,18.75% 100.00%,12.50% 95.50%,6.25% 100.00%,0.00% 95.50%,4.50% 100.00%,0.00% 93.75%,4.50% 87.50%,0.00% 81.25%,4.50% 75.00%,0.00% 68.75%,4.50% 62.50%,0.00% 56.25%,4.50% 50.00%,0.00% 43.75%,4.50% 37.50%,0.00% 31.25%,4.50% 25.00%,0.00% 18.75%,4.50% 12.50%,0.00% 6.25%,4.50% 0.00%);transition:transform 250ms ease}
+    .swatches button:hover span,.swatches button:focus-visible span{transform:scale(1.08)}
+    .swatches button::after{content:"";position:absolute;left:50%;bottom:0;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--ink);opacity:0;transition:opacity 200ms}
+    .swatches button[aria-pressed="true"]::after{opacity:1}
+    .swatches button:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
+    .book{display:flex;justify-content:space-between;margin-top:30px;padding:18px 20px;background:var(--ink);color:var(--paper);font-size:11px;letter-spacing:.2em;text-transform:uppercase;transition:background 200ms}
+    .book:hover{background:var(--accent)}
+    .note{margin:18px 0 0;color:rgba(20,20,20,.45);text-align:center}
+    @media (max-width:900px){
+      .studio{grid-template-columns:1fr;gap:18px;min-height:0;padding-top:0}
+      .drawing svg{height:min(56svh,520px)}
+      .panel h1{display:none}
+      .tabs{justify-content:center;margin-bottom:18px}
+      .swatches{grid-template-columns:repeat(8,1fr);gap:10px 7px}
+    }
+    @media (max-width:480px){.swatches{grid-template-columns:repeat(6,1fr);gap:12px 10px}}
+    @media (prefers-reduced-motion:reduce){.dye,.weave,.swatches span{transition:none}}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="/" aria-label="P.GÓRNE home">P.GÓRNE</a>
+    <a class="return menu-toggle" href="/">Menu</a>
+  </header>
+
+  <main class="studio">
+    <figure class="drawing">
+      <svg id="sketch" viewBox="40 20 320 480" role="img" aria-label="Sport coat sketch">
+        <defs>
+          <pattern id="cloth" patternUnits="userSpaceOnUse" x="0" y="0" width="150" height="150">
+            <image href="/assets/images/silhouettes/cloth-tile.jpg" x="0" y="0" width="150" height="150"/>
+          </pattern>
+        </defs>
+        <g class="garment" data-garment="Sport Coat">
+          <path class="dye" d="M95,80 C80,92 72,130 70,170 L60,402 Q80,410 100,406 L113,205 L112,175 C100,150 92,120 95,80 Z M305,80 C320,92 328,130 330,170 L340,402 Q320,410 300,406 L287,205 L288,175 C300,150 308,120 305,80 Z"/><path class="dye" d="M165,48 L95,80 C92,120 100,150 112,175 L118,435 Q160,445 196,442 L204,442 Q240,445 282,435 L288,175 C300,150 308,120 305,80 L235,48 Q200,62 165,48 Z"/>
+          <path class="weave" d="M95,80 C80,92 72,130 70,170 L60,402 Q80,410 100,406 L113,205 L112,175 C100,150 92,120 95,80 Z M305,80 C320,92 328,130 330,170 L340,402 Q320,410 300,406 L287,205 L288,175 C300,150 308,120 305,80 Z"/><path class="weave" d="M165,48 L95,80 C92,120 100,150 112,175 L118,435 Q160,445 196,442 L204,442 Q240,445 282,435 L288,175 C300,150 308,120 305,80 L235,48 Q200,62 165,48 Z"/>
+          <g class="art">
+            <path d="M95,80 C80,92 72,130 70,170 L60,402 Q80,410 100,406 L113,205 L112,175 C100,150 92,120 95,80 Z M305,80 C320,92 328,130 330,170 L340,402 Q320,410 300,406 L287,205 L288,175 C300,150 308,120 305,80 Z"/><path d="M165,48 L95,80 C92,120 100,150 112,175 L118,435 Q160,445 196,442 L204,442 Q240,445 282,435 L288,175 C300,150 308,120 305,80 L235,48 Q200,62 165,48 Z"/>
+            <path class="shirt" d="M172,52 Q200,66 228,52 L202,290 L198,290 Z"/>
+            <path d="M188,59 L200,82 L212,59"/>
+            <path d="M172,52 L150,102 L164,108 L150,120 Q172,215 198,290"/>
+            <path d="M228,52 L250,102 L236,108 L250,120 Q228,215 202,290"/>
+            <path d="M201,290 L201,424 Q203,438 216,441"/>
+            <path d="M238,190 L280,184 L281,191 L239,197 Z"/>
+            <path d="M122,334 L182,336 L182,352 L122,350 Z"/><path d="M218,336 L278,334 L278,350 L218,352 Z"/>
+            <path class="soft" d="M166,215 L168,320"/><path class="soft" d="M234,215 L232,320"/>
+            <path class="soft" d="M113,205 L100,406"/><path class="soft" d="M287,205 L300,406"/>
+            <circle class="btn" cx="205" cy="305" r="4"/><circle class="btn" cx="205" cy="352" r="4"/>
+            <circle class="btn" cx="89" cy="388" r="2"/><circle class="btn" cx="91" cy="379" r="2"/><circle class="btn" cx="93" cy="370" r="2"/>
+            <circle class="btn" cx="311" cy="388" r="2"/><circle class="btn" cx="309" cy="379" r="2"/><circle class="btn" cx="307" cy="370" r="2"/>
+          </g>
+        </g>
+        <g class="garment" data-garment="Trousers" hidden>
+          <path class="dye" d="M118,40 L282,40 L283,64 L292,482 L210,482 L200,150 L190,482 L108,482 L117,64 Z"/>
+          <path class="weave" d="M118,40 L282,40 L283,64 L292,482 L210,482 L200,150 L190,482 L108,482 L117,64 Z"/>
+          <g class="art">
+            <path d="M118,40 L282,40 L283,64 L292,482 L210,482 L200,150 L190,482 L108,482 L117,64 Z"/>
+            <path d="M117,64 L283,64"/>
+            <path d="M206,64 L206,136 Q206,146 199,150"/>
+            <path d="M140,64 L124,118"/><path d="M260,64 L276,118"/>
+            <path class="soft" d="M152,70 L150,482"/><path class="soft" d="M248,70 L250,482"/>
+            <path d="M146,38 L146,66"/><path d="M254,38 L254,66"/><path d="M178,38 L178,66"/><path d="M222,38 L222,66"/>
+            <circle class="btn" cx="200" cy="52" r="3"/>
+          </g>
+        </g>
+      </svg>
+    </figure>
+
+    <section class="panel">
+      <h1 class="label">Silhouettes</h1>
+      <div class="tabs" role="tablist" aria-label="Silhouette">
+        <button class="label" role="tab" type="button" aria-selected="true">Sport Coat</button>
+        <button class="label" role="tab" type="button" aria-selected="false">Trousers</button>
+      </div>
+      <div class="readout" aria-live="polite"><span class="name">Choose a colour</span><span class="no label"></span></div>
+      <div class="swatches" role="group" aria-label="Colours">
+          <button type="button" aria-pressed="false" data-name="Midnight" data-hex="#1c2230" data-no="01" aria-label="No. 01 Midnight"><span style="--hex:#1c2230"></span></button>
+          <button type="button" aria-pressed="false" data-name="Navy" data-hex="#26324a" data-no="02" aria-label="No. 02 Navy"><span style="--hex:#26324a"></span></button>
+          <button type="button" aria-pressed="false" data-name="French Navy" data-hex="#2f4166" data-no="03" aria-label="No. 03 French Navy"><span style="--hex:#2f4166"></span></button>
+          <button type="button" aria-pressed="false" data-name="Slate Blue" data-hex="#4f6380" data-no="04" aria-label="No. 04 Slate Blue"><span style="--hex:#4f6380"></span></button>
+          <button type="button" aria-pressed="false" data-name="Air Force" data-hex="#6f86a3" data-no="05" aria-label="No. 05 Air Force"><span style="--hex:#6f86a3"></span></button>
+          <button type="button" aria-pressed="false" data-name="Powder" data-hex="#a9bccf" data-no="06" aria-label="No. 06 Powder"><span style="--hex:#a9bccf"></span></button>
+          <button type="button" aria-pressed="false" data-name="Black" data-hex="#1a1a1a" data-no="07" aria-label="No. 07 Black"><span style="--hex:#1a1a1a"></span></button>
+          <button type="button" aria-pressed="false" data-name="Charcoal" data-hex="#3a3b3d" data-no="08" aria-label="No. 08 Charcoal"><span style="--hex:#3a3b3d"></span></button>
+          <button type="button" aria-pressed="false" data-name="Flannel" data-hex="#6d6e70" data-no="09" aria-label="No. 09 Flannel"><span style="--hex:#6d6e70"></span></button>
+          <button type="button" aria-pressed="false" data-name="Mid Grey" data-hex="#8f8f8c" data-no="10" aria-label="No. 10 Mid Grey"><span style="--hex:#8f8f8c"></span></button>
+          <button type="button" aria-pressed="false" data-name="Dove" data-hex="#bdbab3" data-no="11" aria-label="No. 11 Dove"><span style="--hex:#bdbab3"></span></button>
+          <button type="button" aria-pressed="false" data-name="Ivory" data-hex="#e8e1d2" data-no="12" aria-label="No. 12 Ivory"><span style="--hex:#e8e1d2"></span></button>
+          <button type="button" aria-pressed="false" data-name="Stone" data-hex="#c9bda6" data-no="13" aria-label="No. 13 Stone"><span style="--hex:#c9bda6"></span></button>
+          <button type="button" aria-pressed="false" data-name="Sand" data-hex="#bfa784" data-no="14" aria-label="No. 14 Sand"><span style="--hex:#bfa784"></span></button>
+          <button type="button" aria-pressed="false" data-name="Camel" data-hex="#b08a5a" data-no="15" aria-label="No. 15 Camel"><span style="--hex:#b08a5a"></span></button>
+          <button type="button" aria-pressed="false" data-name="Taupe" data-hex="#8b7a6a" data-no="16" aria-label="No. 16 Taupe"><span style="--hex:#8b7a6a"></span></button>
+          <button type="button" aria-pressed="false" data-name="Tobacco" data-hex="#7a5534" data-no="17" aria-label="No. 17 Tobacco"><span style="--hex:#7a5534"></span></button>
+          <button type="button" aria-pressed="false" data-name="Chocolate" data-hex="#4a3326" data-no="18" aria-label="No. 18 Chocolate"><span style="--hex:#4a3326"></span></button>
+          <button type="button" aria-pressed="false" data-name="Oxblood" data-hex="#6B3529" data-no="19" aria-label="No. 19 Oxblood"><span style="--hex:#6B3529"></span></button>
+          <button type="button" aria-pressed="false" data-name="Burgundy" data-hex="#5c2230" data-no="20" aria-label="No. 20 Burgundy"><span style="--hex:#5c2230"></span></button>
+          <button type="button" aria-pressed="false" data-name="Rust" data-hex="#9a4a2c" data-no="21" aria-label="No. 21 Rust"><span style="--hex:#9a4a2c"></span></button>
+          <button type="button" aria-pressed="false" data-name="Olive" data-hex="#5f5c3a" data-no="22" aria-label="No. 22 Olive"><span style="--hex:#5f5c3a"></span></button>
+          <button type="button" aria-pressed="false" data-name="Forest" data-hex="#2e4034" data-no="23" aria-label="No. 23 Forest"><span style="--hex:#2e4034"></span></button>
+          <button type="button" aria-pressed="false" data-name="Sage" data-hex="#8f9a80" data-no="24" aria-label="No. 24 Sage"><span style="--hex:#8f9a80"></span></button>
+      </div>
+      <a class="book" href="/book"><span class="book-text">Book a fitting</span><span>→</span></a>
+      <p class="note label">Sample — sketches and colours are placeholders</p>
+    </section>
+  </main>
+
+  <script src="/assets/menu.js" defer></script>
+  <script>
+    (function () {
+      const svg = document.getElementById('sketch');
+      const garments = svg.querySelectorAll('.garment');
+      const tabs = document.querySelectorAll('.tabs button');
+      const grid = document.querySelector('.swatches');
+      const swatches = grid.querySelectorAll('button');
+      const nameEl = document.querySelector('.readout .name');
+      const noEl = document.querySelector('.readout .no');
+      const bookText = document.querySelector('.book-text');
+      let selected = null;
+
+      function show(btn) {
+        if (btn) {
+          svg.style.setProperty('--dye', btn.dataset.hex);
+          svg.classList.add('dyed');
+          nameEl.textContent = btn.dataset.name;
+          noEl.textContent = 'No. ' + btn.dataset.no;
+        } else {
+          svg.style.removeProperty('--dye');
+          svg.classList.remove('dyed');
+          nameEl.textContent = 'Choose a colour';
+          noEl.textContent = '';
+        }
+      }
+      function select(btn) {
+        selected = btn;
+        swatches.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        bookText.textContent = 'Book a fitting in ' + btn.dataset.name;
+        show(btn);
+      }
+      swatches.forEach((btn) => {
+        btn.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') show(btn); });
+        btn.addEventListener('focus', () => show(btn));
+        btn.addEventListener('click', () => select(btn));
+      });
+      grid.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') show(selected); });
+      grid.addEventListener('focusout', (e) => { if (!grid.contains(e.relatedTarget)) show(selected); });
+      tabs.forEach((tab) => tab.addEventListener('click', () => {
+        tabs.forEach((t) => t.setAttribute('aria-selected', String(t === tab)));
+        const name = tab.textContent.trim();
+        garments.forEach((g) => g.toggleAttribute('hidden', g.dataset.garment !== name));
+        svg.setAttribute('aria-label', name + ' sketch');
+      }));
+    }());
+  </script>
+</body>
+</html>
