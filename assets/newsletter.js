@@ -33,7 +33,8 @@ document.addEventListener('submit', async (event) => {
       body: new FormData(form),
       headers: { Accept: 'application/json' }
     });
-    if (!response.ok) throw new Error('Newsletter subscription failed');
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || data.status !== 'success') throw new Error('Newsletter subscription failed');
     form.classList.add('is-done');
     status.textContent = 'Thank you. Please check your inbox to confirm.';
   } catch {
