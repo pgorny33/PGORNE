@@ -120,8 +120,7 @@
       .turn-zone{width:16%}
       .photo{inset:6% 7%}
       .colophon .newsletter-intro{width:78%}
-      .colophon .newsletter{width:80%}
-      .colophon .newsletter{max-width:280px}
+      .colophon .newsletter{width:80%;max-width:280px}
     }
 
     @media (prefers-reduced-motion:reduce){
@@ -385,7 +384,7 @@
     document.addEventListener('keydown', (event) => {
       if (event.defaultPrevented || lightbox.classList.contains('open')) return;
       if (document.querySelector('.site-menu.open')) return;
-      if (event.target.closest('input, textarea, select, button')) return;
+      if (event.target.closest('input, textarea, select, form.newsletter')) return;
       if (event.key === 'ArrowRight') { event.preventDefault(); turn(1); }
       if (event.key === 'ArrowLeft') { event.preventDefault(); turn(-1); }
     });
