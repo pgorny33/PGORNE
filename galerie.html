@@ -4,12 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>P.GÓRNE — Galerie</title>
-  <meta name="description" content="P.GÓRNE Galerie — a living editorial archive of made-to-order garments." />
+  <meta name="description" content="P.GÓRNE Galerie — a living editorial archive of made-to-measure garments." />
   <link rel="icon" type="image/png" href="/assets/accent-pantone.png" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="P.GÓRNE" />
   <meta property="og:title" content="P.GÓRNE — Galerie" />
-  <meta property="og:description" content="P.GÓRNE Galerie — a living editorial archive of made-to-order garments." />
+  <meta property="og:description" content="P.GÓRNE Galerie — a living editorial archive of made-to-measure garments." />
   <meta property="og:url" content="https://www.pgorne.com/galerie" />
   <meta property="og:image" content="https://www.pgorne.com/assets/poster.jpg" />
   <meta property="og:image:width" content="1616" />
@@ -65,6 +65,20 @@
 
     .colophon{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10%}
     .colophon p{margin:0;font-size:10px;letter-spacing:.22em;text-transform:uppercase}
+    .colophon .newsletter-intro{width:78%;max-width:420px;margin:12px auto 12px;font-size:10px;line-height:1.6;letter-spacing:.22em;text-transform:uppercase}
+    .colophon .newsletter{width:80%;max-width:420px;margin:0 auto}
+    .newsletter{position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;column-gap:18px;row-gap:4px;color:var(--ink);font-family:Arial,Helvetica,sans-serif;touch-action:manipulation;user-select:text;-webkit-user-select:text}
+    .newsletter-field{display:block;flex:0 1 320px;max-width:100%}
+    .newsletter input[type="email"]{display:block;width:min(320px,100%);padding:8px 0;border:0;border-bottom:1px solid var(--ink);border-radius:0;background:transparent;color:var(--ink);font:12px Arial,Helvetica,sans-serif;letter-spacing:.08em}
+    .newsletter input[type="email"]::placeholder{color:var(--ink);opacity:.65}
+    .newsletter input[type="email"]:focus-visible{outline:1px solid var(--accent);outline-offset:4px}
+    .newsletter button{appearance:none;border:0;background:transparent;color:var(--ink);padding:8px 0;font:10px Arial,Helvetica,sans-serif;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;cursor:pointer}
+    .newsletter button:hover{color:var(--accent)}
+    .newsletter button:focus-visible{outline:1px solid var(--accent);outline-offset:4px}
+    .newsletter button:disabled{opacity:.5;cursor:wait}
+    .newsletter-status{flex:0 0 100%;max-width:none;min-height:1.4em;margin:0;font-size:11px;line-height:1.4;letter-spacing:.04em}
+    .colophon .newsletter-status{font-size:11px;letter-spacing:.04em;text-transform:none}
+    .newsletter.is-done .newsletter-field,.newsletter.is-done button{display:none}
     .cover{position:absolute;inset:0}
     .cover img{display:block;width:100%;height:100%;object-fit:cover}
 
@@ -105,6 +119,8 @@
       .face.front::after{background:linear-gradient(to right,rgba(20,20,20,.08),transparent 8%)}
       .turn-zone{width:16%}
       .photo{inset:6% 7%}
+      .colophon .newsletter-intro{width:78%}
+      .colophon .newsletter{width:80%;max-width:280px}
     }
 
     @media (prefers-reduced-motion:reduce){
@@ -134,81 +150,90 @@
     <noscript>
       <div class="noscript-list">
       <img src="/assets/images/galerie/cover.jpg" width="1200" height="1600" alt="P.GÓRNE New York" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/01.jpg" width="1452" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/02.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/03.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/04.jpg" width="1600" height="1550" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/05.jpg" width="1163" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/06.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/07.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/08.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/09.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/10.jpg" width="1139" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/11.jpg" width="1488" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/12.jpg" width="1321" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/13.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/14.jpg" width="1570" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/15.jpg" width="998" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/16.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/17.jpg" width="1427" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/18.jpg" width="1145" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/19.jpg" width="1066" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/20.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/21.jpg" width="1059" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/22.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/23.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/casual-wear/24.jpg" width="1108" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/business-attire/01.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/business-attire/02.jpg" width="1258" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/business-attire/03.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/business-attire/04.jpg" width="900" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/formalwear/01.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/formalwear/02.jpg" width="1201" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/formalwear/03.jpg" width="1072" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/formalwear/04.jpg" width="1201" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/formalwear/05.jpg" width="964" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
-      <img src="/assets/images/galerie/formalwear/06.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/01.jpg" width="1452" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/02.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/03.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/04.jpg" width="1600" height="1550" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/05.jpg" width="1163" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/06.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/07.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/08.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/09.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/10.jpg" width="1139" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/11.jpg" width="1488" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/12.jpg" width="1321" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/13.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/14.jpg" width="1570" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/15.jpg" width="998" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/16.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/17.jpg" width="1427" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/18.jpg" width="1145" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/19.jpg" width="1066" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/20.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/21.jpg" width="1059" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/22.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/23.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/casual-wear/24.jpg" width="1108" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/business-attire/01.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/business-attire/02.jpg" width="1258" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/business-attire/03.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/business-attire/04.jpg" width="900" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/formalwear/01.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/formalwear/02.jpg" width="1201" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/formalwear/03.jpg" width="1072" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/formalwear/04.jpg" width="1201" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/formalwear/05.jpg" width="964" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
+      <img src="/assets/images/galerie/formalwear/06.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment" loading="lazy">
       </div>
     </noscript>
   </main>
 
   <template id="galeriePages">
       <div class="cover"><img src="/assets/images/galerie/cover.jpg" width="1200" height="1600" alt="P.GÓRNE New York"></div>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/01.jpg" width="1452" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/02.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/03.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/04.jpg" width="1600" height="1550" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/05.jpg" width="1163" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/06.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/07.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/08.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/09.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/10.jpg" width="1139" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/11.jpg" width="1488" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/12.jpg" width="1321" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/13.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/14.jpg" width="1570" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/15.jpg" width="998" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/16.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/17.jpg" width="1427" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/18.jpg" width="1145" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/19.jpg" width="1066" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/20.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/21.jpg" width="1059" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/22.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/23.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/24.jpg" width="1108" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/business-attire/01.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/business-attire/02.jpg" width="1258" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/business-attire/03.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/business-attire/04.jpg" width="900" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/formalwear/01.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/formalwear/02.jpg" width="1201" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/formalwear/03.jpg" width="1072" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/formalwear/04.jpg" width="1201" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/formalwear/05.jpg" width="964" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <figure class="photo"><img data-src="/assets/images/galerie/formalwear/06.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-order garment"></figure>
-      <div class="colophon"><p>New York · 2019—Present</p></div>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/01.jpg" width="1452" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/02.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/03.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/04.jpg" width="1600" height="1550" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/05.jpg" width="1163" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/06.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/07.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/08.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/09.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/10.jpg" width="1139" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/11.jpg" width="1488" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/12.jpg" width="1321" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/13.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/14.jpg" width="1570" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/15.jpg" width="998" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/16.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/17.jpg" width="1427" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/18.jpg" width="1145" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/19.jpg" width="1066" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/20.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/21.jpg" width="1059" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/22.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/23.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/casual-wear/24.jpg" width="1108" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/business-attire/01.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/business-attire/02.jpg" width="1258" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/business-attire/03.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/business-attire/04.jpg" width="900" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/formalwear/01.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/formalwear/02.jpg" width="1201" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/formalwear/03.jpg" width="1072" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/formalwear/04.jpg" width="1201" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/formalwear/05.jpg" width="964" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <figure class="photo"><img data-src="/assets/images/galerie/formalwear/06.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure garment"></figure>
+      <div class="colophon">
+        <p>New York · 2019—Present</p>
+        <p class="newsletter-intro">Subscribe for new work as it's made.</p>
+        <form class="newsletter" data-kit-form="10051606" novalidate>
+          <label class="newsletter-field"><span class="visually-hidden">Email address</span><input type="email" name="email_address" placeholder="Email address" autocomplete="email" required></label>
+          <span class="visually-hidden" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off"></span>
+          <button type="submit">Subscribe</button>
+          <p class="newsletter-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
   </template>
 
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded Galerie image">
@@ -359,6 +384,7 @@
     document.addEventListener('keydown', (event) => {
       if (event.defaultPrevented || lightbox.classList.contains('open')) return;
       if (document.querySelector('.site-menu.open')) return;
+      if (event.target.closest('input, textarea, select, form.newsletter')) return;
       if (event.key === 'ArrowRight') { event.preventDefault(); turn(1); }
       if (event.key === 'ArrowLeft') { event.preventDefault(); turn(-1); }
     });
@@ -366,6 +392,7 @@
     let touchX = null;
     let touchY = null;
     book.addEventListener('touchstart', (event) => {
+      if (event.target.closest('form.newsletter')) { touchX = null; touchY = null; return; }
       touchX = event.touches[0].clientX;
       touchY = event.touches[0].clientY;
     }, { passive: true });
@@ -374,6 +401,7 @@
       const dx = event.changedTouches[0].clientX - touchX;
       const dy = event.changedTouches[0].clientY - touchY;
       touchX = null;
+      touchY = null;
       if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) turn(dx < 0 ? 1 : -1);
     });
 
@@ -401,6 +429,7 @@
 
     build(0);
   </script>
+  <script src="/assets/newsletter.js" defer></script>
   <script src="/assets/menu.js" defer></script>
 </body>
 </html>
