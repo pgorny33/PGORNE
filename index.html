@@ -95,37 +95,7 @@
     .accent{transition:opacity 260ms ease, filter 300ms ease;}
     body.ready .stage:hover .accent{filter:brightness(1.15);}
 
-    .enter-word{
-      position:absolute;
-      left:50.3%;
-      top:76%;
-      transform:translateX(-50%);
-      appearance:none;border:0;background:transparent;padding:8px 4px;
-      font:inherit;font-size:11px;letter-spacing:.42em;text-indent:.42em;text-transform:uppercase;
-      color:var(--accent);cursor:pointer;
-      opacity:0;pointer-events:none;transition:opacity 1.2s ease;
-    }
-    .enter-word::after{
-      content:"";display:block;height:1px;margin:7px auto 0;width:0;background:var(--accent);
-      transition:width 1.4s ease .4s;
-    }
-    body.hint-b.show-word .enter-word{opacity:1;pointer-events:auto;}
-    body.hint-b.show-word .enter-word::after{width:100%;}
-    body.hint-b .ripple.second{display:none;}
-
-    .cursor-label{
-      position:fixed;left:0;top:0;pointer-events:none;
-      display:flex;align-items:center;gap:10px;
-      font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);
-      opacity:0;transition:opacity 300ms ease;
-    }
-    .cursor-label::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);}
-    @media (hover:hover) and (pointer:fine){
-      body.hint-c.ready .stage{cursor:none;}
-      body.hint-c.ready.pointer-in .cursor-label{opacity:1;}
-      body.hint-c .ripple{display:none;}
-    }
-    body.menu-open .ripple, body.menu-open .enter-word, body.menu-open .cursor-label{opacity:0 !important;animation:none !important;}
+    body.menu-open .ripple{opacity:0 !important;animation:none !important;}
 
     .menu{position:fixed;inset:0;background:rgba(243,239,232,.985);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity 650ms ease;}
     .menu.open{opacity:1;pointer-events:auto;}
@@ -164,9 +134,7 @@
       <span class="ripple second" aria-hidden="true"></span>
       <img class="accent" src="assets/accent-pantone.png" alt="" aria-hidden="true" />
       <button class="accent-button" id="enterButton" aria-label="Enter P.GÓRNE" aria-controls="menu" aria-expanded="false"></button>
-      <button class="enter-word" type="button" tabindex="-1" aria-hidden="true">Enter</button>
     </div>
-    <div class="cursor-label" aria-hidden="true">Enter</div>
   </main>
 
   <section class="menu" id="menu" aria-label="Site navigation" inert>
@@ -208,21 +176,11 @@
       enter.focus();
     }
 
-    const variant = new URLSearchParams(location.search).get('v') || 'a';
-    document.body.classList.add('hint-' + variant);
-    window.setTimeout(() => { if (!menu.classList.contains('open')) document.body.classList.add('show-word'); }, 3500);
-
     const stage = document.querySelector('.stage');
-    const cursorLabel = document.querySelector('.cursor-label');
     stage.addEventListener('click', event => {
       if (!document.body.classList.contains('ready') || event.target === enter) return;
       open();
     });
-    stage.addEventListener('pointermove', event => {
-      document.body.classList.add('pointer-in');
-      cursorLabel.style.transform = `translate(${event.clientX - 3}px, ${event.clientY - 6}px)`;
-    });
-    stage.addEventListener('pointerleave', () => document.body.classList.remove('pointer-in'));
 
     enter.addEventListener('click', open);
     closeButton.addEventListener('click', close);
