@@ -4,12 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>P.GÓRNE — Ethos</title>
-  <meta name="description" content="The principles guiding P.GÓRNE: proportion, craftsmanship, cloth, and longevity." />
+  <meta name="description" content="P.GÓRNE is a New York made-to-measure atelier founded by Patrick Gorny in 2019: tailoring, five-pocket trousers and denim, knitwear, and outerwear, each from a personal pattern." />
   <link rel="icon" type="image/png" href="/assets/accent-pantone.png" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="P.GÓRNE" />
   <meta property="og:title" content="P.GÓRNE — Ethos" />
-  <meta property="og:description" content="The principles guiding P.GÓRNE: proportion, craftsmanship, cloth, and longevity." />
+  <meta property="og:description" content="P.GÓRNE is a New York made-to-measure atelier founded by Patrick Gorny in 2019: tailoring, five-pocket trousers and denim, knitwear, and outerwear, each from a personal pattern." />
   <meta property="og:url" content="https://www.pgorne.com/ethos" />
   <meta property="og:image" content="https://www.pgorne.com/assets/poster.jpg" />
   <meta property="og:image:width" content="1616" />
@@ -22,10 +22,11 @@
       --accent:#6B3529;
       --page-pad:clamp(24px,3.2vw,52px);
       --serif:Georgia,"Times New Roman",serif;
+      --label:"ALMilano",Arial,Helvetica,sans-serif;
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth;background:var(--paper)}
-    body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);-webkit-font-smoothing:antialiased}
     a{color:inherit;text-decoration:none}
     img{display:block;width:100%;height:100%;object-fit:cover}
 
@@ -33,23 +34,23 @@
       display:flex;justify-content:space-between;align-items:center;
       padding:26px var(--page-pad) 0;
     }
+    .site-header,.label,.principle h2,.offering h3,.invitation a,.site-footer{font-family:var(--label)}
     .wordmark{font-size:14px;letter-spacing:.16em;font-weight:500}
-    .return{font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+    .return{font-size:12px;letter-spacing:.16em;text-transform:uppercase}
     .return:hover{color:var(--accent)}
 
     .intro{
-      padding:clamp(120px,12vw,188px) var(--page-pad) clamp(112px,10vw,158px);
+      padding:clamp(104px,10vw,160px) var(--page-pad) clamp(96px,9vw,140px);
     }
     .intro p{
-      width:min(840px,92vw);margin:0 auto;text-align:center;
-      font-family:var(--serif);font-size:clamp(19px,1.72vw,27px);
-      line-height:1.4;font-weight:400;
+      width:min(640px,92vw);margin:0 auto;text-align:center;
+      font-size:18px;line-height:1.9;font-weight:400;
     }
 
     .pattern-banner{
-      height:clamp(300px,29vw,455px);overflow:hidden;
+      margin:0;aspect-ratio:7/3;max-height:640px;overflow:hidden;background:#e7e0d7;
     }
-    .pattern-banner img{object-position:center center}
+    .pattern-banner img{object-position:center 40%}
 
     .principles{
       padding:clamp(104px,9vw,138px) var(--page-pad) clamp(120px,11vw,168px);
@@ -60,23 +61,64 @@
     }
     .principle{min-width:0}
     .principle h2{
-      margin:0 0 32px;font-family:var(--serif);
-      font-size:clamp(23px,2vw,32px);font-weight:400;line-height:1.1;
+      margin:0 0 24px;font-size:12px;letter-spacing:.34em;
+      text-transform:uppercase;font-weight:400;line-height:1.4;
     }
     .principle figure{
       margin:0 0 34px;aspect-ratio:4/5;overflow:hidden;background:#e7e0d7;
     }
     .principle p{
-      margin:0;font-family:var(--serif);
-      font-size:clamp(15px,1.12vw,18px);line-height:1.5;
+      margin:0;font-size:14px;line-height:1.8;color:#1f1f1f;
     }
     .principle--proportion img{object-position:center 35%}
     .principle--craftsmanship img{object-position:center center}
     .principle--cloth img{object-position:center center}
     .principle--longevity img{object-position:center 48%}
 
+    .founder{
+      padding:clamp(104px,9vw,138px) var(--page-pad) 0;
+    }
+    .founder-inner{
+      width:min(1080px,100%);margin:0 auto;display:grid;
+      grid-template-columns:minmax(0,5fr) minmax(0,6fr);
+      gap:clamp(40px,5vw,84px);align-items:center;
+    }
+    .founder figure{margin:0;aspect-ratio:3/4;overflow:hidden;background:#e7e0d7}
+    .founder figure img{object-position:center 30%}
+    .label{
+      margin:0 0 24px;font-size:12px;letter-spacing:.36em;text-transform:uppercase;font-weight:400;
+    }
+    .founder p{
+      margin:0;font-size:18px;line-height:1.9;
+    }
+    .founder p + p{margin-top:28px}
+
+    .offering{
+      padding:0 var(--page-pad) clamp(112px,10vw,150px);
+    }
+    .offering-grid{
+      display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:clamp(30px,3vw,50px);border-top:1px solid rgba(20,20,20,.18);
+      padding-top:clamp(40px,4vw,56px);
+    }
+    .label,.principle h2,.offering h3{text-align:center}
+    .offering figure{margin:0 0 28px;aspect-ratio:4/5;overflow:hidden;background:#e7e0d7}
+    .offering h3{
+      margin:0 0 12px;font-size:12px;letter-spacing:.34em;text-transform:uppercase;font-weight:400;
+    }
+    .offering p{margin:0;font-size:14px;line-height:1.8;color:#1f1f1f}
+
+    .invitation{text-align:center;padding:0 24px clamp(110px,10vw,150px)}
+    .invitation p{margin:0 0 28px;font-size:18px;line-height:1.9}
+    .invitation a{
+      display:inline-block;background:var(--ink);color:var(--paper);
+      font-size:12px;letter-spacing:.34em;text-transform:uppercase;
+      padding:22px 56px;transition:background 200ms ease;
+    }
+    .invitation a:hover,.invitation a:focus-visible{background:var(--accent)}
+
     .site-footer{text-align:center;padding:0 24px 82px}
-    .site-footer p{margin:0;font-size:10px;letter-spacing:.2em;line-height:1.8;text-transform:uppercase}
+    .site-footer p{margin:0;font-size:11px;letter-spacing:.22em;line-height:1.8;text-transform:uppercase}
 
     .reveal{opacity:0;transform:translateY(18px);transition:opacity 700ms ease,transform 700ms ease}
     .reveal.visible{opacity:1;transform:none}
@@ -84,17 +126,23 @@
     @media (max-width:900px){
       .intro p{width:min(800px,92vw)}
       .principles-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:88px 34px}
+      .offering-grid{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:48px}
+      .founder-inner{grid-template-columns:1fr;width:min(560px,100%);text-align:center}
     }
     @media (max-width:560px){
       .site-header{padding-top:20px}
       .intro{padding-top:88px;padding-bottom:82px}
-      .intro p{width:100%;font-size:18px;line-height:1.5}
-      .pattern-banner{height:285px}
+      .intro p{width:100%;font-size:16px;line-height:1.9}
+      .founder p{font-size:16px}
+      .pattern-banner{aspect-ratio:auto;height:285px}
+      .pattern-banner img{object-position:18% center}
+      .founder{padding-top:88px}
       .principles{padding-top:88px}
       .principles-grid{grid-template-columns:1fr;row-gap:88px}
       .principle{padding:0}
       .principle h2{margin-bottom:26px}
       .principle figure{margin-bottom:28px}
+      .offering-grid{grid-template-columns:1fr;row-gap:36px}
     }
     @media (prefers-reduced-motion:reduce){
       html{scroll-behavior:auto}
@@ -110,36 +158,62 @@
 
   <main>
     <section class="intro reveal" aria-label="P.GÓRNE ethos">
-      <p>P.GÓRNE is a New York City atelier offering a wide range of garments, each crafted by a specialist in its respective discipline. We partner with the world's finest cloth mills and artisans to ensure precision and uphold the highest standard of quality. The atelier approaches every garment with an unwavering commitment to proportion, craftsmanship, cloth, and longevity.</p>
+      <p>P.GÓRNE is a New York atelier for made-to-measure menswear, founded by Patrick Gorny in 2019. Tailoring, denim, knitwear, and outerwear are brought together under one roof, each garment cut from your own pattern, in cloth from the world’s great mills, and made by a specialist in its discipline.</p>
     </section>
 
     <figure class="pattern-banner reveal">
-      <img src="assets/images/ethos/pattern-archive.jpg" width="1536" height="659" alt="An archive of tailoring patterns hanging in the atelier" loading="eager" />
+      <img src="assets/images/ethos/workroom.jpg" width="1176" height="504" alt="A cutter in the P.GÓRNE workroom cutting cloth by hand, with paper patterns hanging behind him" loading="eager" />
     </figure>
+
+    <section class="founder reveal" aria-labelledby="founder-heading">
+      <div class="founder-inner">
+        <figure><img src="assets/images/ethos/founder.jpg" width="1200" height="1599" alt="Patrick Gorny, founder of P.GÓRNE, in New York" loading="lazy" /></figure>
+        <div>
+        <h2 class="label" id="founder-heading">The Founder</h2>
+        <p>Patrick Gorny began in custom suiting, where he trained and managed more than thirty specialists and built lasting relationships with clients, cloth mills, and workrooms. He went on to a bespoke denim house in New York, where every pair was cut and sewn in an on-site atelier.</p>
+        <p>P.GÓRNE joins the two: the sophistication of soft tailoring and the precision of a personal denim pattern, offered with a breadth of garments and cloth rarely found in one place.</p>
+        </div>
+      </div>
+    </section>
 
     <section class="principles" aria-label="The principles that guide our work">
       <div class="principles-grid">
         <article class="principle principle--proportion reveal">
           <h2>Proportion</h2>
           <figure><img src="assets/images/ethos/proportion.jpg" width="1200" height="1500" alt="Tailored garment on a dress form showing balance through the shoulder and lapel" loading="lazy" /></figure>
-          <p>Intentional proportions create balance, stature, and a fit that can only be achieved through experienced pattern making.</p>
+          <p>Made to Measure goes beyond the measuring tape. We consider how you like a garment to feel and where it will be worn, then build in the allowances that let it drape properly. Jackets are cut with a soft shoulder and a high armhole for comfort and movement.</p>
         </article>
         <article class="principle principle--craftsmanship reveal">
           <h2>Craftsmanship</h2>
           <figure><img src="assets/images/ethos/craftsmanship-pants.jpg" width="1200" height="1500" alt="A close arrangement of finished trousers in varied cloths" loading="lazy" /></figure>
-          <p>Each garment is crafted with a level of precision and attention to detail that can only be achieved by makers whose skill has been refined through years of experience and discipline.</p>
+          <p>Our five-pocket trousers are cut and sewn in New York by a single maker, fitted through the waist, hips, and rise, where every body differs and ready-to-wear cannot follow. Tailoring, knitwear, and outerwear are entrusted to specialists in each discipline, at home and abroad.</p>
         </article>
         <article class="principle principle--cloth reveal">
           <h2>Cloth</h2>
           <figure><img src="assets/images/ethos/cloth.jpg" width="1200" height="1500" alt="Blue and natural cloths showing distinct weave, texture, and drape" loading="lazy" /></figure>
-          <p>The world's finest cloth mills produce natural fibers with character, performance, and a quiet luxury that cannot be replicated through mass production.</p>
+          <p>Loro Piana, Holland &amp; Sherry, Dormeuil, Scabal, Liberty London, Albini, Alumo, Candiani, and more. Natural fibers with character and drape: denim of every kind, twills in over one hundred colors, corduroy, linen, and cashmere.</p>
         </article>
         <article class="principle principle--longevity reveal">
           <h2>Longevity</h2>
           <figure><img src="assets/images/ethos/longevity.jpg" width="1200" height="1500" alt="P.GÓRNE garment detail with horn buttons and internal finishing" loading="lazy" /></figure>
-          <p>Longevity is the natural result of proportion, craftsmanship, and cloth. Our garments are designed to be lived in, create memories in, and improve with time.</p>
+          <p>Perfection takes time. Fittings, alterations, and repairs are part of the process; we refine each garment with you until your one-of-one pattern is set, and it is kept as the foundation for everything that follows.</p>
         </article>
       </div>
+    </section>
+
+    <section class="offering reveal" aria-labelledby="offering-heading">
+      <h2 class="label" id="offering-heading">The Offering</h2>
+      <div class="offering-grid">
+        <div><figure><img src="/assets/images/galerie/business-attire/04.jpg" width="900" height="1600" alt="A blue P.GÓRNE made-to-measure jacket with a soft shoulder, worn" loading="lazy" /></figure><h3>Tailoring</h3><p>Jackets, suiting, and formalwear with a soft shoulder and natural drape.</p></div>
+        <div><figure><img src="/assets/images/galerie/casual-wear/22.jpg" width="1200" height="1600" alt="P.GÓRNE made-to-measure five-pocket trousers in navy denim and white" loading="lazy" /></figure><h3>Trousers &amp; Denim</h3><p>Made-to-measure five-pocket trousers in denim, twill, corduroy, linen, and cashmere.</p></div>
+        <div><figure><img src="/assets/images/galerie/casual-wear/15.jpg" width="998" height="1600" alt="A P.GÓRNE cashmere cable-knit sweater" loading="lazy" /></figure><h3>Knitwear</h3><p>Silk-cashmere shirts and polos, cashmere sweaters and cardigans.</p></div>
+        <div><figure><img src="/assets/images/galerie/formalwear/06.jpg" width="1200" height="1600" alt="A P.GÓRNE double-breasted wool overcoat" loading="lazy" /></figure><h3>Outerwear</h3><p>Wool and cashmere overcoats, and rainproof casual jackets.</p></div>
+      </div>
+    </section>
+
+    <section class="invitation reveal" aria-label="Request a consultation">
+      <p>By Appointment.</p>
+      <a href="/book">Request a Consultation</a>
     </section>
   </main>
 
