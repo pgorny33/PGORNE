@@ -78,7 +78,13 @@
     .founder{
       padding:0 var(--page-pad);
     }
-    .founder-inner{width:min(700px,100%);margin:0 auto;text-align:center}
+    .founder-inner{
+      width:min(1080px,100%);margin:0 auto;display:grid;
+      grid-template-columns:minmax(0,5fr) minmax(0,6fr);
+      gap:clamp(40px,5vw,84px);align-items:center;
+    }
+    .founder figure{margin:0;aspect-ratio:3/4;overflow:hidden;background:#e7e0d7}
+    .founder figure img{object-position:center 30%}
     .label{
       margin:0 0 30px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:400;
     }
@@ -121,6 +127,7 @@
       .intro p{width:min(800px,92vw)}
       .principles-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:88px 34px}
       .offering-grid{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:48px}
+      .founder-inner{grid-template-columns:1fr;width:min(560px,100%);text-align:center}
     }
     @media (max-width:560px){
       .site-header{padding-top:20px}
@@ -153,9 +160,12 @@
 
     <section class="founder reveal" aria-labelledby="founder-heading">
       <div class="founder-inner">
+        <figure><img src="assets/images/ethos/founder.jpg" width="1200" height="1599" alt="Patrick Gorny, founder of P.GÓRNE, in New York" loading="lazy" /></figure>
+        <div>
         <h2 class="label" id="founder-heading">The Founder</h2>
         <p>Patrick Gorny began in custom suiting, where he trained and managed more than thirty specialists and built lasting relationships with clients, cloth mills, and workrooms. He went on to a bespoke denim house in New York, where every pair was cut and sewn in an on-site atelier.</p>
         <p>P.GÓRNE joins the two: the sophistication of soft tailoring and the precision of a personal denim pattern, offered with a breadth of garments and cloth rarely found in one place.</p>
+        </div>
       </div>
     </section>
 
