@@ -4,35 +4,177 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>P.GÓRNE — Atelier</title>
-  <meta name="description" content="Bespoke denim, made-to-measure garments, and private commissions from P.GÓRNE, a New York City atelier." />
+  <meta name="description" content="Made to Measure at P.GÓRNE: tailoring, five-pocket trousers and denim, knitwear, and outerwear, in cloth from Loro Piana, Holland &amp; Sherry, Dormeuil, Scabal and more, each cut from your own pattern." />
   <link rel="icon" type="image/png" href="/assets/accent-pantone.png" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="P.GÓRNE" />
   <meta property="og:title" content="P.GÓRNE — Atelier" />
-  <meta property="og:description" content="Bespoke denim, made-to-measure garments, and private commissions from P.GÓRNE, a New York City atelier." />
+  <meta property="og:description" content="Made to Measure at P.GÓRNE: tailoring, five-pocket trousers and denim, knitwear, and outerwear, in cloth from Loro Piana, Holland &amp; Sherry, Dormeuil, Scabal and more, each cut from your own pattern." />
   <meta property="og:url" content="https://www.pgorne.com/atelier" />
   <meta property="og:image" content="https://www.pgorne.com/assets/poster.jpg" />
   <meta property="og:image:width" content="1616" />
   <meta property="og:image:height" content="1080" />
   <meta name="twitter:card" content="summary_large_image" />
   <style>
-    :root{--paper:#f3efe8;--ink:#141414;--accent:#6B3529;}
-    html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font-family:Arial, Helvetica, sans-serif;}
-    main{min-height:100vh;display:grid;place-items:center;text-align:center;padding:40px;}
-    h1{font-family:Georgia,"Times New Roman",serif;font-size:38px;font-weight:400;line-height:1.1;letter-spacing:.02em;margin:0 0 24px;}
-    p{max-width:560px;font-family:Georgia,"Times New Roman",serif;font-size:18px;line-height:1.9;margin:0 auto 36px;}
-    a{color:var(--ink);text-decoration:none;text-transform:uppercase;letter-spacing:.16em;font-size:12px;}
-    a:hover{color:var(--accent);}
+    :root{
+      --paper:#f3efe8;
+      --ink:#141414;
+      --accent:#6B3529;
+      --page-pad:clamp(24px,3.2vw,52px);
+      --serif:Georgia,"Times New Roman",serif;
+      --label:"ALMilano",Arial,Helvetica,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:var(--paper)}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    img{display:block;width:100%;height:100%;object-fit:cover}
+
+    .site-header{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:26px var(--page-pad) 0;
+    }
+    .site-header,.label,.offering h3,.invitation a,.site-footer{font-family:var(--label)}
+    .wordmark{font-size:14px;letter-spacing:.16em;font-weight:500}
+    .return{font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+    .return:hover{color:var(--accent)}
+
+    .intro{
+      padding:clamp(104px,10vw,160px) var(--page-pad) clamp(96px,9vw,140px);
+    }
+    .intro p{
+      width:min(640px,92vw);margin:0 auto;text-align:center;
+      font-size:18px;line-height:1.9;font-weight:400;
+    }
+
+    .pattern-banner{
+      margin:0;aspect-ratio:7/3;max-height:640px;overflow:hidden;background:#e7e0d7;
+    }
+    .pattern-banner img{object-position:center 40%}
+
+
+
+    .label{
+      margin:0 0 24px;font-size:12px;letter-spacing:.36em;text-transform:uppercase;font-weight:400;
+    }
+
+    .offering{
+      padding:clamp(104px,9vw,138px) var(--page-pad) clamp(112px,10vw,150px);
+    }
+    .offering-grid{
+      display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:clamp(30px,3vw,50px);border-top:1px solid rgba(20,20,20,.18);
+      padding-top:clamp(40px,4vw,56px);
+    }
+    .label,.offering h3{text-align:center}
+    .offering figure{margin:0 0 28px;aspect-ratio:4/5;overflow:hidden;background:#e7e0d7}
+    .offering h3{
+      margin:0 0 12px;font-size:12px;letter-spacing:.34em;text-transform:uppercase;font-weight:400;
+    }
+    .offering p{margin:0;font-size:14px;line-height:1.8;color:#1f1f1f}
+
+    .detail{text-align:center;padding:0 var(--page-pad) clamp(104px,9vw,138px)}
+    .detail p{width:min(640px,92vw);margin:0 auto;font-size:18px;line-height:1.9}
+    .detail p + p{margin-top:28px}
+
+    .invitation{text-align:center;padding:0 24px clamp(110px,10vw,150px)}
+    .invitation p{margin:0 0 28px;font-size:18px;line-height:1.9}
+    .invitation a{
+      display:inline-block;background:var(--ink);color:var(--paper);
+      font-size:12px;letter-spacing:.34em;text-transform:uppercase;
+      padding:22px 56px;transition:background 200ms ease;
+    }
+    .invitation a:hover,.invitation a:focus-visible{background:var(--accent)}
+
+    .site-footer{text-align:center;padding:0 24px 82px}
+    .site-footer p{margin:0;font-size:11px;letter-spacing:.22em;line-height:1.8;text-transform:uppercase}
+
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity 700ms ease,transform 700ms ease}
+    .reveal.visible{opacity:1;transform:none}
+
+    @media (max-width:900px){
+      .intro p{width:min(800px,92vw)}
+      .offering-grid{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:48px}
+    }
+    @media (max-width:560px){
+      .site-header{padding-top:20px}
+      .intro{padding-top:88px;padding-bottom:82px}
+      .intro p{width:100%;font-size:16px;line-height:1.9}
+      .pattern-banner{aspect-ratio:auto;height:285px}
+      .pattern-banner img{object-position:18% center}
+      .offering{padding-top:88px}
+      .offering-grid{grid-template-columns:1fr;row-gap:36px}
+      .detail{padding-bottom:88px}
+      .detail p{width:100%;font-size:16px}
+    }
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      .reveal{opacity:1;transform:none;transition:none}
+    }
   </style>
 </head>
 <body>
+  <header class="site-header">
+    <a class="wordmark" href="/" aria-label="P.GÓRNE home">P.GÓRNE</a>
+    <a class="return menu-toggle" href="/">Menu</a>
+  </header>
+
   <main>
-    <div>
-      <h1>Atelier</h1>
-      <p>Bespoke denim, made-to-measure garments, and private commissions developed through dialogue, proportion, and construction.</p>
-      <a class="menu-toggle" href="/">Menu</a>
-    </div>
+    <section class="intro reveal" aria-label="The P.GÓRNE atelier">
+      <p>Made to Measure at P.GÓRNE extends beyond body measurements. We consider your preferences and the occasions you dress for, then build in the allowances that let each garment drape properly, cut from a pattern that is yours alone.</p>
+    </section>
+
+    <figure class="pattern-banner reveal">
+      <img src="assets/images/ethos/workroom.jpg" width="1176" height="504" alt="A cutter in the P.GÓRNE workroom cutting cloth by hand, with paper patterns hanging behind him" loading="eager" />
+    </figure>
+
+    <section class="offering reveal" aria-labelledby="offering-heading">
+      <h2 class="label" id="offering-heading">The Offering</h2>
+      <div class="offering-grid">
+        <div><figure><img src="/assets/images/ethos/offering-tailoring.jpg" width="960" height="1199" alt="A blue P.GÓRNE made-to-measure jacket with a soft shoulder, worn" loading="lazy" /></figure><h3>Tailoring</h3><p>Jackets, suiting, and formalwear, cut with a soft shoulder and a high armhole for comfort and movement.</p></div>
+        <div><figure><img src="/assets/images/ethos/offering-denim.jpg" width="960" height="1199" alt="P.GÓRNE made-to-measure five-pocket trousers in navy denim and white" loading="lazy" /></figure><h3>Trousers &amp; Denim</h3><p>Five-pocket trousers fitted through the waist, hips, and rise, where every body differs and ready-to-wear cannot follow. In denim, twill, corduroy, linen, and cashmere.</p></div>
+        <div><figure><img src="/assets/images/galerie/casual-wear/15.jpg" width="998" height="1600" alt="A P.GÓRNE cashmere cable-knit sweater" loading="lazy" /></figure><h3>Knitwear</h3><p>Silk-cashmere shirts and polos, cashmere sweaters and cardigans.</p></div>
+        <div><figure><img src="/assets/images/ethos/offering-outerwear.jpg" width="960" height="1200" alt="A P.GÓRNE double-breasted wool overcoat" loading="lazy" /></figure><h3>Outerwear</h3><p>Wool and cashmere overcoats, and rainproof casual jackets.</p></div>
+      </div>
+    </section>
+
+    <section class="detail reveal" aria-labelledby="cloth-heading">
+      <h2 class="label" id="cloth-heading">The Cloth</h2>
+      <p>Loro Piana, Holland &amp; Sherry, Dormeuil, Scabal, Liberty London, Albini, Alumo, Candiani, and more. Natural fibers with character and drape: denim of every kind, twills in over one hundred colors, corduroy, linen, and cashmere.</p>
+    </section>
+
+    <section class="detail reveal" aria-labelledby="making-heading">
+      <h2 class="label" id="making-heading">The Making</h2>
+      <p>Our five-pocket trousers are cut and sewn in New York by a single maker. Tailoring, knitwear, and outerwear are entrusted to specialists in each discipline, at home and abroad.</p>
+      <p>Perfection takes time. Fittings, alterations, and repairs are part of the process; we refine each garment with you until your one-of-one pattern is set, and it is kept as the foundation for everything that follows.</p>
+    </section>
+
+    <section class="invitation reveal" aria-label="Request a consultation">
+      <p>By Appointment.</p>
+      <a href="/book">Request a Consultation</a>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <p>New York&nbsp;&nbsp;•&nbsp;&nbsp;2019—Present</p>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
+      reveals.forEach((item) => observer.observe(item));
+    } else {
+      reveals.forEach((item) => item.classList.add('visible'));
+    }
+  </script>
   <script src="/assets/menu.js" defer></script>
 </body>
 </html>
