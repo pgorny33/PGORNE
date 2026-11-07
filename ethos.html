@@ -47,9 +47,9 @@
     }
 
     .pattern-banner{
-      height:clamp(300px,29vw,455px);overflow:hidden;
+      margin:0;aspect-ratio:7/3;max-height:640px;overflow:hidden;background:#e7e0d7;
     }
-    .pattern-banner img{object-position:center center}
+    .pattern-banner img{object-position:center 40%}
 
     .principles{
       padding:clamp(104px,9vw,138px) var(--page-pad) clamp(120px,11vw,168px);
@@ -76,7 +76,7 @@
     .principle--longevity img{object-position:center 48%}
 
     .founder{
-      padding:0 var(--page-pad);
+      padding:clamp(104px,9vw,138px) var(--page-pad) 0;
     }
     .founder-inner{
       width:min(1080px,100%);margin:0 auto;display:grid;
@@ -133,7 +133,9 @@
       .site-header{padding-top:20px}
       .intro{padding-top:88px;padding-bottom:82px}
       .intro p{width:100%;font-size:18px;line-height:1.5}
-      .pattern-banner{height:285px}
+      .pattern-banner{aspect-ratio:auto;height:285px}
+      .pattern-banner img{object-position:18% center}
+      .founder{padding-top:88px}
       .principles{padding-top:88px}
       .principles-grid{grid-template-columns:1fr;row-gap:88px}
       .principle{padding:0}
@@ -157,6 +159,10 @@
     <section class="intro reveal" aria-label="P.GÓRNE ethos">
       <p>P.GÓRNE is a New York atelier for made-to-measure menswear, founded by Patrick Gorny in 2019. Tailoring, denim, knitwear, and outerwear are brought together under one roof, each garment cut from your own pattern, in cloth from the world’s great mills, and made by a specialist in its discipline.</p>
     </section>
+
+    <figure class="pattern-banner reveal">
+      <img src="assets/images/ethos/workroom.jpg" width="1176" height="504" alt="A cutter in the P.GÓRNE workroom cutting cloth by hand, with paper patterns hanging behind him" loading="eager" />
+    </figure>
 
     <section class="founder reveal" aria-labelledby="founder-heading">
       <div class="founder-inner">
